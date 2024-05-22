@@ -8,7 +8,7 @@ const tweetSchema = new mongoose.Schema(
       trim: true,
       maxLength: [160, "Tweets cannot exceed a length of 160 characters."],
     },
-    retweetedTweedId: {
+    retweetedTweetId: {
       type: mongoose.Types.ObjectId,
       ref: "Tweet",
       default: null,

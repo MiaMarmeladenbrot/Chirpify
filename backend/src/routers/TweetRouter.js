@@ -4,4 +4,5 @@ import { TweetController } from "../controllers/TweetController.js";
 
 export const TweetRouter = express
   .Router()
-  .post("/", doJwtAuth, TweetController.postCreateTweetCtrl);
+  .post("/", doJwtAuth, TweetController.postCreateTweetCtrl)
+  .patch("/:tweetId", doJwtAuth, TweetController.patchUpdateTweetCtrl);

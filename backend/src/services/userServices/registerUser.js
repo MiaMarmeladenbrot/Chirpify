@@ -6,13 +6,15 @@ import { createSixDigitCode } from "../../utils/createSixDigitCode.js"
 export const registerUser = async ({ firstname, lastname, email, password }) => {
   const user = await User.findOne({ email })
 
-  // Email-Versand mit sixDigitCode
+  // # Email-Versand mit sixDigitCode
 
   if (user) throw new Error("User already exists")
 
   const passwordSalt = createPasswortSalt()
   const passwordHash = createPasswortHash(`${password}${passwordSalt}`)
   const sixDigitCode = createSixDigitCode()
+
+  // Send Email with SixDigitCode
 
   const createdUser = {
     firstname,
@@ -25,8 +27,8 @@ export const registerUser = async ({ firstname, lastname, email, password }) => 
 
   await User.create(createdUser)
 
-  // Return machen
   return {
+    _id: createdUser._id,
     firstname: createdUser.firstname,
     lastname: createdUser.lastname,
     email: createdUser.email,

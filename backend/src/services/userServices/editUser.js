@@ -1,17 +1,13 @@
 import { User } from "../../models/User.js"
 
-export async function verifyEmail(authenticatedUserId, sixDigitCode) {
+export const editUser = async (authenticatedUserId, updatedInfo) => {
   const user = await User.findById(authenticatedUserId)
   if (!user) throw new Error("User not found.")
-
-  const correctCode = user.sixDigitCode === sixDigitCode
-  if (!correctCode) throw new Error("Email verification failed.")
+  if (!user.isEmailVerified) throw new Error("User not verified.")
 
   const updatedUser = await User.findByIdAndUpdate(
     authenticatedUserId,
-    {
-      $set: { isEmailVerified: true },
-    },
+    { $set: updatedInfo },
     { new: true }
   )
 

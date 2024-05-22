@@ -67,6 +67,16 @@ const deleteUserCtrl = async (req, res) => {
   }
 }
 
+const getAllUsersCtrl = async (req, res) => {
+  try {
+    const result = await UserService.showAllUsers()
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not find users" })
+  }
+}
+
 export const UserController = {
   postRegisterUserCtrl,
   postLoginUserCtrl,
@@ -74,4 +84,5 @@ export const UserController = {
   postVerifyEmailCtrl,
   patchEditUserCtrl,
   deleteUserCtrl,
+  getAllUsersCtrl,
 }

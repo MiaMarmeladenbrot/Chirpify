@@ -10,3 +10,4 @@ export const UserRouter = express
   .post("/verifyEmail", doJwtAuth, UserController.postVerifyEmailCtrl)
   .patch("/edit", doJwtAuth, UserController.patchEditUserCtrl)
   .delete("/delete", doJwtAuth, UserController.deleteUserCtrl)
+  .get("/", doJwtAuth, UserController.getAllUsersCtrl)

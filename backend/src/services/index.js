@@ -1,8 +1,10 @@
+import { showOneUser } from "./userServices/ShowOneUser.js"
 import { deleteUser } from "./userServices/deleteUser.js"
 import { editUser } from "./userServices/editUser.js"
 import { loginUser } from "./userServices/loginUser.js"
 import { registerUser } from "./userServices/registerUser.js"
 import { sendVerifyEmail } from "./userServices/sendVerifyEmail.js"
+import { showAllUsers } from "./userServices/showAllUsers.js"
 import { verifyEmail } from "./userServices/verifyEmail.js"
 
 export const UserService = {
@@ -12,4 +14,6 @@ export const UserService = {
   verifyEmail,
   editUser,
   deleteUser,
+  showOneUser,
+  showAllUsers,
 }

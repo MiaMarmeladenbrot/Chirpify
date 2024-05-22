@@ -1,4 +1,5 @@
 import { User } from "../../models/User.js"
+import { userToView } from "../../utils/userToView.js"
 
 export async function verifyEmail(authenticatedUserId, sixDigitCode) {
   const user = await User.findById(authenticatedUserId)
@@ -14,15 +15,5 @@ export async function verifyEmail(authenticatedUserId, sixDigitCode) {
     },
     { new: true }
   )
-
-  return {
-    _id: updatedUser._id,
-    firstname: updatedUser.firstname,
-    lastname: updatedUser.lastname,
-    email: updatedUser.email,
-    isEmailVerified: updatedUser.isEmailVerified,
-    isFollowerOf: updatedUser.isFollowerOf,
-    profileImg: updatedUser.profileImg,
-    description: updatedUser.description,
-  }
+  return userToView(updatedUser)
 }

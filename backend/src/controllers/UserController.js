@@ -77,6 +77,17 @@ const getAllUsersCtrl = async (req, res) => {
   }
 }
 
+const getOneUserCtrl = async (req, res) => {
+  try {
+    const userId = req.params.userId
+    const result = await UserService.showOneUser(userId)
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not find user" })
+  }
+}
+
 export const UserController = {
   postRegisterUserCtrl,
   postLoginUserCtrl,
@@ -85,4 +96,5 @@ export const UserController = {
   patchEditUserCtrl,
   deleteUserCtrl,
   getAllUsersCtrl,
+  getOneUserCtrl,
 }

@@ -1,4 +1,5 @@
 import { User } from "../../models/User.js"
+import { userToView } from "../../utils/userToView.js"
 
 export const editUser = async (authenticatedUserId, updatedInfo) => {
   const user = await User.findById(authenticatedUserId)
@@ -11,14 +12,5 @@ export const editUser = async (authenticatedUserId, updatedInfo) => {
     { new: true }
   )
 
-  return {
-    _id: updatedUser._id,
-    firstname: updatedUser.firstname,
-    lastname: updatedUser.lastname,
-    email: updatedUser.email,
-    isEmailVerified: updatedUser.isEmailVerified,
-    isFollowerOf: updatedUser.isFollowerOf,
-    profileImg: updatedUser.profileImg,
-    description: updatedUser.description,
-  }
+  return userToView(updatedUser)
 }

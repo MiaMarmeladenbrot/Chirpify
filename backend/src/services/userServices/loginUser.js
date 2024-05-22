@@ -14,16 +14,7 @@ export async function loginUser({ email, password }) {
   const refreshToken = createToken(user, "refresh")
 
   return {
-    user: {
-      _id: user._id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      isEmailVerified: user.isEmailVerified,
-      isFollowerOf: user.isFollowerOf,
-      profileImg: user.profileImg,
-      description: user.description,
-    },
+    user: userToView(user),
     tokens: { accessToken, refreshToken },
   }
 }

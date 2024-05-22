@@ -3,6 +3,7 @@ import { createPasswortHash } from "../../utils/createPasswortHash.js"
 import { createPasswortSalt } from "../../utils/createPasswortSalt.js"
 import { createSixDigitCode } from "../../utils/createSixDigitCode.js"
 import { sendEmail } from "../../utils/sendEmail.js"
+import { userToView } from "../../utils/userToView.js"
 
 export const registerUser = async ({ firstname, lastname, email, password, username }) => {
   const user = await User.findOne({ email })
@@ -31,10 +32,5 @@ export const registerUser = async ({ firstname, lastname, email, password, usern
     Please Login and enter your 6 Digit Code to verify your E-Mail: ${createdUser.sixDigitCode}`,
   })
 
-  return {
-    _id: createdUser._id,
-    firstname: createdUser.firstname,
-    lastname: createdUser.lastname,
-    email: createdUser.email,
-  }
+  return userToView(createdUser)
 }

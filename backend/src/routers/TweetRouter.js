@@ -1,0 +1,7 @@
+import express from "express";
+import { doJwtAuth } from "../middlewares/doJwtAuth.js";
+import { TweetController } from "../controllers/TweetController.js";
+
+export const TweetRouter = express
+  .Router()
+  .post("/", doJwtAuth, TweetController.postCreateTweetCtrl);

@@ -3,8 +3,16 @@ import mongoose from "mongoose";
 const tweetSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Types.ObjectId, ref: "User", required: true },
-    message: { type: String, trim: true },
-    retweetedTweedId: { type: mongoose.Types.ObjectId, ref: "Tweet" }, // im Post-Tweet-Service: entweder retweet oder message muss befüllt sein, dürfen nicht beide leer sein
+    message: {
+      type: String,
+      trim: true,
+      maxLength: [160, "Tweets cannot exceed a length of 160 characters."],
+    },
+    retweetedTweedId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Tweet",
+      default: null,
+    },
     isLikedBy: [{ type: mongoose.Types.ObjectId, ref: "User" }],
   },
   { collection: "tweets", timestamps: true }

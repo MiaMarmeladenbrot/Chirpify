@@ -56,10 +56,22 @@ const patchEditUserCtrl = async (req, res) => {
   }
 }
 
+const deleteUserCtrl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub
+    const result = await UserService.deleteUser(authenticatedUserId)
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not delete user " })
+  }
+}
+
 export const UserController = {
   postRegisterUserCtrl,
   postLoginUserCtrl,
   postSendVerifyEmailCtrl,
   postVerifyEmailCtrl,
   patchEditUserCtrl,
+  deleteUserCtrl,
 }

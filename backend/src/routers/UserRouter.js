@@ -6,4 +6,5 @@ export const UserRouter = express
   .Router()
   .post("/register", UserController.postRegisterUserCtrl)
   .post("/login", UserController.postLoginUserCtrl)
-  .post("/sendVerifyEmail", doJwtAuth, UserController.postSendVerifyEmailCtrl);
+  .post("/sendVerifyEmail", doJwtAuth, UserController.postSendVerifyEmailCtrl)
+  .post("/verifyEmail", doJwtAuth, UserController.postVerifyEmailCtrl);

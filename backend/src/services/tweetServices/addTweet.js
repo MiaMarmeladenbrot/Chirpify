@@ -2,7 +2,7 @@ import { Tweet } from "../../models/Tweet.js";
 
 export async function addTweet(
   authenticatedUserId,
-  { message, retweetedTweetId, isLikedBy }
+  { userId, message, retweetedTweetId, isLikedBy }
 ) {
   // {
   //     userId: { type: mongoose.Types.ObjectId, ref: "User", required: true }, -> authenticatedUserId aus Authorization
@@ -14,6 +14,10 @@ export async function addTweet(
   // Abfrage: entweder message oder retweetedTweetId oder beide vorhanden? bzw. eines muss
   // create(tweetInfo)
   // return neuen tweet
+
+  const useridString = userId.toString();
+  if (authenticatedUserId !== useridString)
+    throw new Error("You are not authorized to post this tweet.");
 
   if (message.length > 160)
     throw new Error("Tweets cannot exceed a length of 160 characters.");

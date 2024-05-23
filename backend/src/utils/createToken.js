@@ -16,7 +16,7 @@ export function createToken(user, tokenType = "access") {
 
   const expiresIn =
     {
-      access: "1h",
+      access: "8h",
       refresh: "2w",
     }[tokenType] || "10min";
 

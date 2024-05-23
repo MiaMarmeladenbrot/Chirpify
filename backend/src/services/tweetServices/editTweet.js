@@ -1,8 +1,12 @@
 import { Tweet } from "../../models/Tweet.js";
 
-export async function editTweet(tweetId, updateTweetInfo) {
+export async function editTweet(authenticatedUserId, tweetId, updateTweetInfo) {
   const tweet = await Tweet.findById(tweetId);
   if (!tweet) throw new Error("Tweet not found.");
+
+  const useridString = tweet.userId.toString();
+  if (authenticatedUserId !== useridString)
+    throw new Error("You are not authorized to edit this tweet.");
 
   // falls eine message geändert werden soll, darf sie nur max 160 Zeichen lang sein
   if (updateTweetInfo.message?.length > 160)

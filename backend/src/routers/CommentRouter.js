@@ -4,4 +4,5 @@ import { CommentController } from "../controllers/CommentController.js";
 
 export const CommentRouter = express
   .Router()
-  .post("/", doJwtAuth, CommentController.addCommentCtrl);
+  .post("/", doJwtAuth, CommentController.postAddCommentCtrl)
+  .patch("/:commentId", doJwtAuth, CommentController.patchEditCommentCtrl);

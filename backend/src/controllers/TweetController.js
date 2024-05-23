@@ -72,6 +72,17 @@ const patchDislikeUsersTweetCrtl = async (req, res) => {
   }
 }
 
+const getShowUserFeed = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub
+    const result = await TweetService.showFeed(authenticatedUserId)
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not find tweets." })
+  }
+}
+
 export const TweetController = {
   postCreateTweetCtrl,
   patchUpdateTweetCtrl,
@@ -79,4 +90,5 @@ export const TweetController = {
   getAllUserTweetsCtrl,
   patchLikeUsersTweetCrtl,
   patchDislikeUsersTweetCrtl,
+  getShowUserFeed,
 }

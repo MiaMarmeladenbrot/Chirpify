@@ -3,6 +3,7 @@ import { deleteTweet } from "./tweetServices/deleteTweet.js"
 import { dislikeUsersTweet } from "./tweetServices/dislikeUsersTweet.js"
 import { editTweet } from "./tweetServices/editTweet.js"
 import { likeUsersTweet } from "./tweetServices/likeUsersTweet.js"
+import { showFeed } from "./tweetServices/showFeed.js"
 import { showUserTweets } from "./tweetServices/showUserTweets.js"
 import { showOneUser } from "./userServices/ShowOneUser.js"
 import { deleteUser } from "./userServices/deleteUser.js"
@@ -31,4 +32,5 @@ export const TweetService = {
   showUserTweets,
   likeUsersTweet,
   dislikeUsersTweet,
+  showFeed,
 }

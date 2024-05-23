@@ -4,17 +4,7 @@ export async function addTweet(
   authenticatedUserId,
   { userId, message, retweetedTweetId, isLikedBy }
 ) {
-  // {
-  //     userId: { type: mongoose.Types.ObjectId, ref: "User", required: true }, -> authenticatedUserId aus Authorization
-  //     message: { type: String, trim: true },
-  //     retweetedTweetId: { type: mongoose.Types.ObjectId, ref: "Tweet" }, // im Post-Tweet-Service: entweder retweet oder message muss befüllt sein, dürfen nicht beide leer sein
-  //     isLikedBy: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-  //   },
-  // Abfrage: Länge von tweetInfo.message < 160
-  // Abfrage: entweder message oder retweetedTweetId oder beide vorhanden? bzw. eines muss
-  // create(tweetInfo)
-  // return neuen tweet
-
+  // # Enkomplizieren
   const useridString = userId.toString()
   if (authenticatedUserId !== useridString)
     throw new Error("You are not authorized to post this tweet.")

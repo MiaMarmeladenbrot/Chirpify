@@ -1,23 +1,36 @@
-import mongoose from "mongoose"
-import { Tweet } from "../../models/Tweet.js"
-import { User } from "../../models/User.js"
+import { Tweet } from "../../models/Tweet.js";
+import { User } from "../../models/User.js";
 
 export const showFeed = async (authenticatedUserId) => {
-  const user = await User.findById(authenticatedUserId)
-  if (!user) throw new Error("User does not exist")
+  const user = await User.findById(authenticatedUserId);
+  if (!user) throw new Error("User does not exist");
 
-  const userTweets = await Tweet.find({ userId: authenticatedUserId })
-  const userFollowsIdArr = user.isFollowerOf
+  // alle tweets des authentifizierten Users
+  const userTweets = await Tweet.find({ userId: authenticatedUserId });
 
-  const userFollerIdStringsArr = userFollowsIdArr.map((item) => item.toString())
+  // alle Tweets von den Leuten, denen der user folgt - als array mit ids als ObjectIds
+  const userFollowsIdArr = user.isFollowerOf;
 
-  const followerTweetsArr = await Tweet.find({ userId: { $in: userFollerIdStringsArr } })
+  // jede einzelne ObjectId in einen String umwandeln
+  const userFollowerIdStringsArr = userFollowsIdArr.map((item) =>
+    item.toString()
+  );
 
-  const unsortedUserFeedArr = [...userTweets, ...followerTweetsArr]
+  // mit string-Ids nach Tweets suchen
+  const followerTweetsArr = await Tweet.find({
+    userId: { $in: userFollowerIdStringsArr },
+  });
 
-  if (unsortedUserFeedArr.length === 0) throw new Error("Nothing to show yet")
+  // userTweets und followTweets zusammenfügen, ist aber noch unsortiert
+  const unsortedUserFeedArr = [...userTweets, ...followerTweetsArr];
 
-  const sortedUserFeedArr = unsortedUserFeedArr.sort((a, b) => b.createdAt - a.createdAt)
+  // falls das leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
+  if (unsortedUserFeedArr.length === 0) throw new Error("Nothing to show yet");
 
-  return sortedUserFeedArr
-}
+  // zusammengefügte Tweets nach Neuestem sortieren
+  const sortedUserFeedArr = unsortedUserFeedArr.sort(
+    (a, b) => b.createdAt - a.createdAt
+  );
+
+  return sortedUserFeedArr;
+};

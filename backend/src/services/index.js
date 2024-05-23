@@ -1,3 +1,4 @@
+import { addComment } from "./commentServices/addComment.js";
 import { addTweet } from "./tweetServices/addTweet.js";
 import { deleteTweet } from "./tweetServices/deleteTweet.js";
 import { dislikeUsersTweet } from "./tweetServices/dislikeUsersTweet.js";
@@ -37,4 +38,8 @@ export const TweetService = {
   likeUsersTweet,
   dislikeUsersTweet,
   showFeed,
+};
+
+export const CommentService = {
+  addComment,
 };

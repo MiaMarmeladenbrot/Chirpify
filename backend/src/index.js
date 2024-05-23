@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectToDatabase } from "./models/index.js";
 import { UserRouter } from "./routers/UserRouter.js";
 import { TweetRouter } from "./routers/TweetRouter.js";
+import { CommentRouter } from "./routers/CommentRouter.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/tweets", TweetRouter);
+app.use("/api/v1/comments", CommentRouter);
 
 try {
   await connectToDatabase();

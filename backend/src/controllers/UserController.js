@@ -130,11 +130,11 @@ const followUserCtrl = async (req, res) => {
 const unfollowUserCtrl = async (req, res) => {
   try {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
-    const userIdToFollow = req.params.userId;
+    const userIdToUnfollow = req.params.userId;
 
     const result = await UserService.unfollowUser(
       authenticatedUserId,
-      userIdToFollow
+      userIdToUnfollow
     );
     res.json({ result });
   } catch (error) {

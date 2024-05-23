@@ -36,7 +36,21 @@ export const patchEditCommentCtrl = async (req, res) => {
   }
 };
 
+export const deleteCommentCtrl = async (req, res) => {
+  try {
+    const commentId = req.params.commentId;
+    const result = await CommentService.deleteComment(commentId);
+    res.json({ result });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: error.message || "Could not delete comment" });
+  }
+};
+
 export const CommentController = {
   postAddCommentCtrl,
   patchEditCommentCtrl,
+  deleteCommentCtrl,
 };

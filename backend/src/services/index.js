@@ -1,4 +1,5 @@
 import { addComment } from "./commentServices/addComment.js";
+import { deleteComment } from "./commentServices/deleteComment.js";
 import { editComment } from "./commentServices/editComment.js";
 import { addTweet } from "./tweetServices/addTweet.js";
 import { deleteTweet } from "./tweetServices/deleteTweet.js";
@@ -44,4 +45,5 @@ export const TweetService = {
 export const CommentService = {
   addComment,
   editComment,
+  deleteComment,
 };

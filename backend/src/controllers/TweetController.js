@@ -48,9 +48,22 @@ const getAllUserTweetsCtrl = async (req, res) => {
   }
 }
 
+const patchLikeUsersTweetCrtl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub
+    const tweetId = req.body.tweetId
+    const result = await TweetService.likeUsersTweet(authenticatedUserId, tweetId)
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not find tweets." })
+  }
+}
+
 export const TweetController = {
   postCreateTweetCtrl,
   patchUpdateTweetCtrl,
   deleteTweetCtrl,
   getAllUserTweetsCtrl,
+  patchLikeUsersTweetCrtl,
 }

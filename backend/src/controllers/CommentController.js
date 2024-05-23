@@ -49,8 +49,22 @@ export const deleteCommentCtrl = async (req, res) => {
   }
 };
 
+export const getShowAllCommentsOfTweetCtrl = async (req, res) => {
+  try {
+    const tweetId = req.params.tweetId;
+    const result = await CommentService.showAllCommentsOfTweet(tweetId);
+    res.json({ result });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: error.message || "Could not delete comment" });
+  }
+};
+
 export const CommentController = {
   postAddCommentCtrl,
   patchEditCommentCtrl,
   deleteCommentCtrl,
+  getShowAllCommentsOfTweetCtrl,
 };

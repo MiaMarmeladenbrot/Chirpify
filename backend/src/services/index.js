@@ -1,6 +1,7 @@
 import { addComment } from "./commentServices/addComment.js";
 import { deleteComment } from "./commentServices/deleteComment.js";
 import { editComment } from "./commentServices/editComment.js";
+import { showAllCommentsOfTweet } from "./commentServices/showAllCommentsOfTweet.js";
 import { addTweet } from "./tweetServices/addTweet.js";
 import { deleteTweet } from "./tweetServices/deleteTweet.js";
 import { dislikeUsersTweet } from "./tweetServices/dislikeUsersTweet.js";
@@ -46,4 +47,5 @@ export const CommentService = {
   addComment,
   editComment,
   deleteComment,
+  showAllCommentsOfTweet,
 };

@@ -6,4 +6,5 @@ export const CommentRouter = express
   .Router()
   .post("/", doJwtAuth, CommentController.postAddCommentCtrl)
   .patch("/:commentId", doJwtAuth, CommentController.patchEditCommentCtrl)
-  .delete("/:commentId", doJwtAuth, CommentController.deleteCommentCtrl);
+  .delete("/:commentId", doJwtAuth, CommentController.deleteCommentCtrl)
+  .get("/:tweetId", doJwtAuth, CommentController.getShowAllCommentsOfTweetCtrl);

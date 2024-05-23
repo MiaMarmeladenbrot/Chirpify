@@ -56,7 +56,19 @@ const patchLikeUsersTweetCrtl = async (req, res) => {
     res.json({ result })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error, message: error.message || "Could not find tweets." })
+    res.status(500).json({ error, message: error.message || "Could not like tweets." })
+  }
+}
+
+const patchDislikeUsersTweetCrtl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub
+    const tweetId = req.body.tweetId
+    const result = await TweetService.dislikeUsersTweet(authenticatedUserId, tweetId)
+    res.json({ result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error, message: error.message || "Could not dislike tweets." })
   }
 }
 
@@ -66,4 +78,5 @@ export const TweetController = {
   deleteTweetCtrl,
   getAllUserTweetsCtrl,
   patchLikeUsersTweetCrtl,
+  patchDislikeUsersTweetCrtl,
 }

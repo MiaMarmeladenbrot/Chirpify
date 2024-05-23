@@ -6,6 +6,7 @@ export const TweetRouter = express
   .Router()
   .post("/", doJwtAuth, TweetController.postCreateTweetCtrl)
   .patch("/like", doJwtAuth, TweetController.patchLikeUsersTweetCrtl)
+  .patch("/dislike", doJwtAuth, TweetController.patchDislikeUsersTweetCrtl)
   .patch("/:tweetId", doJwtAuth, TweetController.patchUpdateTweetCtrl)
   .delete("/:tweetId", doJwtAuth, TweetController.deleteTweetCtrl)
   .get("/:userId", doJwtAuth, TweetController.getAllUserTweetsCtrl)

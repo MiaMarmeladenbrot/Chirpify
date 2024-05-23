@@ -13,6 +13,7 @@ import { loginUser } from "./userServices/loginUser.js";
 import { registerUser } from "./userServices/registerUser.js";
 import { sendVerifyEmail } from "./userServices/sendVerifyEmail.js";
 import { showAllUsers } from "./userServices/showAllUsers.js";
+import { unfollowUser } from "./userServices/unfollowUser.js";
 import { verifyEmail } from "./userServices/verifyEmail.js";
 
 export const UserService = {
@@ -25,6 +26,7 @@ export const UserService = {
   showOneUser,
   showAllUsers,
   followUser,
+  unfollowUser,
 };
 
 export const TweetService = {

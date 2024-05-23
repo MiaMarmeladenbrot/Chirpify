@@ -127,6 +127,24 @@ const followUserCtrl = async (req, res) => {
   }
 };
 
+const unfollowUserCtrl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub;
+    const userIdToFollow = req.params.userId;
+
+    const result = await UserService.unfollowUser(
+      authenticatedUserId,
+      userIdToFollow
+    );
+    res.json({ result });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: error.message || "Could not unfollow user" });
+  }
+};
+
 export const UserController = {
   postRegisterUserCtrl,
   postLoginUserCtrl,
@@ -137,4 +155,5 @@ export const UserController = {
   getAllUsersCtrl,
   getOneUserCtrl,
   followUserCtrl,
+  unfollowUserCtrl,
 };

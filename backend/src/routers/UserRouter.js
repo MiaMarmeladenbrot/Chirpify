@@ -10,6 +10,7 @@ export const UserRouter = express
   .post("/verifyEmail", doJwtAuth, UserController.postVerifyEmailCtrl)
   .patch("/edit", doJwtAuth, UserController.patchEditUserCtrl)
   .patch("/follow/:userId", doJwtAuth, UserController.followUserCtrl)
+  .patch("/unfollow/:userId", doJwtAuth, UserController.unfollowUserCtrl)
   .delete("/delete", doJwtAuth, UserController.deleteUserCtrl)
   .get("/:userId", doJwtAuth, UserController.getOneUserCtrl)
   .get("/", doJwtAuth, UserController.getAllUsersCtrl);

@@ -9,9 +9,6 @@ export async function followUser(authenticatedUserId, userIdToFollow) {
 
   const userWantsToFollow = await User.findById(authenticatedUserId);
 
-  //   const userIdToString =
-  //     mongoose.Types.ObjectId.createFromHexString(authenticatedUserId);
-
   if (userWantsToFollow.isFollowerOf.includes(userIdToFollow))
     throw new Error("You already follow this user.");
 

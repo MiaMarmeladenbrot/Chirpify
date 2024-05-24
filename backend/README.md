@@ -10,6 +10,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - editTweet: soll man retweetTweetId hinterher bearbeiten können?
 - Update Access Token back to 10 min
 - refreshToken implementieren
+- Multer? Für Profilbild und Tweet-Bild?
 
 ## Fragen an Ahmed
 

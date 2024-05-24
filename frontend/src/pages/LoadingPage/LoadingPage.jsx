@@ -6,6 +6,7 @@ import { backendUrl } from "../../api/api";
 const LoadingPage = () => {
   const { allUsers, setAllUsers } = useContext(allUsersContext);
 
+  //# wegen doJwtAuth muss der Fetch doch erst nach dem Login passieren --> verschieben
   useEffect(() => {
     fetch(`${backendUrl}/api/v1/users`)
       .then((res) => res.json())
@@ -16,7 +17,7 @@ const LoadingPage = () => {
 
   return (
     <section className="loadingpage">
-      <img src="/img/birdLogo.png" alt="" />
+      <img src="/img/birdLogo.png" alt="bird logo" />
     </section>
   );
 };

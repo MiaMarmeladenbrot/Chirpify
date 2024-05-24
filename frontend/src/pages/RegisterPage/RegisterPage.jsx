@@ -5,6 +5,7 @@ import { userContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
+import VerificationPopup from "../../components/VerificationPopup/VerificationPopup";
 
 // .post("/register", UserController.postRegisterUserCtrl)
 
@@ -57,6 +58,7 @@ const RegisterPage = () => {
 
   return (
     <section className="registerpage">
+      <VerificationPopup />
       <HeaderNav />
       <h1>Create your account</h1>
 

@@ -13,6 +13,13 @@ html {
   font-family: "Inter", system-ui, sans-serif;
 }
 
+:root {
+  --color-main-blue: #1d9bf0;
+  --color-grey-light: #ababab;
+  --color-grey-dark: #141619;
+  --color-main-red: #ce395f;
+}
+
 .wrapper {
   max-width: 450px;
   min-height: 100vh;

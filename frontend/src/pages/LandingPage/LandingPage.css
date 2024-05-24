@@ -1,0 +1,23 @@
+.landingPage {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 2rem;
+}
+
+.landingPage__link {
+  cursor: pointer;
+  color: white;
+  background-color: #1d9bf0;
+  text-align: center;
+  border-radius: 25px;
+  padding-block: 0.5rem;
+}
+
+.landingPage__Login-Container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.landingPage__link--login {
+  color: #1d9bf0;
+}

@@ -1,8 +1,11 @@
 footer {
   position: fixed;
   bottom: 0;
-  /* # das stimmt noch nicht so ganz ... */
-  width: 430px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
 
   padding-bottom: 2rem;
   padding-inline: 1rem;
@@ -12,6 +15,7 @@ footer nav {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  width: 100%;
 }
 
 .active {

@@ -18,54 +18,56 @@ function App() {
   const [accessToken, setAccesToken] = useState(null)
 
   return (
-    <userContext.Provider value={{ user, setUser }}>
-      <allUsersContext.Provider value={{ allUsers, setAllUsers }}>
-        <accessTokenContext.Provider value={{ accessToken, setAccesToken }}>
-          <BrowserRouter>
-            <Routes>
-              <Route index element={<LoadingPage />} />
-              <Route path="/landing" element={<LandingPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
+    <div className="wrapper">
+      <userContext.Provider value={{ user, setUser }}>
+        <allUsersContext.Provider value={{ allUsers, setAllUsers }}>
+          <accessTokenContext.Provider value={{ accessToken, setAccesToken }}>
+            <BrowserRouter>
+              <Routes>
+                <Route index element={<LoadingPage />} />
+                <Route path="/landing" element={<LandingPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
 
-              <Route
-                path="/feed"
-                element={
-                  <AuthRequiredLogin>
-                    <FeedPage />
-                  </AuthRequiredLogin>
-                }
-              />
-              <Route
-                path="/user/:userId"
-                element={
-                  <AuthRequiredLogin>
-                    <UserPage />
-                  </AuthRequiredLogin>
-                }
-              />
-              <Route
-                path="/settings"
-                element={
-                  <AuthRequiredLogin>
-                    <SettingsPage />
-                  </AuthRequiredLogin>
-                }
-              />
+                <Route
+                  path="/feed"
+                  element={
+                    <AuthRequiredLogin>
+                      <FeedPage />
+                    </AuthRequiredLogin>
+                  }
+                />
+                <Route
+                  path="/user/:userId"
+                  element={
+                    <AuthRequiredLogin>
+                      <UserPage />
+                    </AuthRequiredLogin>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <AuthRequiredLogin>
+                      <SettingsPage />
+                    </AuthRequiredLogin>
+                  }
+                />
 
-              <Route
-                path="/addtweet"
-                element={
-                  <AuthRequiredVerified>
-                    <AddTweetPage />
-                  </AuthRequiredVerified>
-                }
-              />
-            </Routes>
-          </BrowserRouter>
-        </accessTokenContext.Provider>
-      </allUsersContext.Provider>
-    </userContext.Provider>
+                <Route
+                  path="/addtweet"
+                  element={
+                    <AuthRequiredVerified>
+                      <AddTweetPage />
+                    </AuthRequiredVerified>
+                  }
+                />
+              </Routes>
+            </BrowserRouter>
+          </accessTokenContext.Provider>
+        </allUsersContext.Provider>
+      </userContext.Provider>
+    </div>
   )
 }
 

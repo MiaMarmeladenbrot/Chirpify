@@ -1,5 +1,9 @@
 const AddTweetPage = () => {
-  return <div>AddTweetPage</div>
-}
+  return (
+    <div>
+      <h1>Add Tweet Page</h1>
+    </div>
+  );
+};
 
-export default AddTweetPage
+export default AddTweetPage;

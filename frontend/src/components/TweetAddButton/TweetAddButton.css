@@ -1,8 +1,18 @@
 .tweet-add-button-container {
-  position: fixed;
-  bottom: 10%;
-  right: 10%;
+  /* position: fixed;
+  bottom: 90px;
+  right: 40px; */
+  position: relative;
 }
+
+/* .tweet-add-button-container img {
+  cursor: pointer;
+} */
+/* --> so passt es aber nicht, wenn Bildschirm größer wird? */
+
 .tweet-add-button-container img {
   cursor: pointer;
+  position: absolute;
+  bottom: -75vh;
+  right: 5%;
 }

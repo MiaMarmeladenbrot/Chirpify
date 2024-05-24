@@ -19,5 +19,11 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 ## Frontend
 
 - userFeed auf feedPage => warum lädt fetch nicht sofort, wo ist mein Fehler?
+- Footer in Settings/EmailVerify
+- Header/Nav Größen anpassen
+- CommentFetch
+- LikeFetch/DislikeFetch
 - taggedUsers über filter-Funktion ans Backend
+- RetweetFetch -> Weiterleitung zur AddTweetPage mit retweetTweetId
+- alles auf UserPage
 - AuthRequired mit refresh anpassen

@@ -6,11 +6,11 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Todos
 
-- addTweet: falls retweet, dessen Infos populaten
-- editTweet: soll man retweetTweetId hinterher bearbeiten können?
+- addTweet: falls retweet, dessen Infos populaten?
+- editTweet: soll man retweetTweetId hinterher bearbeiten können? -> nein!
 - Update Access Token back to 10 min
 - refreshToken implementieren
-- Multer? Für Profilbild und Tweet-Bild?
+- Multer für Profilbild und Tweet-Bild
 
 ## Fragen an Ahmed
 
@@ -18,4 +18,6 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend
 
+- userFeed auf feedPage => warum lädt fetch nicht sofort, wo ist mein Fehler?
 - taggedUsers über filter-Funktion ans Backend
+- AuthRequired mit refresh anpassen

@@ -5,6 +5,7 @@ import TweetAddButton from "../../components/TweetAddButton/TweetAddButton";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
 import "./FeedPage.css";
+import Tweet from "../../components/Tweet/Tweet";
 
 // # hier den allUsers-Fetch global?
 
@@ -23,18 +24,23 @@ const FeedPage = () => {
       if (!data.result) {
         return setErrorMessage(data.message);
       }
-      setUserFeed(data);
+      setUserFeed(data.result);
       setErrorMessage("");
     };
     fetchData();
   }, []);
+  // console.log(userFeed);
 
   return (
     <section className="feedpage">
       <HeaderNav />
-      <h2>{errorMessage ? <p>{errorMessage}</p> : ""}</h2>
+      <h2>{errorMessage ? { errorMessage } : ""}</h2>
 
-      {/* //# render tweets hier  */}
+      {/* // # hier entsteht noch ein Fehler beim Neuladen - userFeed.map is not a function ... */}
+      {userFeed?.map((singleTweet) => (
+        <Tweet singleTweet={singleTweet} />
+      ))}
+
       <TweetAddButton />
       <FooterNav />
     </section>

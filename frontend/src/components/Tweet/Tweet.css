@@ -1,0 +1,37 @@
+.single-tweet {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-grey-light);
+}
+
+.single-tweet img {
+  object-fit: contain;
+}
+
+.single-tweet article {
+  width: 100%;
+}
+
+.tweet-text {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.single-tweet p {
+  margin-bottom: 1rem;
+}
+
+.tweet-icons {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0.5rem;
+  width: 100%;
+}
+
+.tweet-icons svg {
+  cursor: pointer;
+}

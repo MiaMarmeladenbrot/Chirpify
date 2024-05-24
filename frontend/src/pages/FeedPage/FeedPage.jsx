@@ -4,6 +4,7 @@ import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import TweetAddButton from "../../components/TweetAddButton/TweetAddButton";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
+import "./FeedPage.css";
 
 // # hier den allUsers-Fetch global?
 
@@ -19,19 +20,21 @@ const FeedPage = () => {
       });
 
       const data = await res.json();
-      // if (!data.result) {
-      //   return setErrorMessage(data.message);
-      // }
+      if (!data.result) {
+        return setErrorMessage(data.message);
+      }
       setUserFeed(data);
-      console.log(data);
+      setErrorMessage("");
     };
     fetchData();
   }, []);
 
   return (
-    <section>
+    <section className="feedpage">
       <HeaderNav />
+      <h2>{errorMessage ? <p>{errorMessage}</p> : ""}</h2>
 
+      {/* //# render tweets hier  */}
       <TweetAddButton />
       <FooterNav />
     </section>

@@ -1,6 +1,6 @@
-import express from "express";
-import { UserController } from "../controllers/UserController.js";
-import { doJwtAuth } from "../middlewares/doJwtAuth.js";
+import express from "express"
+import { UserController } from "../controllers/UserController.js"
+import { doJwtAuth } from "../middlewares/doJwtAuth.js"
 
 export const UserRouter = express
   .Router()
@@ -13,4 +13,4 @@ export const UserRouter = express
   .patch("/unfollow/:userId", doJwtAuth, UserController.unfollowUserCtrl)
   .delete("/delete", doJwtAuth, UserController.deleteUserCtrl)
   .get("/:userId", doJwtAuth, UserController.getOneUserCtrl)
-  .get("/", doJwtAuth, UserController.getAllUsersCtrl);
+  .get("/", doJwtAuth, UserController.getAllUsersCtrl)

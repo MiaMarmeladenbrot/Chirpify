@@ -12,9 +12,6 @@ const LoginPage = () => {
   const { setAccesToken } = useContext(accessTokenContext);
   const navigate = useNavigate();
 
-  // console.log(email);
-  // console.log(password);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +24,6 @@ const LoginPage = () => {
 
     const data = await res.json();
 
-    console.log({ data });
     setUser(data.result.user);
 
     setAccesToken(data.result.tokens.accessToken);

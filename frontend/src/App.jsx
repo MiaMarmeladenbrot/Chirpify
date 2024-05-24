@@ -11,6 +11,7 @@ import AuthRequiredLogin from "./components/AuthRequiredLogin/AuthRequiredLogin"
 import AuthRequiredVerified from "./components/AuthRequiredVerified/AuthRequiredVerified"
 import { useState } from "react"
 import { userContext, allUsersContext, accessTokenContext } from "./context/Context"
+import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage"
 
 function App() {
   const [user, setUser] = useState(null)
@@ -62,6 +63,15 @@ function App() {
                     </AuthRequiredVerified>
                   }
                 />
+                <Route
+                  path="/settings/emailverification"
+                  element={
+                    <AuthRequiredLogin>
+                      <VerifyEmailPage />
+                    </AuthRequiredLogin>
+                  }
+                />
+                <Route path="*" element={<p>There's nothing here: 404!</p>} />
               </Routes>
             </BrowserRouter>
           </accessTokenContext.Provider>

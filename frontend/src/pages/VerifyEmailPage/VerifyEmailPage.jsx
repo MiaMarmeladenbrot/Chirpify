@@ -1,11 +1,23 @@
 import { useContext } from "react"
 import "./VerifyEmailPage.css"
-import { userContext } from "../../context/Context"
+import { accessTokenContext, userContext } from "../../context/Context"
+import { backendUrl } from "../../api/api"
 
 const VerifyEmailPage = () => {
-  const { user } = useContext(userContext)
+  const { user, setUser } = useContext(userContext)
+  const { accessToken } = useContext(accessTokenContext)
+  console.log(accessToken)
   // userID = user._id
   // user.isEmailVerified
+
+  const getNewSixDigitCode = async () => {
+    const res = await fetch(`${backendUrl}/api/v1/users/sendVerifyEmail`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${accessToken}` },
+    })
+
+    await res.json()
+  }
 
   return (
     <main className="verifyemail">
@@ -20,7 +32,7 @@ const VerifyEmailPage = () => {
       {user?.isEmailVerified === false && (
         <div className="verifyemail__input__new-email-container">
           <p>Don't know your 6-digit code? We'll send you a new code by email.</p>
-          <button>New 6-Digit-Code</button>
+          <button onClick={getNewSixDigitCode}>New 6-Digit-Code</button>
         </div>
       )}
     </main>

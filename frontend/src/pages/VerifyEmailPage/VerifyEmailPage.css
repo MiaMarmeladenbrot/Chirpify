@@ -54,14 +54,14 @@ button {
   border-radius: 25px;
   padding-inline: 2rem;
   padding-block: 0.3rem;
-  transition: 0.5s;
   font-weight: 600;
+  /* transition: 0.5s; */
 }
 
-button:hover {
+/* button:hover {
   color: var(--color-main-blue);
   background-color: white;
-}
+} */
 
 .verifyemail__input__new-email-container {
   display: flex;

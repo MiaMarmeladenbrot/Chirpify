@@ -6,8 +6,8 @@ import { accessTokenContext, userContext } from "../../context/Context"
 import HeaderNav from "../../components/HeaderNav/HeaderNav"
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("thomas.erdmenger@gmail.com")
-  const [password, setPassword] = useState("thomas123")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const { setUser } = useContext(userContext)
   const { setAccesToken } = useContext(accessTokenContext)
   const navigate = useNavigate()

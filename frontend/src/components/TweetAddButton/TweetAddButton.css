@@ -1,0 +1,8 @@
+.tweet-add-button-container {
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+}
+.tweet-add-button-container img {
+  cursor: pointer;
+}

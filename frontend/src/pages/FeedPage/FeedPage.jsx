@@ -1,5 +1,14 @@
-const FeedPage = () => {
-  return <div>FeedPage</div>
-}
+import TweetAddButton from "../../components/TweetAddButton/TweetAddButton";
 
-export default FeedPage
+const FeedPage = () => {
+  return (
+    <section>
+      <div>
+        <h1>feedpage</h1>
+        <TweetAddButton />
+      </div>
+    </section>
+  );
+};
+
+export default FeedPage;

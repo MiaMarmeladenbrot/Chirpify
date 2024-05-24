@@ -4,6 +4,7 @@ import { backendUrl } from "../../api/api";
 import { userContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import HeaderNav from "../../components/HeaderNav/HeaderNav";
 
 // .post("/register", UserController.postRegisterUserCtrl)
 
@@ -56,7 +57,8 @@ const RegisterPage = () => {
 
   return (
     <section className="registerpage">
-      <h2>Create your account</h2>
+      <HeaderNav />
+      <h1>Create your account</h1>
 
       <form className="login-register-form">
         <input

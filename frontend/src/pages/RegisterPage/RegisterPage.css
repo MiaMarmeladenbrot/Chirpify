@@ -1,16 +1,4 @@
-.registerpage h2 {
+.registerpage h1 {
   text-align: center;
   margin-block: 5rem;
-}
-
-.registerpage div {
-  position: relative;
-  margin-top: -30px;
-}
-
-.eye {
-  position: absolute;
-  right: 30px;
-  top: 12px;
-  font-size: 20px;
 }

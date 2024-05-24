@@ -1,42 +1,51 @@
-import "./LoginPage.css"
-import { useContext, useState } from "react"
-import { backendUrl } from "../../api/api"
-import { useNavigate } from "react-router-dom"
-import { accessTokenContext, userContext } from "../../context/Context"
-import HeaderNav from "../../components/HeaderNav/HeaderNav"
+import "./LoginPage.css";
+import { useContext, useState } from "react";
+import { backendUrl } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { accessTokenContext, userContext } from "../../context/Context";
+import HeaderNav from "../../components/HeaderNav/HeaderNav";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const { setUser } = useContext(userContext)
-  const { setAccesToken } = useContext(accessTokenContext)
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUser } = useContext(userContext);
+  const { setAccesToken } = useContext(accessTokenContext);
+  const navigate = useNavigate();
+
+  // console.log(email);
+  // console.log(password);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const res = await fetch(`${backendUrl}/api/v1/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      // credentials: "include",
       body: JSON.stringify({ email, password }),
-    })
+    });
 
-    const data = res.json()
+    const data = await res.json();
 
-    setUser(data)
-    setAccesToken(data.tokens.accessToken)
+    console.log({ data });
+    setUser(data.result.user);
 
-    if (user.isEmailVerified === false && data.tokens.accessToken) {
-      navigate("/settings")
+    setAccesToken(data.result.tokens.accessToken);
+
+    if (
+      data.result.user.isEmailVerified === false &&
+      data.result.tokens.accessToken
+    ) {
+      return navigate("/settings");
     }
 
-    navigate("/feed")
-    setEmail("")
-    setPassword("")
-  }
+    navigate("/feed");
+    setEmail("");
+    setPassword("");
+  };
 
   return (
-    <>
+    <section className="loginpage">
       <HeaderNav />
       <h1>Login to your account</h1>
       <form onSubmit={handleSubmit} className="login-register-form">
@@ -58,8 +67,8 @@ const LoginPage = () => {
         />
         <button type="submit">Log in</button>
       </form>
-    </>
-  )
-}
+    </section>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

@@ -5,4 +5,13 @@
   margin-bottom: 1.5rem;
   border-bottom: 1px solid black;
   gap: 3rem;
+
+  position: relative;
+}
+
+.arrow-position {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  cursor: pointer;
 }

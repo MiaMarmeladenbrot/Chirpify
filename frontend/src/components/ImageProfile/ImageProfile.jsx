@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./ImageProfile.css";
 import { useContext } from "react";
 import { userContext } from "../../context/Context";
+import { backendUrl } from "../../api/api";
 
 const ImageProfile = () => {
   const { user } = useContext(userContext);
@@ -13,9 +14,15 @@ const ImageProfile = () => {
   const navigate = useNavigate();
   return (
     <div className="profile-img">
-      <img
+      {/* <img
         src="/img/placeholder-profileImg.png"
         alt="profile image of user"
+        onClick={() => navigate(`/user/${user._id}`)}
+      /> */}
+
+      <img
+        src={`${backendUrl}/${user.profileImg}`}
+        alt={`Profile image of ${user.username}`}
         onClick={() => navigate(`/user/${user._id}`)}
       />
     </div>

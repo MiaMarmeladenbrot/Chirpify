@@ -58,7 +58,6 @@ const RegisterPage = () => {
 
   return (
     <section className="registerpage">
-      <VerificationPopup />
       <HeaderNav />
       <h1>Create your account</h1>
 

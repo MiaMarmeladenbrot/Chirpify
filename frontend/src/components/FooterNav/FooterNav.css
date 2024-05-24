@@ -1,0 +1,19 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  /* # das stimmt noch nicht so ganz ... */
+  width: 430px;
+
+  padding-bottom: 2rem;
+  padding-inline: 1rem;
+}
+
+footer nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.active {
+  stroke: var(--color-main-blue);
+}

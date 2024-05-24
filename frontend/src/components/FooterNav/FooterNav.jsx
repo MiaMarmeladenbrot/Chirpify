@@ -1,5 +1,32 @@
-const FooterNav = () => {
-  return <div>FooterNav</div>
-}
+import ImageAlert from "../ImageAlert/ImageAlert";
+import ImageHome from "../ImageHome/ImageHome";
+import ImageMessage from "../ImageMessage/ImageMessage";
+import ImageSearch from "../ImageSearch/ImageSearch";
+import "./FooterNav.css";
+import { NavLink } from "react-router-dom";
 
-export default FooterNav
+const FooterNav = () => {
+  return (
+    <footer>
+      <nav>
+        <NavLink to="/feed">
+          <ImageHome />
+        </NavLink>
+
+        <NavLink to="/search">
+          <ImageSearch />
+        </NavLink>
+
+        <NavLink to="/alert">
+          <ImageAlert />
+        </NavLink>
+
+        <NavLink to="/messages">
+          <ImageMessage />
+        </NavLink>
+      </nav>
+    </footer>
+  );
+};
+
+export default FooterNav;

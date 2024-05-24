@@ -1,6 +1,19 @@
 .headerNav {
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem 1rem 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid black;
+  gap: 3rem;
+
+  position: relative;
+}
+
+.headerNav-big {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 2rem 1rem 1rem 1rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid black;

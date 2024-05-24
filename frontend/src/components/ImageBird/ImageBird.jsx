@@ -2,7 +2,11 @@
 // If used on an other page nav to All Feed
 
 const ImageBird = () => {
-  return <div>ImageBird</div>
-}
+  return (
+    <div>
+      <img src="/img/birdLogo.png" alt="bird logo" />
+    </div>
+  );
+};
 
-export default ImageBird
+export default ImageBird;

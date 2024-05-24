@@ -1,7 +1,7 @@
-import "./HeaderNav.css"
-import { useLocation } from "react-router-dom"
-import ImageBird from "../ImageBird/ImageBird"
-import { FaArrowLeft } from "react-icons/fa6"
+import "./HeaderNav.css";
+import { useLocation } from "react-router-dom";
+import ImageBird from "../ImageBird/ImageBird";
+import { FaArrowLeft } from "react-icons/fa6";
 
 // Nav to Profil
 // Nav to Settings
@@ -10,16 +10,18 @@ import { FaArrowLeft } from "react-icons/fa6"
 // ! CSS muss wahrscheinlich auch Conditional für headerNav je nach Componentent
 
 const HeaderNav = () => {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   return (
     <header>
       <nav className="headerNav">
+        {/* navigate to landingpage */}
         {pathname === "/register" && <FaArrowLeft />}
+        {pathname === "/login" && <FaArrowLeft />}
         <ImageBird />
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default HeaderNav
+export default HeaderNav;

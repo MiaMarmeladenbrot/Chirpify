@@ -6,8 +6,8 @@ import { accessTokenContext, userContext } from "../../context/Context"
 import HeaderNav from "../../components/HeaderNav/HeaderNav"
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("thomas.erdmenger@gmail.com")
+  const [password, setPassword] = useState("thomas123")
   const { setUser } = useContext(userContext)
   const { setAccesToken } = useContext(accessTokenContext)
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ const LoginPage = () => {
     setAccesToken(data.result.tokens.accessToken)
 
     if (data.result.user.isEmailVerified === false && data.result.tokens.accessToken) {
-      return navigate("/settings")
+      return navigate("/settings/emailverification")
     }
 
     navigate("/feed")

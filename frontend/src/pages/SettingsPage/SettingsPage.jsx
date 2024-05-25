@@ -1,20 +1,20 @@
-import "./SettingsPage.css"
-import { useContext } from "react"
-import { userContext } from "../../context/Context"
-import { Link } from "react-router-dom"
-import { MdOutlineKeyboardArrowRight } from "react-icons/md"
+import "./SettingsPage.css";
+import { useContext } from "react";
+import { userContext } from "../../context/Context";
+import { Link } from "react-router-dom";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 const SettingsPage = () => {
-  const { user } = useContext(userContext)
+  const { user } = useContext(userContext);
 
-  console.log(user)
+  console.log(user);
 
   return (
     <main className="settings">
       <article className="settings__header">
         <h1>Settings and privacy</h1>
         <div className="settings__header__link">
-          <Link to="feed">Done</Link>
+          <Link to="/feed">Done</Link>
         </div>
       </article>
       <article className="settings__container">
@@ -60,10 +60,12 @@ const SettingsPage = () => {
         </div>
       </article>
       <article className="settings__information">
-        <p>General settings affect all of your Twitter accounts on this device.</p>
+        <p>
+          General settings affect all of your Twitter accounts on this device.
+        </p>
       </article>
     </main>
-  )
-}
+  );
+};
 
 export default SettingsPage;

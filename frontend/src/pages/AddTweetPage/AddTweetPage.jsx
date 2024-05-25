@@ -1,13 +1,16 @@
 import "./AddTweetPage.css";
 import ImageProfile from "../../components/ImageProfile/ImageProfile";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
 import FooterNav from "../../components/FooterNav/FooterNav";
 
-const AddTweetPage = (retweetedTweetId) => {
+const AddTweetPage = () => {
   const { accessToken, setAccessToken } = useContext(accessTokenContext);
+  const location = useLocation();
+  const retweetedTweetId = location.state?.retweetedTweetId;
+  console.log(retweetedTweetId);
 
   // authenticatedUserId, { message, retweetedTweetId, isLikedBy }
   // message aus textarea, retweetedTweetId aus props bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
@@ -29,7 +32,7 @@ const AddTweetPage = (retweetedTweetId) => {
         authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, retweetedTweetId }),
     });
 
     const data = await res.json();
@@ -37,7 +40,7 @@ const AddTweetPage = (retweetedTweetId) => {
     if (!data.result) setErrorMessage(data.message);
 
     navigate("/feed");
-  };
+  }; // --> in Abhängigkeit zum UserFeed-Get, damit der rerendered wird?
 
   return (
     <section className="add-tweet-page">

@@ -56,9 +56,6 @@ const GetFetches = ({ loading }) => {
       return navigate("/feed");
     }
   }, [loading]);
-  console.log(allUsers);
-  console.log(userFeed);
-  console.log(loading);
 
   return;
 };

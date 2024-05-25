@@ -69,9 +69,14 @@ const Tweet = ({ singleTweet }) => {
         </div>
         <p>{singleTweet?.message}</p>
 
+        {/* // hier retweet darstellen, falls vorhanden, mit retweetedTweetId */}
+        {singleTweet?.retweetedTweetId && (
+          <p>Retweet von {singleTweet?.retweetedTweetId}</p>
+        )}
+
         <div className="tweet-icons">
           <TweetCommentIcon />
-          <TweetRetweetIcon />
+          <TweetRetweetIcon singleTweet={singleTweet} />
           <TweetLikeIcon />
           <TweetShareIcon />
         </div>

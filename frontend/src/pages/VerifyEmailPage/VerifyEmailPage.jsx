@@ -5,8 +5,6 @@ import { backendUrl } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import FooterNav from "../../components/FooterNav/FooterNav";
 
-// # Footer aufnehmen
-
 const VerifyEmailPage = () => {
   const { user, setUser } = useContext(userContext);
   const { accessToken } = useContext(accessTokenContext);

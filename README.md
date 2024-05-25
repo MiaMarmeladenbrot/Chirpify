@@ -18,6 +18,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend
 
+- Fehler, wenn man einfach so versucht zur Route /addtweet zu kommen -> weiterleitung zum login einbauen?
 - nach addTweet den UserFeed neu rendern - in Abhängigkeit setzen?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
 - Header/Nav Größen anpassen

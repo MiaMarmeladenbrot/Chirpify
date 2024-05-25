@@ -44,14 +44,12 @@ const RegisterPage = () => {
     });
 
     const data = await res.json();
-    console.log({ data });
+
     if (!data.result)
       return setErrorMessage(data.message || "Failed to register");
-    console.log(errorMessage);
 
     const userData = data.result;
     setUser(userData);
-    console.log({ userData });
     setErrorMessage("");
     navigate(`/login`);
   };

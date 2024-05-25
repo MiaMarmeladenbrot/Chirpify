@@ -10,23 +10,8 @@ const TweetRetweetIcon = ({ singleTweet }) => {
   // falls Email verifiziert: bei Klick Weiterleitung an /addtweet oder <AddTweetPage/> mit singleTweet._id als Props
   // falls Email noch nicht verifiziert: VerificationPopup zeigen bzw. AuthRequiredVerified aufrufen
 
-  // const { user } = useContext(userContext);
   const [navigateTo, setNavigateTo] = useState(false);
   const retweetedTweetId = singleTweet._id;
-  // const isUserVerified = user.isEmailVerified;
-
-  const navigate = useNavigate();
-
-  const navigateToAddTweetPage = () => {
-    // setNavigateTo(true);
-    // navigate("/addtweet");
-    // navigate("/addtweet", {
-    //   replace: true,
-    //   retweetedTweetId,
-    // });
-  };
-
-  console.log(retweetedTweetId);
 
   return (
     <div>
@@ -46,18 +31,6 @@ const TweetRetweetIcon = ({ singleTweet }) => {
           d="M15.2714 13.6553C15.4667 13.8506 15.7833 13.8506 15.9786 13.6553L18.5669 11.0669C18.811 10.8228 18.811 10.4271 18.5669 10.183C18.3229 9.93896 17.9271 9.93896 17.6831 10.183L16.25 11.6161V4.12498C16.25 2.39909 14.8509 0.999981 13.125 0.999981H9.125C8.77982 0.999981 8.5 1.2798 8.5 1.62498C8.5 1.97016 8.77982 2.24998 9.125 2.24998H13.125C14.1605 2.24998 15 3.08945 15 4.12498V11.6161L13.5669 10.183C13.3229 9.93896 12.9271 9.93896 12.6831 10.183C12.439 10.4271 12.439 10.8228 12.6831 11.0669L15.2714 13.6553Z"
           fill="#687684"
         />
-        {/* {navigateTo && <AddTweetPage retweetedTweetId={retweetedTweetId} /> && (
-          <Navigate to="/addtweet" />
-        )} */}
-        {/* {navigateTo && (
-          <Navigate to="/addtweet" state={retweetedTweetId} replace={true} />
-        )} */}
-        {/* {isUserVerified ? <AddTweetPage /> : <AuthRequiredVerified />} */}
-        {/* {navigateTo && (
-          <AuthRequiredVerified>
-            <AddTweetPage retweetedTweetId={retweetedTweetId} />
-          </AuthRequiredVerified>
-        )} */}
 
         {navigateTo && (
           <Navigate

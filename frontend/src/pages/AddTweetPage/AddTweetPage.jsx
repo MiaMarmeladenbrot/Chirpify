@@ -9,13 +9,11 @@ import FooterNav from "../../components/FooterNav/FooterNav";
 const AddTweetPage = () => {
   const { accessToken, setAccessToken } = useContext(accessTokenContext);
   const location = useLocation();
-  const retweetedTweetId = location.state?.retweetedTweetId;
-  console.log(retweetedTweetId);
 
-  // authenticatedUserId, { message, retweetedTweetId, isLikedBy }
-  // message aus textarea, retweetedTweetId aus props bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
+  // authenticatedUserId, { message, retweetedTweetId, isLikedBy } => message aus textarea, retweetedTweetId aus navigate/location bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const retweetedTweetId = location.state?.retweetedTweetId;
 
   const navigate = useNavigate();
 
@@ -36,18 +34,19 @@ const AddTweetPage = () => {
     });
 
     const data = await res.json();
-    console.log({ data });
     if (!data.result) setErrorMessage(data.message);
 
     navigate("/feed");
-  }; // --> in Abhängigkeit zum UserFeed-Get, damit der rerendered wird?
+  }; //! --> in Abhängigkeit zum UserFeed-Get, damit der direkt rerendered wird mit dem neuen Tweet?
 
   return (
     <section className="add-tweet-page">
       <div>
-        <Link onClick={() => navigate(-1)}>Cancel</Link>
+        <Link to="/feed">Cancel</Link>
         <button onClick={postNewTweet}>Tweet</button>
       </div>
+
+      {errorMessage ? <p className="errorMessage">{errorMessage}</p> : ""}
 
       <div>
         <article>

@@ -7,8 +7,10 @@ footer {
   max-width: 450px;
   margin: 0 auto;
 
-  padding-bottom: 2rem;
+  padding-block: 2rem;
   padding-inline: 1rem;
+
+  background-color: white;
 }
 
 footer nav {

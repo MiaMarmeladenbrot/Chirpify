@@ -19,6 +19,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 ## Frontend
 
 - nach addTweet den UserFeed neu rendern - in Abhängigkeit setzen?
+- Position von addTweet-Button anpassen bei größerem Bildschirm
 - Header/Nav Größen anpassen
 - CommentFetch
 - LikeFetch/DislikeFetch

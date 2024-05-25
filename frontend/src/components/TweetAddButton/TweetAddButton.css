@@ -4,7 +4,7 @@
 
 .tweet-add-button-container img {
   cursor: pointer;
-  position: absolute;
-  bottom: 20%;
-  right: 0;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
 }

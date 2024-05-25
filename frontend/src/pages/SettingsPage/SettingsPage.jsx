@@ -7,8 +7,6 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 const SettingsPage = () => {
   const { user } = useContext(userContext);
 
-  console.log(user);
-
   return (
     <main className="settings">
       <article className="settings__header">

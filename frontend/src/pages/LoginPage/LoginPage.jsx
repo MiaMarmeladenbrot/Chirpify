@@ -4,6 +4,7 @@ import { backendUrl } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { accessTokenContext, userContext } from "../../context/Context";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
+import { FaEye } from "react-icons/fa";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("mia.mecklenburg@gmx.net");
@@ -11,6 +12,16 @@ const LoginPage = () => {
   const { setUser } = useContext(userContext);
   const { setAccesToken } = useContext(accessTokenContext);
   const navigate = useNavigate();
+
+  const [inputType, setInputType] = useState("password");
+
+  const handlePasswordVisibility = () => {
+    if (inputType === "password") {
+      setInputType("text");
+    } else if (inputType === "text") {
+      setInputType("password");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,14 +65,23 @@ const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        {/* <input
           type="password"
           name="password"
           id="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+        /> */}
+        <div>
+          <input
+            type={inputType}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+          <FaEye onClick={handlePasswordVisibility} className="eye" />
+        </div>
         <button type="submit">Log in</button>
       </form>
     </section>

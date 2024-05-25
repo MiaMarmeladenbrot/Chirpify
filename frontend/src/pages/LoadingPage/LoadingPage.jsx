@@ -1,23 +1,34 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./LoadingPage.css";
-import { allUsersContext } from "../../context/Context";
+import { allUsersContext, userContext } from "../../context/Context";
 import { backendUrl } from "../../api/api";
+import GetFetches from "../../components/GetFetches/GetFetches";
 
 const LoadingPage = () => {
-  const { allUsers, setAllUsers } = useContext(allUsersContext);
+  // const { user, setUser } = useContext(userContext);
+  // const { allUsers, setAllUsers } = useContext(allUsersContext);
+  // const {}
 
-  //# wegen doJwtAuth muss der Fetch doch erst nach dem Login passieren --> verschieben
+  // useEffect(() => {
+  //   fetch(`${backendUrl}/api/v1/users`)
+  //     .then((res) => res.json())
+  //     .then((data) => setAllUsers(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+  // console.log(allUsers);
+
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    fetch(`${backendUrl}/api/v1/users`)
-      .then((res) => res.json())
-      .then((data) => setAllUsers(data))
-      .catch((err) => console.log(err));
+    setTimeout(() => {
+      setLoading(true);
+    }, 3000);
   }, []);
-  console.log(allUsers);
 
   return (
     <section className="loadingpage">
       <img src="/img/birdLogo.png" alt="bird logo" />
+      <GetFetches loading={loading} />
     </section>
   );
 };

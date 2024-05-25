@@ -1,5 +1,7 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
-export const userContext = createContext()
-export const accessTokenContext = createContext()
-export const allUsersContext = createContext() // Loading
+export const userContext = createContext();
+export const accessTokenContext = createContext();
+export const allUsersContext = createContext();
+export const errorMessageContext = createContext();
+export const userFeedContext = createContext();

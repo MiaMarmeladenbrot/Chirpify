@@ -28,14 +28,15 @@ const LoginPage = () => {
 
     setAccesToken(data.result.tokens.accessToken);
 
-    if (
-      data.result.user.isEmailVerified === false &&
-      data.result.tokens.accessToken
-    ) {
-      return navigate("/settings/emailverification");
-    }
+    // if (
+    //   data.result.user.isEmailVerified === false &&
+    //   data.result.tokens.accessToken
+    // ) {
+    // return navigate("/settings/emailverification");
+    // }
 
-    navigate("/feed");
+    // navigate("/feed");
+    navigate("/loading");
     setEmail("");
     setPassword("");
   };

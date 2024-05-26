@@ -108,7 +108,7 @@ const Tweet = ({ singleTweet }) => {
         )}
 
         <div className="tweet-icons">
-          <TweetCommentIcon />
+          <TweetCommentIcon singleTweet={singleTweet} />
           <TweetRetweetIcon singleTweet={singleTweet} />
           <TweetLikeIcon />
           <TweetShareIcon />

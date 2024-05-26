@@ -27,7 +27,10 @@ const Tweet = ({ singleTweet }) => {
   const tweetTimeAsTimestamp = Date.parse(tweetDate);
   const tweetTimeAsDate = new Date(tweetTimeAsTimestamp);
   const tweetAge = Date.now() - tweetTimeAsTimestamp;
-  const tweetAgeInHours = Math.floor(tweetAge / 1000 / 60 / 60);
+  const tweetAgeInMin = Math.floor(tweetAge / 1000 / 60);
+  const tweetAgeInHours = Math.floor(tweetAgeInMin / 60);
+  const showTweetAge =
+    tweetAgeInHours < 1 ? `${tweetAgeInMin}min` : `${tweetAgeInHours}h`;
 
   // Datum des Tweets in anderem Format
   let tweetDay = new Date(tweetDate).getDate();
@@ -61,7 +64,7 @@ const Tweet = ({ singleTweet }) => {
           <p>
             {tweetAgeInHours > 23
               ? `${tweetDay}.${tweetMonth}.${tweetYear} ${tweetHours}:${tweetMinutes}`
-              : `${tweetAgeInHours}h`}
+              : `${showTweetAge}`}
           </p>
         </div>
         <p>{singleTweet?.message}</p>

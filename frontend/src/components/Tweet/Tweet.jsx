@@ -12,15 +12,6 @@ const Tweet = ({ singleTweet }) => {
   const { accessToken } = useContext(accessTokenContext);
   const [tweetOwner, setTweetOwner] = useState("");
 
-  // createdAt: "2024-05-24T14:45:18.115Z";
-  // isLikedBy: [];
-  // message: "zweiter test post von mia";
-  // retweetedTweetId: null;
-  // updatedAt: "2024-05-24T14:45:18.115Z";
-  // userId: "66505f381343ddd9afb36c7d";
-  // __v: 0;
-  // _id: "6650a7fec419afdfff7841fb";
-
   // mit userId den jeweiligen User fetchen, um seinen Namen und sein Bild anzeigen zu lassen:
   useEffect(() => {
     fetch(`${backendUrl}/api/v1/users/${singleTweet?.userId}`, {
@@ -32,17 +23,22 @@ const Tweet = ({ singleTweet }) => {
   }, []);
 
   // wenn Tweet jünger als 24 Stunden ist, die Stunden berechnen und diese statt des Datums ausgeben:
-  const tweetTimeAsTimestamp = Date.parse(singleTweet.createdAt);
+  const tweetDate = new Date(singleTweet.createdAt);
+  const tweetTimeAsTimestamp = Date.parse(tweetDate);
+  const tweetTimeAsDate = new Date(tweetTimeAsTimestamp);
   const tweetAge = Date.now() - tweetTimeAsTimestamp;
-  const tweetAgeInMS = new Date(tweetAge);
-  const tweetAgeInHours = tweetAgeInMS.getHours();
+  const tweetAgeInHours = Math.floor(tweetAge / 1000 / 60 / 60);
 
   // Datum des Tweets in anderem Format
-  const tweetDay = new Date(tweetTimeAsTimestamp).getDay();
-  const tweetMonth = new Date(tweetTimeAsTimestamp).getMonth();
-  const tweetYear = new Date(tweetTimeAsTimestamp).getFullYear();
-  const tweetMinutes = new Date(tweetTimeAsTimestamp).getMinutes();
-  const tweetHours = new Date(tweetTimeAsTimestamp).getHours();
+  let tweetDay = new Date(tweetDate).getDate();
+  tweetDay = tweetDay < 10 ? `0${tweetDay}` : tweetDay;
+  let tweetMonth = new Date(tweetDate).getMonth() + 1;
+  tweetMonth = tweetMonth < 10 ? `0${tweetMonth}` : tweetMonth;
+  const tweetYear = new Date(tweetDate).getFullYear();
+  let tweetHours = new Date(tweetDate).getHours();
+  tweetHours = tweetHours < 10 ? `0${tweetHours}` : tweetHours;
+  let tweetMinutes = new Date(tweetDate).getMinutes();
+  tweetMinutes = tweetMinutes < 10 ? `0${tweetMinutes}` : tweetMinutes;
 
   return (
     <section className="single-tweet">
@@ -61,9 +57,10 @@ const Tweet = ({ singleTweet }) => {
             {tweetOwner?.firstname} {tweetOwner?.lastname}
           </p>
           <p>@{tweetOwner?.username}</p>
+
           <p>
-            {tweetAgeInHours > 24
-              ? `${tweetDay}.${tweetMonth}.${tweetYear} at ${tweetHours}:${tweetMinutes}`
+            {tweetAgeInHours > 23
+              ? `${tweetDay}.${tweetMonth}.${tweetYear} ${tweetHours}:${tweetMinutes}`
               : `${tweetAgeInHours}h`}
           </p>
         </div>

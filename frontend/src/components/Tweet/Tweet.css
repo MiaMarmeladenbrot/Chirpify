@@ -5,6 +5,7 @@
 
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--color-grey-light);
+  position: relative;
 }
 
 .single-tweet img {
@@ -33,5 +34,20 @@
 }
 
 .tweet-icons svg {
+  cursor: pointer;
+}
+
+.tweet-menu {
+  position: absolute;
+  right: 40px;
+  top: 10px;
+  text-align: right;
+  background-color: white;
+  padding: 1rem 0.5rem;
+  border: 1px solid var(--color-main-blue);
+  border-radius: 10px;
+}
+
+.tweet-menu p {
   cursor: pointer;
 }

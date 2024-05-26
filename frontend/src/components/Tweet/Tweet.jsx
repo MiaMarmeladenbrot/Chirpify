@@ -1,16 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext } from "../../context/Context";
+import { accessTokenContext, userContext } from "../../context/Context";
 import "./Tweet.css";
 import TweetCommentIcon from "../TweetCommentIcon/TweetCommentIcon";
 import TweetRetweetIcon from "../TweetRetweetIcon/TweetRetweetIcon";
 import TweetLikeIcon from "../TweetLikeIcon/TweetLikeIcon";
 import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
 import { Link } from "react-router-dom";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Tweet = ({ singleTweet }) => {
   const { accessToken } = useContext(accessTokenContext);
+  const { user } = useContext(userContext);
   const [tweetOwner, setTweetOwner] = useState("");
+  const [showTweetMenu, setShowTweetMenu] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // mit userId den jeweiligen User fetchen, um seinen Namen und sein Bild anzeigen zu lassen:
   useEffect(() => {
@@ -43,6 +47,23 @@ const Tweet = ({ singleTweet }) => {
   let tweetMinutes = new Date(tweetDate).getMinutes();
   tweetMinutes = tweetMinutes < 10 ? `0${tweetMinutes}` : tweetMinutes;
 
+  // * Delete tweet
+  const deleteTweet = async () => {
+    const res = await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const data = await res.json();
+    if (!data.result) setErrorMessage(data.message);
+    const deletedTweet = data.result;
+    setShowTweetMenu(false);
+  };
+
+  // * edit tweet
+
   return (
     <section className="single-tweet">
       {/* hier oben noch, letzter Like bzw. letzter Retweet des Tweets */}
@@ -66,7 +87,19 @@ const Tweet = ({ singleTweet }) => {
               ? `${tweetDay}.${tweetMonth}.${tweetYear} ${tweetHours}:${tweetMinutes}`
               : `${showTweetAge}`}
           </p>
+          {singleTweet?.userId === user._id ? (
+            <IoIosArrowDown onClick={() => setShowTweetMenu(!showTweetMenu)} />
+          ) : (
+            ""
+          )}
+          {showTweetMenu && (
+            <div className="tweet-menu">
+              <p>Edit your tweet</p>
+              <p onClick={deleteTweet}>Delete your tweet</p>
+            </div>
+          )}
         </div>
+
         <p>{singleTweet?.message}</p>
 
         {/* // hier retweet darstellen, falls vorhanden, mit retweetedTweetId */}

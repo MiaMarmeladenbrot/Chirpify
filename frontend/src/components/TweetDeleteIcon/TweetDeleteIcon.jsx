@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
   const { accessToken } = useContext(accessTokenContext);
+
+  const navigate = useNavigate();
 
   const deleteTweet = async () => {
     const res = await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
@@ -16,7 +19,7 @@ const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
     const data = await res.json();
     if (!data.result) setErrorMessage(data.message);
     const deletedTweet = data.result;
-    // setShowTweetMenu(false);
+    navigate("/loading");
   };
 
   return (

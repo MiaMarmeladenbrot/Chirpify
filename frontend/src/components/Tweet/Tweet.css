@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.text-area {
+  padding-right: 2rem;
+}
+
 .tweet-text {
   display: flex;
   /* justify-content: space-between; */
@@ -38,23 +42,17 @@
   cursor: pointer;
 }
 
-/* .tweet-menu {
-  position: absolute;
-  right: 40px;
-  top: 10px;
-  text-align: right;
-  background-color: white;
-  padding: 1rem 0.5rem;
-  border: 1px solid var(--color-main-blue);
-  border-radius: 10px;
-} */
-
 .tweet-menu {
   position: absolute;
   top: 1rem;
   right: 1rem;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tweet-menu svg {
+  cursor: pointer;
 }
 
 .tweet-menu p {

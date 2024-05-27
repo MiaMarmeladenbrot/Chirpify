@@ -31,6 +31,7 @@ export async function editTweet(authenticatedUserId, tweetId, updateTweetInfo) {
     },
     { new: true }
   );
+  console.log(updatedTweet);
 
   return { updatedTweet };
 }

@@ -5,6 +5,7 @@
 
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--color-grey-light);
+  position: relative;
 }
 
 .single-tweet img {
@@ -15,9 +16,14 @@
   width: 100%;
 }
 
+.text-area {
+  padding-right: 2rem;
+}
+
 .tweet-text {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+
   gap: 20px;
 }
 
@@ -34,4 +40,36 @@
 
 .tweet-icons svg {
   cursor: pointer;
+}
+
+.tweet-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tweet-menu svg {
+  cursor: pointer;
+}
+
+.tweet-menu p {
+  cursor: pointer;
+}
+
+.text-area input {
+  width: 20rem;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding: 10px 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-grey-light);
+}
+
+.text-area input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--color-main-blue);
 }

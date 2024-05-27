@@ -45,7 +45,12 @@ const HeaderNav = () => {
         )}
 
         {pathname === "/feed" && (
-          <IoIosSettings color="#1D9BF0" size={60} onClick={() => navigate("/settings")} />
+          <IoIosSettings
+            color="#1D9BF0"
+            size={50}
+            onClick={() => navigate("/settings")}
+          />
+
         )}
       </nav>
     </header>

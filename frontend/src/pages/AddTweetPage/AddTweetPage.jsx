@@ -7,12 +7,12 @@ import { accessTokenContext } from "../../context/Context";
 import FooterNav from "../../components/FooterNav/FooterNav";
 
 const AddTweetPage = () => {
-  const { accessToken, setAccessToken } = useContext(accessTokenContext);
-  const location = useLocation();
+  const { accessToken } = useContext(accessTokenContext);
 
   // authenticatedUserId, { message, retweetedTweetId, isLikedBy } => message aus textarea, retweetedTweetId aus navigate/location bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const location = useLocation();
   const retweetedTweetId = location.state?.retweetedTweetId;
 
   const navigate = useNavigate();
@@ -23,6 +23,11 @@ const AddTweetPage = () => {
 
   const postNewTweet = async (e) => {
     e.preventDefault();
+
+    if (message.length > 160)
+      return setErrorMessage(
+        "We know you have a lot to say, but unfortunately your tweet cannot exceed 160 characters."
+      );
 
     const res = await fetch(`${backendUrl}/api/v1/tweets`, {
       method: "POST",
@@ -35,9 +40,10 @@ const AddTweetPage = () => {
 
     const data = await res.json();
     if (!data.result) setErrorMessage(data.message);
-
-    navigate("/feed");
-  }; //! --> in Abhängigkeit zum UserFeed-Get, damit der direkt rerendered wird mit dem neuen Tweet?
+    const newTweet = data.result;
+    setErrorMessage("");
+    navigate("/loading");
+  };
 
   return (
     <section className="add-tweet-page">
@@ -46,7 +52,7 @@ const AddTweetPage = () => {
         <button onClick={postNewTweet}>Tweet</button>
       </div>
 
-      {errorMessage ? <p className="errorMessage">{errorMessage}</p> : ""}
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
 
       <div>
         <article>

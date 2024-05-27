@@ -22,6 +22,11 @@
   position: relative;
 }
 
+.headerNav-big img {
+  object-fit: contain;
+  width: 2.5rem;
+}
+
 .arrow-position {
   position: absolute;
   left: 40px;

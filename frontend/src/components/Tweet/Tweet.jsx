@@ -73,6 +73,8 @@ const Tweet = ({ singleTweet }) => {
               : `${showTweetAge}`}
           </p>
 
+          {/* //* Idee von Thomas: delete und edit vertikal anordnen mit Padding zw. Icons und Text */}
+
           {singleTweet?.userId === user._id ? (
             <div className="tweet-menu">
               <TweetEditIcon singleTweet={singleTweet} />

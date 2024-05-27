@@ -1,7 +1,13 @@
-const TweetCommentIcon = () => {
+import { useState } from "react";
+import TweetCommentFeed from "../TweetCommentFeed/TweetCommentFeed";
+
+const TweetCommentIcon = ({ singleTweet }) => {
+  const [showComments, setShowComments] = useState(false);
   return (
     <div>
       <svg
+        className="tweet-comment-icon"
+        onClick={() => setShowComments(!showComments)}
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="15"
@@ -15,6 +21,7 @@ const TweetCommentIcon = () => {
           fill="#687684"
         />
       </svg>
+      {showComments && <TweetCommentFeed singleTweet={singleTweet} />}
     </div>
   );
 };

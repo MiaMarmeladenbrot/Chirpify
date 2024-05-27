@@ -6,11 +6,12 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Backend ToDos
 
+- showFeed -> retweetedTweetId populaten?
 - addTweet: falls retweet, dessen Infos populaten?
 - editTweet: soll man retweetTweetId hinterher bearbeiten können? -> nein!
 - Update Access Token back to 10 min
 - refreshToken implementieren
-- Multer für Profilbild und Tweet-Bild
+- Multer für Profilbild und Tweet-Bild -> Tweet-Model
 - Endpunkt für random Vorschläge, damit der User überhaupt zu Beginn die Möglichkeit hat, Leuten zu folgen, etc.?
 - Suchfunktion nach Usern und Themen? Oder im Frontend umsetzen?
 

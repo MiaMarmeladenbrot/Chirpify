@@ -16,9 +16,7 @@ const postLoginUserCtrl = async (req, res) => {
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not login user" });
+    res.status(500).json({ error, message: error.message || "Could not login user" });
   }
 };
 
@@ -29,9 +27,7 @@ const postSendVerifyEmailCtrl = async (req, res) => {
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not send email" });
+    res.status(500).json({ error, message: error.message || "Could not send email" });
   }
 };
 
@@ -40,16 +36,11 @@ const postVerifyEmailCtrl = async (req, res) => {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
     const sixDigitCode = req.body.sixDigitCode;
 
-    const result = await UserService.verifyEmail(
-      authenticatedUserId,
-      sixDigitCode
-    );
+    const result = await UserService.verifyEmail(authenticatedUserId, sixDigitCode);
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not verify email" });
+    res.status(500).json({ error, message: error.message || "Could not verify email" });
   }
 };
 
@@ -57,10 +48,7 @@ const patchEditUserCtrl = async (req, res) => {
   try {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
     const userUpdateInfo = req.body;
-    const result = await UserService.editUser(
-      authenticatedUserId,
-      userUpdateInfo
-    );
+    const result = await UserService.editUser(authenticatedUserId, userUpdateInfo);
     res.json({ result });
   } catch (error) {
     console.log(error);
@@ -78,9 +66,7 @@ const deleteUserCtrl = async (req, res) => {
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not delete user " });
+    res.status(500).json({ error, message: error.message || "Could not delete user " });
   }
 };
 
@@ -90,9 +76,7 @@ const getAllUsersCtrl = async (req, res) => {
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not find users" });
+    res.status(500).json({ error, message: error.message || "Could not find users" });
   }
 };
 
@@ -103,9 +87,7 @@ const getOneUserCtrl = async (req, res) => {
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not find user" });
+    res.status(500).json({ error, message: error.message || "Could not find user" });
   }
 };
 
@@ -114,16 +96,11 @@ const followUserCtrl = async (req, res) => {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
     const userIdToFollow = req.params.userId;
 
-    const result = await UserService.followUser(
-      authenticatedUserId,
-      userIdToFollow
-    );
+    const result = await UserService.followUser(authenticatedUserId, userIdToFollow);
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not follow user" });
+    res.status(500).json({ error, message: error.message || "Could not follow user" });
   }
 };
 
@@ -132,16 +109,22 @@ const unfollowUserCtrl = async (req, res) => {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
     const userIdToUnfollow = req.params.userId;
 
-    const result = await UserService.unfollowUser(
-      authenticatedUserId,
-      userIdToUnfollow
-    );
+    const result = await UserService.unfollowUser(authenticatedUserId, userIdToUnfollow);
     res.json({ result });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ error, message: error.message || "Could not unfollow user" });
+    res.status(500).json({ error, message: error.message || "Could not unfollow user" });
+  }
+};
+
+const getShowUsersFollowersCtrl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub;
+    const result = await UserService.showUsersFollower(authenticatedUserId);
+    res.json({ result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error, message: error.message || "Could not show users followers" });
   }
 };
 
@@ -156,4 +139,5 @@ export const UserController = {
   getOneUserCtrl,
   followUserCtrl,
   unfollowUserCtrl,
+  getShowUsersFollowersCtrl,
 };

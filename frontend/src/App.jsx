@@ -31,9 +31,7 @@ function App() {
       <userContext.Provider value={{ user, setUser }}>
         <allUsersContext.Provider value={{ allUsers, setAllUsers }}>
           <accessTokenContext.Provider value={{ accessToken, setAccesToken }}>
-            <errorMessageContext.Provider
-              value={{ errorMessage, setErrorMessage }}
-            >
+            <errorMessageContext.Provider value={{ errorMessage, setErrorMessage }}>
               <userFeedContext.Provider value={{ userFeed, setUserFeed }}>
                 <BrowserRouter>
                   <Routes>
@@ -83,10 +81,7 @@ function App() {
                         </AuthRequiredLogin>
                       }
                     />
-                    <Route
-                      path="*"
-                      element={<p>There's nothing here: 404!</p>}
-                    />
+                    <Route path="*" element={<p>There's nothing here: 404!</p>} />
                   </Routes>
                 </BrowserRouter>
               </userFeedContext.Provider>

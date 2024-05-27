@@ -10,7 +10,7 @@ const HeaderNav = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    return navigate("/landing");
+    return navigate("/");
   };
 
   const refreshFeed = () => {

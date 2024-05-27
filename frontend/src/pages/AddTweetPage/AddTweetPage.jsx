@@ -24,6 +24,11 @@ const AddTweetPage = () => {
   const postNewTweet = async (e) => {
     e.preventDefault();
 
+    if (message.length > 160)
+      return setErrorMessage(
+        "We know you have a lot to say, but unfortunately your tweet cannot exceed 160 characters."
+      );
+
     const res = await fetch(`${backendUrl}/api/v1/tweets`, {
       method: "POST",
       headers: {
@@ -36,6 +41,7 @@ const AddTweetPage = () => {
     const data = await res.json();
     if (!data.result) setErrorMessage(data.message);
     const newTweet = data.result;
+    setErrorMessage("");
     navigate("/loading");
   };
 
@@ -46,7 +52,7 @@ const AddTweetPage = () => {
         <button onClick={postNewTweet}>Tweet</button>
       </div>
 
-      {errorMessage ? <p className="errorMessage">{errorMessage}</p> : ""}
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
 
       <div>
         <article>

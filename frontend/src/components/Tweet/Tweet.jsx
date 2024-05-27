@@ -54,6 +54,7 @@ const Tweet = ({ singleTweet }) => {
 
   return (
     <section className="single-tweet">
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       {/* hier oben noch, letzter Like bzw. letzter Retweet des Tweets */}
       <Link to={`/user/${singleTweet?.userId}`}>
         <img

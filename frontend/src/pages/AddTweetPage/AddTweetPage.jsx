@@ -35,10 +35,9 @@ const AddTweetPage = () => {
 
     const data = await res.json();
     if (!data.result) setErrorMessage(data.message);
-    const newTweet = data.result; // --> einfach in userFeed spreaden geht nicht, leider ...
-
-    navigate("/feed");
-  }; //! --> in Abhängigkeit zum UserFeed-Get, damit der direkt rerendered wird mit dem neuen Tweet?
+    const newTweet = data.result;
+    navigate("/loading");
+  };
 
   return (
     <section className="add-tweet-page">

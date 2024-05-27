@@ -1,5 +1,13 @@
-const UserPage = () => {
-  return <div>UserPage</div>
-}
+import { useContext } from "react";
+import HeaderNav from "../../components/HeaderNav/HeaderNav";
+import "./UserPage.css";
 
-export default UserPage
+const UserPage = () => {
+  return (
+    <>
+      <HeaderNav />
+    </>
+  );
+};
+
+export default UserPage;

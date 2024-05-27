@@ -1,0 +1,14 @@
+.userpage__header-container {
+  background-color: black;
+  padding-top: 0.9rem;
+  padding-bottom: 0.6rem;
+}
+
+.userpage__header__name {
+  font-weight: 600;
+  color: white;
+}
+
+.userpage__arrow {
+  color: white;
+}

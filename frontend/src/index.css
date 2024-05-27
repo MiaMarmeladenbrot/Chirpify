@@ -39,6 +39,7 @@ a {
 .errorMessage {
   color: var(--color-main-red);
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* General styling for login/register forms */

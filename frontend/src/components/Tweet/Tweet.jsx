@@ -15,6 +15,8 @@ const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
   const [tweetOwner, setTweetOwner] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [message, setMessage] = useState("");
 
   // mit userId den jeweiligen User fetchen, um seinen Namen und sein Bild anzeigen zu lassen:
   useEffect(() => {
@@ -33,7 +35,11 @@ const Tweet = ({ singleTweet }) => {
   const tweetAgeInMin = Math.floor(tweetAge / 1000 / 60);
   const tweetAgeInHours = Math.floor(tweetAgeInMin / 60);
   const showTweetAge =
-    tweetAgeInHours < 1 ? `${tweetAgeInMin}min` : `${tweetAgeInHours}h`;
+    tweetAgeInHours > 1
+      ? `${tweetAgeInHours}h`
+      : tweetAgeInMin > 1
+      ? `${tweetAgeInMin}min`
+      : "now";
 
   // Datum des Tweets in anderem Format
   let tweetDay = new Date(tweetDate).getDate();
@@ -48,8 +54,8 @@ const Tweet = ({ singleTweet }) => {
 
   return (
     <section className="single-tweet">
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       {/* hier oben noch, letzter Like bzw. letzter Retweet des Tweets */}
-      {/* mit position absolute noch ein Pfeilchen für edit Tweet einbauen */}
       <Link to={`/user/${singleTweet?.userId}`}>
         <img
           src={`${backendUrl}/${tweetOwner?.profileImg}`}
@@ -71,7 +77,17 @@ const Tweet = ({ singleTweet }) => {
                 : `${showTweetAge}`}
             </p>
           </div>
-          <p>{singleTweet?.message}</p>
+
+          {toggleEdit ? (
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          ) : (
+            <p>{singleTweet?.message}</p>
+          )}
+
           {/* // hier retweet darstellen, falls vorhanden, mit retweetedTweetId */}
           {singleTweet?.retweetedTweetId && (
             <p>Retweet von {singleTweet?.retweetedTweetId}</p>
@@ -80,7 +96,14 @@ const Tweet = ({ singleTweet }) => {
 
         {singleTweet?.userId === user._id ? (
           <div className="tweet-menu">
-            <TweetEditIcon singleTweet={singleTweet} />
+            <TweetEditIcon
+              singleTweet={singleTweet}
+              message={message}
+              setMessage={setMessage}
+              setErrorMessage={setErrorMessage}
+              toggleEdit={toggleEdit}
+              setToggleEdit={setToggleEdit}
+            />
             <TweetDeleteIcon
               singleTweet={singleTweet}
               setErrorMessage={setErrorMessage}

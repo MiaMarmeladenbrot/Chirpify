@@ -12,3 +12,62 @@
 .userpage__arrow {
   color: white;
 }
+
+.userpage__profile-image img {
+  border-radius: 100%;
+  width: 65px;
+  height: 65px;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+  overflow: hidden;
+  border: 1.5px solid white;
+}
+
+.userpage__profile-content-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  padding-inline: 1.5rem;
+}
+
+.userpage__username-bold {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.userpage__username {
+  color: var(--color-grey-light);
+  margin-bottom: 1rem;
+}
+
+.userpage__description {
+  margin-bottom: 0.5rem;
+}
+
+.userpage__bottom-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.userpage__bottom-container div {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  align-items: center;
+}
+
+.userpage__bottom-container a {
+  color: var(--color-main-blue);
+  cursor: pointer;
+}
+
+.userpage__follow-container p {
+  color: var(--color-grey-light);
+}
+
+.userpage__follow-container span {
+  font-weight: 700;
+  color: var(--color-grey-dark);
+}

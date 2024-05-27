@@ -11,8 +11,10 @@ export const userToView = (user) => {
         isFollowerOf: item.isFollowerOf,
         profileImg: item.profileImg,
         description: item.description,
-      }
-    })
+        createdAt: item.createdAt,
+        website: item.website,
+      };
+    });
   }
 
   return {
@@ -25,5 +27,7 @@ export const userToView = (user) => {
     isFollowerOf: user.isFollowerOf,
     profileImg: user.profileImg,
     description: user.description,
-  }
-}
+    createdAt: user.createdAt,
+    website: user.website,
+  };
+};

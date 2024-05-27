@@ -1,6 +1,6 @@
-import HeaderNav from "../../components/HeaderNav/HeaderNav"
-import "./LandingPage.css"
-import { Link } from "react-router-dom"
+import HeaderNav from "../../components/HeaderNav/HeaderNav";
+import "./LandingPage.css";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -16,7 +16,8 @@ const LandingPage = () => {
             <Link to="/register">Create account</Link>
           </div>
           <p className="landingPage__terms">
-            By signing up, you agree to our Termns, Privacy Policy and Cookie Use.
+            By signing up, you agree to our Terms, Privacy Policy and Cookie
+            Use.
           </p>
         </div>
         <div className="landingPage__Login-Container">
@@ -27,7 +28,7 @@ const LandingPage = () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;

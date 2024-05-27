@@ -58,3 +58,18 @@
 .tweet-menu p {
   cursor: pointer;
 }
+
+.text-area input {
+  width: 20rem;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding: 10px 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-grey-light);
+}
+
+.text-area input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--color-main-blue);
+}

@@ -8,6 +8,8 @@ import TweetLikeIcon from "../TweetLikeIcon/TweetLikeIcon";
 import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import TweetDeleteIcon from "../TweetDeleteIcon/TweetDeleteIcon";
+import TweetEditIcon from "../TweetEditIcon/TweetEditIcon";
 
 const Tweet = ({ singleTweet }) => {
   const { accessToken } = useContext(accessTokenContext);
@@ -47,23 +49,6 @@ const Tweet = ({ singleTweet }) => {
   let tweetMinutes = new Date(tweetDate).getMinutes();
   tweetMinutes = tweetMinutes < 10 ? `0${tweetMinutes}` : tweetMinutes;
 
-  // * Delete tweet
-  const deleteTweet = async () => {
-    const res = await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    const data = await res.json();
-    if (!data.result) setErrorMessage(data.message);
-    const deletedTweet = data.result;
-    setShowTweetMenu(false);
-  };
-
-  // * edit tweet
-
   return (
     <section className="single-tweet">
       {/* hier oben noch, letzter Like bzw. letzter Retweet des Tweets */}
@@ -87,17 +72,24 @@ const Tweet = ({ singleTweet }) => {
               ? `${tweetDay}.${tweetMonth}.${tweetYear} ${tweetHours}:${tweetMinutes}`
               : `${showTweetAge}`}
           </p>
+
           {singleTweet?.userId === user._id ? (
-            <IoIosArrowDown onClick={() => setShowTweetMenu(!showTweetMenu)} />
+            <div className="tweet-menu">
+              <TweetEditIcon singleTweet={singleTweet} />
+              <TweetDeleteIcon
+                singleTweet={singleTweet}
+                setErrorMessage={setErrorMessage}
+              />
+            </div>
           ) : (
             ""
           )}
-          {showTweetMenu && (
+          {/* {showTweetMenu && (
             <div className="tweet-menu">
               <p>Edit your tweet</p>
               <p onClick={deleteTweet}>Delete your tweet</p>
             </div>
-          )}
+          )} */}
         </div>
 
         <p>{singleTweet?.message}</p>

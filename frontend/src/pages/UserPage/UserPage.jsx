@@ -58,10 +58,10 @@ const UserPage = () => {
           <div className="userpage__follow-container">
             <div>
               <p>
-                <span>{user.isFollowerOf.length} </span>Following
+                <span>{user?.isFollowerOf?.length} </span>Following
               </p>
               <p>
-                <span>{followers?.result.length} </span>Followers
+                <span>{followers?.result?.length} </span>Followers
               </p>
             </div>
             <div></div>

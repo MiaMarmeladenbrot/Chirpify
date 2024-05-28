@@ -6,8 +6,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Backend ToDos
 
-- showTweets -> retweetedTweetId populaten? User populaten?
-- addTweet: falls retweet, dessen Infos populaten?
+- Endpunkt für like comment schreiben?
 - editTweet: soll man retweetTweetId hinterher bearbeiten können? -> nein!
 - Update Access Token back to 10 min
 - refreshToken implementieren
@@ -17,13 +16,12 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
+- allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
 - key=index überall anpassen?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
 - retweeted Tweet auf addTweetPage darstellen, falls es ein retweet ist
-- CommentFetch
 - LikeFetch/DislikeFetch
 - taggedUsers über filter-Funktion ans Backend
-- alles auf UserPage
 - Suche nach Usern (@) und Themen (#)?
 - AuthRequired mit refresh anpassen

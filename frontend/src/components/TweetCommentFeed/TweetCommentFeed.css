@@ -1,3 +1,28 @@
 .tweet-comment-feed {
-    
+  border-top: 1px solid var(--color-grey-light);
+  padding-top: 1rem;
+}
+
+.single-comment {
+  border-bottom: 1px solid var(--color-grey-light);
+  margin-bottom: 1rem;
+}
+
+.comment-profile-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.comment-profile-area img {
+  width: 30px;
+}
+
+.comment-profile-area p {
+  margin-bottom: 5px;
+}
+
+.comment-profile-area p:last-of-type {
+  color: var(--color-grey-light);
 }

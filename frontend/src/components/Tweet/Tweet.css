@@ -3,12 +3,13 @@
   gap: 1rem;
   padding: 1rem;
 
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--color-grey-light);
+  border-bottom: 1px solid var(--color-main-blue);
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .single-tweet img {
+  width: 50px;
   object-fit: contain;
 }
 
@@ -16,19 +17,32 @@
   width: 100%;
 }
 
-.text-area {
+.single-tweet p {
+  margin-bottom: 1rem;
+}
+
+.new-tweet-area {
   padding-right: 2rem;
 }
 
-.tweet-text {
+.profile-area {
   display: flex;
-  /* justify-content: space-between; */
-
-  gap: 20px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
 }
 
-.single-tweet p {
-  margin-bottom: 1rem;
+.profile-area p {
+  margin-bottom: 5px;
+}
+
+.profile-area p:last-of-type {
+  color: var(--color-grey-light);
+}
+
+.time-of-tweet {
+  text-align: right;
+  color: var(--color-grey-light);
 }
 
 .tweet-icons {
@@ -40,6 +54,7 @@
 
 .tweet-icons svg {
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .tweet-menu {
@@ -77,9 +92,6 @@
 .retweeted-tweet-box {
   border: 1px solid var(--color-grey-light);
   border-radius: 10px;
-  padding-block: 0.5rem;
-  padding-left: 0.5rem;
-  margin-left: 1rem;
-
+  padding: 0.5rem;
   margin-bottom: 1rem;
 }

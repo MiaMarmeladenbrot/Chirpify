@@ -11,22 +11,11 @@ import TweetDeleteIcon from "../TweetDeleteIcon/TweetDeleteIcon";
 import TweetEditIcon from "../TweetEditIcon/TweetEditIcon";
 
 const Tweet = ({ singleTweet }) => {
-  const { accessToken } = useContext(accessTokenContext);
   const { user } = useContext(userContext);
-  const [tweetOwner, setTweetOwner] = useState("");
+  const tweetOwner = singleTweet?.userId;
   const [errorMessage, setErrorMessage] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [message, setMessage] = useState("");
-
-  // mit userId den jeweiligen User fetchen, um seinen Namen und sein Bild anzeigen zu lassen:
-  useEffect(() => {
-    fetch(`${backendUrl}/api/v1/users/${singleTweet?.userId}`, {
-      headers: { authorization: `Bearer ${accessToken}` },
-    })
-      .then((res) => res.json())
-      .then((data) => setTweetOwner(data.result))
-      .catch((err) => console.log(err));
-  }, []);
 
   // wenn Tweet jünger als 24 Stunden ist, die Stunden berechnen und diese statt des Datums ausgeben:
   const tweetDate = new Date(singleTweet.createdAt);
@@ -55,7 +44,9 @@ const Tweet = ({ singleTweet }) => {
   return (
     <section className="single-tweet">
       {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-      {/* hier oben noch, letzter Like bzw. letzter Retweet des Tweets */}
+
+      {/* //* hier oben noch ergänzen: letzter Like bzw. letzter Retweet des Tweets */}
+
       <Link to={`/user/${singleTweet?.userId}`}>
         <img
           src={`${backendUrl}/${tweetOwner?.profileImg}`}
@@ -94,7 +85,7 @@ const Tweet = ({ singleTweet }) => {
           )}
         </section>
 
-        {singleTweet?.userId === user._id ? (
+        {tweetOwner?._id === user._id ? (
           <div className="tweet-menu">
             <TweetEditIcon
               singleTweet={singleTweet}

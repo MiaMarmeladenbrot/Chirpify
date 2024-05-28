@@ -6,7 +6,12 @@ export const showFeed = async (authenticatedUserId) => {
   if (!user) throw new Error("User does not exist");
 
   // alle tweets des authentifizierten Users
-  const userTweets = await Tweet.find({ userId: authenticatedUserId });
+  const userTweets = await Tweet.find({ userId: authenticatedUserId }).populate(
+    {
+      path: "userId",
+      select: "_id firstname lastname username profileImg",
+    }
+  );
 
   // alle Tweets von den Leuten, denen der user folgt - als array mit ids als ObjectIds
   const userFollowsIdArr = user.isFollowerOf;
@@ -19,6 +24,9 @@ export const showFeed = async (authenticatedUserId) => {
   // mit string-Ids nach Tweets suchen
   const followerTweetsArr = await Tweet.find({
     userId: { $in: userFollowerIdStringsArr },
+  }).populate({
+    path: "userId",
+    select: "_id firstname lastname username profileImg",
   });
 
   // userTweets und followTweets zusammenfügen, ist aber noch unsortiert

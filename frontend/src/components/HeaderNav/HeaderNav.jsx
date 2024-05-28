@@ -33,6 +33,7 @@ const HeaderNav = () => {
         {pathname === "/feed" && <ImageProfile />}
 
         {pathname === `/user/${userProfileData?._id}` && (
+
           <div>
             <FaArrowLeft className="arrow-position userpage__arrow" onClick={goBack} />
             <p className="userpage__header__name">

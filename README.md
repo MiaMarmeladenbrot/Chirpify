@@ -6,7 +6,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Backend ToDos
 
-- showFeed -> retweetedTweetId populaten?
+- showTweets -> retweetedTweetId populaten? User populaten?
 - addTweet: falls retweet, dessen Infos populaten?
 - editTweet: soll man retweetTweetId hinterher bearbeiten können? -> nein!
 - Update Access Token back to 10 min
@@ -15,12 +15,10 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - Endpunkt für random Vorschläge, damit der User überhaupt zu Beginn die Möglichkeit hat, Leuten zu folgen, etc.?
 - Suchfunktion nach Usern und Themen? Oder im Frontend umsetzen?
 
-## Fragen an Ahmed
-
-- was macht wann mehr Sinn: Ids in params oder body?
-
 ## Frontend ToDos
 
+- fetches in try/catch?
+- key=index überall anpassen?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
 - retweeted Tweet auf addTweetPage darstellen, falls es ein retweet ist
 - CommentFetch

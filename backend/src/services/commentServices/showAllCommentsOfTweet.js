@@ -11,7 +11,10 @@ export async function showAllCommentsOfTweet(tweetId) {
   if (!tweet)
     throw new Error("This tweet does not exist and ergo has no comments.");
 
-  const allComments = await Comment.find({ tweetId });
+  const allComments = await Comment.find({ tweetId }).populate({
+    path: "userId",
+    select: "_id firstname lastname username profileImg",
+  });
 
   return allComments;
 }

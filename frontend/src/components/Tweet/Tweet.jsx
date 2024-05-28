@@ -62,7 +62,7 @@ const Tweet = ({ singleTweet }) => {
 
       {/* //* hier oben noch ergänzen: letzter Like bzw. letzter Retweet des Tweets */}
 
-      <Link to={`/user/${singleTweet?.userId}`}>
+      <Link to={`/user/${singleTweet?.userId._id}`}>
         <img
           src={`${backendUrl}/${tweetOwner?.profileImg}`}
           alt={`Profile image of ${tweetOwner?.username}`}

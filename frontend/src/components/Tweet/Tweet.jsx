@@ -12,34 +12,49 @@ import TweetEditIcon from "../TweetEditIcon/TweetEditIcon";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
-  const tweetOwner = singleTweet?.userId;
+
   const [errorMessage, setErrorMessage] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [message, setMessage] = useState("");
+  const tweetOwner = singleTweet?.userId;
+  const retweetedTweet = singleTweet?.retweetedTweetId;
 
-  // wenn Tweet jünger als 24 Stunden ist, die Stunden berechnen und diese statt des Datums ausgeben:
-  const tweetDate = new Date(singleTweet.createdAt);
-  const tweetTimeAsTimestamp = Date.parse(tweetDate);
-  const tweetAge = Date.now() - tweetTimeAsTimestamp;
-  const tweetAgeInMin = Math.floor(tweetAge / 1000 / 60);
-  const tweetAgeInHours = Math.floor(tweetAgeInMin / 60);
-  const showTweetAge =
-    tweetAgeInHours > 1
-      ? `${tweetAgeInHours}h`
-      : tweetAgeInMin > 1
-      ? `${tweetAgeInMin}min`
-      : "now";
+  // function to calculate the age of a tweet and show it in different ways, depending on the time that passed
+  const calculateTweetAge = (createdAt) => {
+    const tweetDate = new Date(createdAt); // Tue May 28 2024 14:10:39 GMT+0200 (Mitteleuropäische Sommerzeit)
+    const tweetTimeAsTimestamp = Date.parse(tweetDate); // 1716898239000
+    const tweetAge = Date.now() - tweetTimeAsTimestamp; // 620037
+    const tweetAgeInMin = Math.floor(tweetAge / 1000 / 60); // 10
+    const tweetAgeInHours = Math.floor(tweetAgeInMin / 60); // 0
+    const showTweetAge =
+      tweetAgeInHours > 1
+        ? `${tweetAgeInHours}h`
+        : tweetAgeInMin > 1
+        ? `${tweetAgeInMin}min`
+        : "now";
 
-  // Datum des Tweets in anderem Format
-  let tweetDay = new Date(tweetDate).getDate();
-  tweetDay = tweetDay < 10 ? `0${tweetDay}` : tweetDay;
-  let tweetMonth = new Date(tweetDate).getMonth() + 1;
-  tweetMonth = tweetMonth < 10 ? `0${tweetMonth}` : tweetMonth;
-  const tweetYear = new Date(tweetDate).getFullYear();
-  let tweetHours = new Date(tweetDate).getHours();
-  tweetHours = tweetHours < 10 ? `0${tweetHours}` : tweetHours;
-  let tweetMinutes = new Date(tweetDate).getMinutes();
-  tweetMinutes = tweetMinutes < 10 ? `0${tweetMinutes}` : tweetMinutes;
+    return { showTweetAge, tweetAgeInHours };
+  };
+  const newTweetAge = calculateTweetAge(singleTweet?.createdAt);
+  const retweetedTweetAge = calculateTweetAge(retweetedTweet?.createdAt);
+
+  // function to change date format of tweets
+  const changeTweetDateFormat = (createdAt) => {
+    const tweetDate = new Date(createdAt);
+    let tweetDay = new Date(tweetDate).getDate();
+    tweetDay = tweetDay < 10 ? `0${tweetDay}` : tweetDay;
+    let tweetMonth = new Date(tweetDate).getMonth() + 1;
+    tweetMonth = tweetMonth < 10 ? `0${tweetMonth}` : tweetMonth;
+    const tweetYear = new Date(tweetDate).getFullYear();
+    let tweetHours = new Date(tweetDate).getHours();
+    tweetHours = tweetHours < 10 ? `0${tweetHours}` : tweetHours;
+    let tweetMinutes = new Date(tweetDate).getMinutes();
+    tweetMinutes = tweetMinutes < 10 ? `0${tweetMinutes}` : tweetMinutes;
+
+    return { tweetDay, tweetMonth, tweetYear, tweetHours, tweetMinutes };
+  };
+  const newTweetDate = changeTweetDateFormat(singleTweet?.createdAt);
+  const retweetedTweetDate = changeTweetDateFormat(retweetedTweet?.createdAt);
 
   return (
     <section className="single-tweet">
@@ -63,9 +78,9 @@ const Tweet = ({ singleTweet }) => {
             <p>@{tweetOwner?.username}</p>
 
             <p>
-              {tweetAgeInHours > 23
-                ? `${tweetDay}.${tweetMonth}.${tweetYear} ${tweetHours}:${tweetMinutes}`
-                : `${showTweetAge}`}
+              {newTweetAge.tweetAgeInHours > 23
+                ? `${newTweetDate.tweetDay}.${newTweetDate.tweetMonth}.${newTweetDate.tweetYear} ${newTweetDate.tweetHours}:${newTweetDate.tweetMinutes}`
+                : `${newTweetAge.showTweetAge}`}
             </p>
           </div>
 
@@ -79,9 +94,23 @@ const Tweet = ({ singleTweet }) => {
             <p>{singleTweet?.message}</p>
           )}
 
-          {/* // hier retweet darstellen, falls vorhanden, mit retweetedTweetId */}
-          {singleTweet?.retweetedTweetId && (
-            <p>Retweet von {singleTweet?.retweetedTweetId}</p>
+          {retweetedTweet && (
+            <div className="retweeted-tweet-box">
+              <div className="tweet-text">
+                <p>
+                  {retweetedTweet?.userId?.firstname}{" "}
+                  {retweetedTweet?.userId?.lastname}
+                </p>
+                <p>@{retweetedTweet?.userId?.username}</p>
+
+                <p>
+                  {retweetedTweetAge.tweetAgeInHours > 23
+                    ? `${retweetedTweetDate.tweetDay}.${retweetedTweetDate.tweetMonth}.${retweetedTweetDate.tweetYear} ${retweetedTweetDate.tweetHours}:${retweetedTweetDate.tweetMinutes}`
+                    : `${retweetedTweetAge.showTweetAge}`}
+                </p>
+              </div>
+              <p>{retweetedTweet?.message}</p>
+            </div>
           )}
         </section>
 

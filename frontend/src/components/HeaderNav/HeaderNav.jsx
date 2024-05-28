@@ -14,6 +14,8 @@ const HeaderNav = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
+    if (pathname === `/user/${userProfileData?._id}`) return navigate(-1);
+
     return navigate("/");
   };
 
@@ -24,17 +26,29 @@ const HeaderNav = () => {
 
   return (
     <header
-      className={pathname === `/user/${userProfileData?._id}` ? "userpage__header-container" : ""}>
+      className={
+        pathname === `/user/${userProfileData?._id}`
+          ? "userpage__header-container"
+          : ""
+      }
+    >
       <nav className={pathname === "/feed" ? "headerNav-big" : "headerNav"}>
-        {pathname === "/register" && <FaArrowLeft className="arrow-position" onClick={goBack} />}
+        {pathname === "/register" && (
+          <FaArrowLeft className="arrow-position" onClick={goBack} />
+        )}
 
-        {pathname === "/login" && <FaArrowLeft className="arrow-position" onClick={goBack} />}
+        {pathname === "/login" && (
+          <FaArrowLeft className="arrow-position" onClick={goBack} />
+        )}
 
         {pathname === "/feed" && <ImageProfile />}
 
         {pathname === `/user/${userProfileData?._id}` && (
           <div>
-            <FaArrowLeft className="arrow-position userpage__arrow" onClick={goBack} />
+            <FaArrowLeft
+              className="arrow-position userpage__arrow"
+              onClick={goBack}
+            />
             <p className="userpage__header__name">
               {userProfileData?.firstname} {userProfileData?.lastname}
             </p>
@@ -46,7 +60,11 @@ const HeaderNav = () => {
         )}
 
         {pathname === "/feed" && (
-          <IoIosSettings color="#1D9BF0" size={50} onClick={() => navigate("/settings")} />
+          <IoIosSettings
+            color="#1D9BF0"
+            size={50}
+            onClick={() => navigate("/settings")}
+          />
         )}
       </nav>
     </header>

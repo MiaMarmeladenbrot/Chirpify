@@ -1,18 +1,24 @@
 import "./UserPage.css";
 import { useContext, useEffect, useState } from "react";
-import { accessTokenContext, userContext, userProfileDataContext } from "../../context/Context";
+import {
+  accessTokenContext,
+  userContext,
+  userFeedContext,
+  userProfileDataContext,
+} from "../../context/Context";
 import { useParams } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import { backendUrl } from "../../api/api";
 import { IoIosLink } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
+import Tweet from "../../components/Tweet/Tweet";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
   const { userProfileData, setUserProfileData } = useContext(userProfileDataContext);
   const { user } = useContext(userContext);
-  const { userId } = useParams();
+  const { userFeed } = useContext(userFeedContext);
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -20,6 +26,9 @@ const UserPage = () => {
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
+  const { userId } = useParams();
+
+  const currentUserFeed = userFeed?.filter((item) => item.userId._id === userId);
 
   // Get User Information
   useEffect(() => {
@@ -119,7 +128,7 @@ const UserPage = () => {
             <div className="userpage__bottom-container">
               <div>
                 <IoIosLink />
-                <a href={userProfileData.website} target="_blank">
+                <a href={userProfileData?.website} target="_blank">
                   Website
                 </a>
               </div>
@@ -186,6 +195,12 @@ const UserPage = () => {
             </form>
           </>
         )}
+
+        <section className="userpage__userFeed-container">
+          {currentUserFeed?.map((singleTweet) => (
+            <Tweet singleTweet={singleTweet} key={singleTweet._id} />
+          ))}
+        </section>
       </main>
     </>
   );

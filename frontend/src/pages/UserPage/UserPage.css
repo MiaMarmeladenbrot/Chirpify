@@ -135,3 +135,8 @@
   background-color: var(--color-grey-light);
   border: 1px solid var(--color-grey-light);
 }
+
+.userpage__userFeed-container {
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-grey-light);
+}

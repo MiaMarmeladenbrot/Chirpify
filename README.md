@@ -6,7 +6,8 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Backend ToDos
 
-- Endpunkt für like comment schreiben?
+- Endpunkt für like/dislike comment schreiben?
+- Kommentare kommentieren?
 - editTweet: soll man retweetTweetId hinterher bearbeiten können? -> nein!
 - Update Access Token back to 10 min
 - refreshToken implementieren
@@ -17,6 +18,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 ## Frontend ToDos
 
 - deleteTweed & sein Popup in Komponente auslagern und so auch für Comments-Löschung verfügbar machen
+- gleiches gilt für like-Herz-Icon?
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
 - key=index überall anpassen?

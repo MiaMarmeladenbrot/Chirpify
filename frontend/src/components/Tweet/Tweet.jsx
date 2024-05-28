@@ -9,6 +9,7 @@ import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
 import { Link } from "react-router-dom";
 import TweetDeleteIcon from "../TweetDeleteIcon/TweetDeleteIcon";
 import TweetEditIcon from "../TweetEditIcon/TweetEditIcon";
+import TweetCommentFeed from "../TweetCommentFeed/TweetCommentFeed";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
@@ -16,6 +17,9 @@ const Tweet = ({ singleTweet }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const [message, setMessage] = useState("");
+  const [showComments, setShowComments] = useState(false);
+  const [rerenderCounter, setRerenderCounter] = useState(0); // --> wird beim Hinzufügen eines Comments neu gesetzt, sodass fetchComments neu gerendert wird, da es von diesem state abhängig ist ((evtl global erstellen und auch für tweet renderei benutzen?))
+  console.log(rerenderCounter);
   const tweetOwner = singleTweet?.userId;
   const retweetedTweet = singleTweet?.retweetedTweetId;
 
@@ -27,11 +31,11 @@ const Tweet = ({ singleTweet }) => {
     const tweetAgeInMin = Math.floor(tweetAge / 1000 / 60); // 10
     const tweetAgeInHours = Math.floor(tweetAgeInMin / 60); // 0
     const showTweetAge =
-      tweetAgeInHours > 1
-        ? `${tweetAgeInHours}h`
+      tweetAgeInHours >= 1
+        ? `${tweetAgeInHours} h ago`
         : tweetAgeInMin > 1
-        ? `${tweetAgeInMin}min`
-        : "now";
+        ? `${tweetAgeInMin} min ago`
+        : "just now";
 
     return { showTweetAge, tweetAgeInHours };
   };
@@ -57,90 +61,114 @@ const Tweet = ({ singleTweet }) => {
   const retweetedTweetDate = changeTweetDateFormat(retweetedTweet?.createdAt);
 
   return (
-    <section className="single-tweet">
+    <>
       {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+      <section className="single-tweet">
+        {/* //* hier oben noch ergänzen: letzter Like bzw. letzter Retweet des Tweets */}
 
-      {/* //* hier oben noch ergänzen: letzter Like bzw. letzter Retweet des Tweets */}
+        <article>
+          <section className="new-tweet-area">
+            <div className="profile-area">
+              <Link to={`/user/${tweetOwner?._id}`}>
+                <img
+                  src={`${backendUrl}/${tweetOwner?.profileImg}`}
+                  alt={`Profile image of ${tweetOwner?.username}`}
+                />
+              </Link>
 
-      <Link to={`/user/${tweetOwner?._id}`}>
-        <img
-          src={`${backendUrl}/${tweetOwner?.profileImg}`}
-          alt={`Profile image of ${tweetOwner?.username}`}
-        />
-      </Link>
+              <div>
+                <p>
+                  {tweetOwner?.firstname} {tweetOwner?.lastname}
+                </p>
+                <p>@{tweetOwner?.username}</p>
+              </div>
+            </div>
 
-      <article>
-        <section className="text-area">
-          <div className="tweet-text">
-            <p>
-              {tweetOwner?.firstname} {tweetOwner?.lastname}
-            </p>
-            <p>@{tweetOwner?.username}</p>
+            {toggleEdit ? (
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+            ) : (
+              <p>{singleTweet?.message}</p>
+            )}
 
-            <p>
+            {/* show retweeted Tweet if it exists */}
+            {retweetedTweet && (
+              <section className="retweeted-tweet-box">
+                <div>
+                  <div className="profile-area">
+                    <Link to={`/user/${retweetedTweet?.userId?._id}`}>
+                      <img
+                        src={`${backendUrl}/${retweetedTweet?.userId?.profileImg}`}
+                        alt={`Profile image of ${retweetedTweet?.userId?.username}`}
+                      />
+                    </Link>
+
+                    <div>
+                      <p>
+                        {retweetedTweet?.userId?.firstname}{" "}
+                        {retweetedTweet?.userId?.lastname}
+                      </p>
+                      <p>@{retweetedTweet?.userId?.username}</p>
+                    </div>
+                  </div>
+                  <p>{retweetedTweet?.message}</p>
+                  <p className="time-of-tweet">
+                    {retweetedTweetAge.tweetAgeInHours > 23
+                      ? `${retweetedTweetDate.tweetDay}.${retweetedTweetDate.tweetMonth}.${retweetedTweetDate.tweetYear} ${retweetedTweetDate.tweetHours}:${retweetedTweetDate.tweetMinutes}`
+                      : `${retweetedTweetAge.showTweetAge}`}
+                  </p>
+                </div>
+              </section>
+            )}
+            <p className="time-of-tweet">
               {newTweetAge.tweetAgeInHours > 23
                 ? `${newTweetDate.tweetDay}.${newTweetDate.tweetMonth}.${newTweetDate.tweetYear} ${newTweetDate.tweetHours}:${newTweetDate.tweetMinutes}`
                 : `${newTweetAge.showTweetAge}`}
             </p>
-          </div>
+          </section>
 
-          {toggleEdit ? (
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          ) : (
-            <p>{singleTweet?.message}</p>
-          )}
-
-          {retweetedTweet && (
-            <div className="retweeted-tweet-box">
-              <div className="tweet-text">
-                <p>
-                  {retweetedTweet?.userId?.firstname}{" "}
-                  {retweetedTweet?.userId?.lastname}
-                </p>
-                <p>@{retweetedTweet?.userId?.username}</p>
-
-                <p>
-                  {retweetedTweetAge.tweetAgeInHours > 23
-                    ? `${retweetedTweetDate.tweetDay}.${retweetedTweetDate.tweetMonth}.${retweetedTweetDate.tweetYear} ${retweetedTweetDate.tweetHours}:${retweetedTweetDate.tweetMinutes}`
-                    : `${retweetedTweetAge.showTweetAge}`}
-                </p>
-              </div>
-              <p>{retweetedTweet?.message}</p>
+          {tweetOwner?._id === user._id ? (
+            <div className="tweet-menu">
+              <TweetEditIcon
+                singleTweet={singleTweet}
+                message={message}
+                setMessage={setMessage}
+                setErrorMessage={setErrorMessage}
+                toggleEdit={toggleEdit}
+                setToggleEdit={setToggleEdit}
+              />
+              <TweetDeleteIcon
+                singleTweet={singleTweet}
+                setErrorMessage={setErrorMessage}
+              />
             </div>
+          ) : (
+            ""
           )}
-        </section>
 
-        {tweetOwner?._id === user._id ? (
-          <div className="tweet-menu">
-            <TweetEditIcon
-              singleTweet={singleTweet}
-              message={message}
-              setMessage={setMessage}
-              setErrorMessage={setErrorMessage}
-              toggleEdit={toggleEdit}
-              setToggleEdit={setToggleEdit}
+          <div className="tweet-icons">
+            <TweetCommentIcon
+              showComments={showComments}
+              setShowComments={setShowComments}
             />
-            <TweetDeleteIcon
-              singleTweet={singleTweet}
-              setErrorMessage={setErrorMessage}
-            />
+            <TweetRetweetIcon singleTweet={singleTweet} />
+            <TweetLikeIcon />
+            <TweetShareIcon />
           </div>
-        ) : (
-          ""
-        )}
 
-        <div className="tweet-icons">
-          <TweetCommentIcon singleTweet={singleTweet} />
-          <TweetRetweetIcon singleTweet={singleTweet} />
-          <TweetLikeIcon />
-          <TweetShareIcon />
-        </div>
-      </article>
-    </section>
+          {showComments && (
+            <TweetCommentFeed
+              singleTweet={singleTweet}
+              rerenderCounter={rerenderCounter}
+              setRerenderCounter={setRerenderCounter}
+            />
+          )}
+        </article>
+      </section>
+    </>
   );
 };
 

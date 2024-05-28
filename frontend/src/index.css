@@ -30,6 +30,10 @@ img {
   max-width: 100%;
 }
 
+p {
+  word-break: break-word;
+}
+
 a {
   text-decoration: none;
   cursor: pointer;

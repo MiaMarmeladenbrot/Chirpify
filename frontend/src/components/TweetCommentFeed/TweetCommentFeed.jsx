@@ -2,12 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import "./TweetCommentFeed.css";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
+import TweetAddComment from "../TweetAddComment/TweetAddComment";
 
-const TweetCommentFeed = ({ singleTweet }) => {
+const TweetCommentFeed = ({
+  singleTweet,
+  rerenderCounter,
+  setRerenderCounter,
+}) => {
   const { accessToken } = useContext(accessTokenContext);
   const [comments, setComments] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const tweetId = singleTweet?._id;
+  const user = singleTweet?.userId;
 
   useEffect(() => {
     const fetchAllCommentsOfTweet = async () => {
@@ -25,17 +31,53 @@ const TweetCommentFeed = ({ singleTweet }) => {
       setErrorMessage("");
     };
     fetchAllCommentsOfTweet();
-  }, []);
+  }, [rerenderCounter]);
 
-  // mit userId in gefetchten Comments die User-Daten holen (für Name, Profilbild, etc )
-  // mit user- und comment-Daten Kommentare anzeigen lassen
-  // via Input-Feld edit Comment hinzufügen
-  // direkten re-render starten
+  // createdAt : "2024-05-28T14:00:11.453Z"
+  // message : "genau so"
+  // taggedUsers : []
+  // tweetId : "6655cf014112a02029cf685c"
+  // updatedAt : "2024-05-28T14:00:11.453Z"
+  // userId :
+  //    firstname : "Mia"
+  //    lastname : "M"
+  //    profileImg: "placeholder.jpg"
+  //    username: "MiaMaRmElAdE"
+  //    _id : "66505f381343ddd9afb36c7d"
+  // __v : 0
+  // _id: "6655e36bcf8970ce433d0970"
 
   return (
-    <div className="tweet-comment-feed">
-      <p>TweetCommentFeed</p>
-    </div>
+    <>
+      {comments?.length !== 0 ? (
+        <div className="tweet-comment-feed">
+          {comments?.map((singleComment) => (
+            <div key={singleComment._id} className="single-comment">
+              <div className="comment-profile-area">
+                <img
+                  src={`${backendUrl}/${singleComment?.userId?.profileImg}`}
+                  alt={singleComment?.userId?.username}
+                />
+                <p>{singleComment?.userId?.firstname}</p>
+                <p>{singleComment?.userId?.lastname}</p>
+                <p>@{singleComment?.userId?.username}</p>
+              </div>
+              <p>{singleComment?.message}</p>
+            </div>
+          ))}
+          {/* hier input feld, um selbst einen Kommentar hinzuzufügen - dabei rerenderCount setten */}
+        </div>
+      ) : (
+        <div className="tweet-comment-feed">
+          <p>No comments yet</p>
+        </div>
+      )}
+      <TweetAddComment
+        tweetId={tweetId}
+        rerenderCounter={rerenderCounter}
+        setRerenderCounter={setRerenderCounter}
+      />
+    </>
   );
 };
 

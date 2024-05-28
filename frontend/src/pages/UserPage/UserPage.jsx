@@ -1,17 +1,24 @@
 import "./UserPage.css";
 import { useContext, useEffect, useState } from "react";
-import { accessTokenContext, userProfileDataContext } from "../../context/Context";
+import {
+  accessTokenContext,
+  userContext,
+  userFeedContext,
+  userProfileDataContext,
+} from "../../context/Context";
 import { useParams } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import { backendUrl } from "../../api/api";
 import { IoIosLink } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
+import Tweet from "../../components/Tweet/Tweet";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
   const { userProfileData, setUserProfileData } = useContext(userProfileDataContext);
-  const { userId } = useParams();
+  const { user } = useContext(userContext);
+  const { userFeed } = useContext(userFeedContext);
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -19,8 +26,9 @@ const UserPage = () => {
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
+  const { userId } = useParams();
 
-  // console.log({ firstname, lastname, username, description, website });
+  const currentUserFeed = userFeed?.filter((item) => item.userId._id === userId);
 
   // Get User Information
   useEffect(() => {
@@ -35,7 +43,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [openForm]);
 
   // Get Followers of Specific User
   useEffect(() => {
@@ -51,7 +59,7 @@ const UserPage = () => {
     fetchData();
   }, []);
 
-  // Edit User Information
+  // Open Form to edit User Informationen
   const openCloseForm = () => {
     setOpenForm(true);
     setFirstname(userProfileData?.firstname);
@@ -61,8 +69,35 @@ const UserPage = () => {
     setWebsite(userProfileData?.website || "Enter Website");
   };
 
-  const handleSubmit = (e) => {
+  // Edit User Information
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const res = await fetch(`${backendUrl}/api/v1/users/edit/${userId}`, {
+      method: "PATCH",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        username,
+        description,
+        website,
+      }),
+    });
+
+    const data = await res.json();
+
+    setUserProfileData(data?.result);
+
+    setOpenForm(false);
+    setFirstname("");
+    setLastname("");
+    setUsername("");
+    setDescription("");
+    setWebsite("");
   };
 
   const joinedDate = new Date(userProfileData?.createdAt);
@@ -83,13 +118,19 @@ const UserPage = () => {
             <p className="userpage__username-bold">{userProfileData?.username}</p>
             <p className="userpage__username">@{userProfileData?.username}</p>
             <p className="userpage__description">{userProfileData?.description}</p>
-            <div onClick={openCloseForm} className="userpage__modify-icons-container">
-              <FaRegEdit className="userpage__modify-icon" />
-            </div>
+
+            {userId === user._id && (
+              <div onClick={openCloseForm} className="userpage__modify-icons-container">
+                <FaRegEdit className="userpage__modify-icon" />
+              </div>
+            )}
+
             <div className="userpage__bottom-container">
               <div>
                 <IoIosLink />
-                <a href="https://www.google.de">Website</a>
+                <a href={userProfileData?.website} target="_blank">
+                  Website
+                </a>
               </div>
               <div>
                 <FaRegCalendarAlt />
@@ -154,6 +195,12 @@ const UserPage = () => {
             </form>
           </>
         )}
+
+        <section className="userpage__userFeed-container">
+          {currentUserFeed?.map((singleTweet) => (
+            <Tweet singleTweet={singleTweet} key={singleTweet._id} />
+          ))}
+        </section>
       </main>
     </>
   );

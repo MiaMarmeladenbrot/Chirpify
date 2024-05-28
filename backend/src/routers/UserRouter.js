@@ -8,7 +8,7 @@ export const UserRouter = express
   .post("/login", UserController.postLoginUserCtrl)
   .post("/sendVerifyEmail", doJwtAuth, UserController.postSendVerifyEmailCtrl)
   .post("/verifyEmail", doJwtAuth, UserController.postVerifyEmailCtrl)
-  .patch("/edit", doJwtAuth, UserController.patchEditUserCtrl)
+  .patch("/edit/:userId", doJwtAuth, UserController.patchEditUserCtrl)
   .patch("/follow/:userId", doJwtAuth, UserController.followUserCtrl)
   .patch("/unfollow/:userId", doJwtAuth, UserController.unfollowUserCtrl)
   .delete("/delete", doJwtAuth, UserController.deleteUserCtrl)

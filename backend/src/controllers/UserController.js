@@ -47,8 +47,9 @@ const postVerifyEmailCtrl = async (req, res) => {
 const patchEditUserCtrl = async (req, res) => {
   try {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
+    const userId = req.params.userId;
     const userUpdateInfo = req.body;
-    const result = await UserService.editUser(authenticatedUserId, userUpdateInfo);
+    const result = await UserService.editUser(authenticatedUserId, userUpdateInfo, userId);
     res.json({ result });
   } catch (error) {
     console.log(error);

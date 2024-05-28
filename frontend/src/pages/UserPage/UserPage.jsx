@@ -1,6 +1,6 @@
 import "./UserPage.css";
 import { useContext, useEffect, useState } from "react";
-import { accessTokenContext, userProfileDataContext } from "../../context/Context";
+import { accessTokenContext, userContext, userProfileDataContext } from "../../context/Context";
 import { useParams } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import { backendUrl } from "../../api/api";
@@ -11,6 +11,7 @@ import { FaRegEdit } from "react-icons/fa";
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
   const { userProfileData, setUserProfileData } = useContext(userProfileDataContext);
+  const { user } = useContext(userContext);
   const { userId } = useParams();
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
@@ -20,7 +21,7 @@ const UserPage = () => {
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
 
-  // console.log({ firstname, lastname, username, description, website });
+  console.log(userProfileData);
 
   // Get User Information
   useEffect(() => {
@@ -35,7 +36,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [openForm]);
 
   // Get Followers of Specific User
   useEffect(() => {
@@ -61,8 +62,34 @@ const UserPage = () => {
     setWebsite(userProfileData?.website || "Enter Website");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const res = await fetch(`${backendUrl}/api/v1/users/edit/${userId}`, {
+      method: "PATCH",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        username,
+        description,
+        website,
+      }),
+    });
+
+    const data = await res.json();
+    // console.log(data);
+    setUserProfileData(data?.result);
+
+    setOpenForm(false);
+    setFirstname("");
+    setLastname("");
+    setUsername("");
+    setDescription("");
+    setWebsite("");
   };
 
   const joinedDate = new Date(userProfileData?.createdAt);
@@ -83,13 +110,19 @@ const UserPage = () => {
             <p className="userpage__username-bold">{userProfileData?.username}</p>
             <p className="userpage__username">@{userProfileData?.username}</p>
             <p className="userpage__description">{userProfileData?.description}</p>
-            <div onClick={openCloseForm} className="userpage__modify-icons-container">
-              <FaRegEdit className="userpage__modify-icon" />
-            </div>
+
+            {userId === user._id && (
+              <div onClick={openCloseForm} className="userpage__modify-icons-container">
+                <FaRegEdit className="userpage__modify-icon" />
+              </div>
+            )}
+
             <div className="userpage__bottom-container">
               <div>
                 <IoIosLink />
-                <a href="https://www.google.de">Website</a>
+                <a href={userProfileData.website} target="_blank">
+                  Website
+                </a>
               </div>
               <div>
                 <FaRegCalendarAlt />

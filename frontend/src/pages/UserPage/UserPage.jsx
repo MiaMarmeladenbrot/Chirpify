@@ -21,8 +21,6 @@ const UserPage = () => {
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
 
-  console.log(userProfileData);
-
   // Get User Information
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +50,7 @@ const UserPage = () => {
     fetchData();
   }, []);
 
-  // Edit User Information
+  // Open Form to edit User Informationen
   const openCloseForm = () => {
     setOpenForm(true);
     setFirstname(userProfileData?.firstname);
@@ -62,6 +60,7 @@ const UserPage = () => {
     setWebsite(userProfileData?.website || "Enter Website");
   };
 
+  // Edit User Information
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -81,7 +80,7 @@ const UserPage = () => {
     });
 
     const data = await res.json();
-    // console.log(data);
+
     setUserProfileData(data?.result);
 
     setOpenForm(false);

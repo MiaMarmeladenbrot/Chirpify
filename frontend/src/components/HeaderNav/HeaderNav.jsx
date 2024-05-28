@@ -1,11 +1,11 @@
 import "./HeaderNav.css";
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { userContext, userProfileDataContext } from "../../context/Context";
+import ImageProfile from "../ImageProfile/ImageProfile";
 import ImageBird from "../ImageBird/ImageBird";
 import { FaArrowLeft } from "react-icons/fa6";
-import ImageProfile from "../ImageProfile/ImageProfile";
 import { IoIosSettings } from "react-icons/io";
-import { useContext } from "react";
-import { userContext, userProfileDataContext } from "../../context/Context";
 
 const HeaderNav = () => {
   const { user } = useContext(userContext);

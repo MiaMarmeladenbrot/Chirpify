@@ -119,8 +119,8 @@ const unfollowUserCtrl = async (req, res) => {
 
 const getShowUsersFollowersCtrl = async (req, res) => {
   try {
-    const authenticatedUserId = req.authenticatedUserClaims.sub;
-    const result = await UserService.showUsersFollower(authenticatedUserId);
+    const userId = req.params.userId;
+    const result = await UserService.showUsersFollower(userId);
     res.json({ result });
   } catch (error) {
     console.log(error);

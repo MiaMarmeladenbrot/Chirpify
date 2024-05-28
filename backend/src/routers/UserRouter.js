@@ -12,6 +12,6 @@ export const UserRouter = express
   .patch("/follow/:userId", doJwtAuth, UserController.followUserCtrl)
   .patch("/unfollow/:userId", doJwtAuth, UserController.unfollowUserCtrl)
   .delete("/delete", doJwtAuth, UserController.deleteUserCtrl)
-  .get("/followers", doJwtAuth, UserController.getShowUsersFollowersCtrl)
+  .get("/followers/:userId", doJwtAuth, UserController.getShowUsersFollowersCtrl)
   .get("/:userId", doJwtAuth, UserController.getOneUserCtrl)
   .get("/", doJwtAuth, UserController.getAllUsersCtrl);

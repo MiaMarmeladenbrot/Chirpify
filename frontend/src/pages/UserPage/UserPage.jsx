@@ -1,34 +1,48 @@
-import { useContext, useEffect, useState } from "react";
-import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import "./UserPage.css";
-import { accessTokenContext, userContext } from "../../context/Context";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { backendUrl } from "../../api/api";
 import { IoIosLink } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { accessTokenContext, userProfileDataContext } from "../../context/Context";
+import HeaderNav from "../../components/HeaderNav/HeaderNav";
 
 const UserPage = () => {
-  const { user } = useContext(userContext);
   const { accessToken } = useContext(accessTokenContext);
+  const { userProfileData, setUserProfileData } = useContext(userProfileDataContext);
+  const { userId } = useParams();
   const [followers, setFollowers] = useState("");
-  // console.log(user);
-  // console.log(accessToken);
-  console.log(followers);
 
+  // Get User Information
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${backendUrl}/api/v1/users/followers`, {
-        method: "GET",
+      const res = await fetch(`${backendUrl}/api/v1/users/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
       });
 
       const data = await res.json();
-      setFollowers(data);
+
+      setUserProfileData(data?.result);
     };
 
     fetchData();
   }, []);
 
-  const joinedDate = new Date(user.createdAt);
+  // Get Followers of Specific User
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`${backendUrl}/api/v1/users/followers/${userId}`, {
+        headers: { authorization: `Bearer ${accessToken}` },
+      });
+
+      const data = await res.json();
+      setFollowers(data?.result);
+    };
+
+    fetchData();
+  }, []);
+
+  const joinedDate = new Date(userProfileData?.createdAt);
   const joinedMonth = joinedDate.toLocaleDateString("de-DE", { month: "short" });
   const joinedYear = joinedDate.getFullYear();
 
@@ -37,12 +51,12 @@ const UserPage = () => {
       <HeaderNav />
       <main>
         <div className="userpage__profile-image">
-          <img src={`${backendUrl}/${user?.profileImg}`} alt="Profile Image" />
+          <img src={`${backendUrl}/${userProfileData?.profileImg}`} alt="Profile Image" />
         </div>
         <div className="userpage__profile-content-container">
-          <p className="userpage__username-bold">{user.username}</p>
-          <p className="userpage__username">@{user.username}</p>
-          <p className="userpage__description">{user.description}</p>
+          <p className="userpage__username-bold">{userProfileData?.username}</p>
+          <p className="userpage__username">@{userProfileData?.username}</p>
+          <p className="userpage__description">{userProfileData?.description}</p>
           <div className="userpage__bottom-container">
             <div>
               <IoIosLink />
@@ -58,10 +72,10 @@ const UserPage = () => {
           <div className="userpage__follow-container">
             <div>
               <p>
-                <span>{user?.isFollowerOf?.length} </span>Following
+                <span>{userProfileData?.isFollowerOf?.length || 0} </span>Following
               </p>
               <p>
-                <span>{followers?.result?.length} </span>Followers
+                <span>{followers?.length || 0} </span>Followers
               </p>
             </div>
             <div></div>

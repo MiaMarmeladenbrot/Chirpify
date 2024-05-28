@@ -63,6 +63,11 @@
   cursor: pointer;
 }
 
+.userpage__follow-container div {
+  display: flex;
+  gap: 1rem;
+}
+
 .userpage__follow-container p {
   color: var(--color-grey-light);
 }
@@ -70,4 +75,5 @@
 .userpage__follow-container span {
   font-weight: 700;
   color: var(--color-grey-dark);
+  margin-right: 0.2rem;
 }

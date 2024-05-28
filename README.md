@@ -16,6 +16,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
+- deleteTweed & sein Popup in Komponente auslagern und so auch für Comments-Löschung verfügbar machen
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
 - key=index überall anpassen?

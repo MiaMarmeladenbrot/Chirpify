@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext, userContext } from "../../context/Context";
+import { userContext } from "../../context/Context";
 import "./Tweet.css";
 import TweetCommentIcon from "../TweetCommentIcon/TweetCommentIcon";
 import TweetRetweetIcon from "../TweetRetweetIcon/TweetRetweetIcon";

@@ -13,6 +13,8 @@
 .single-comment {
   border-bottom: 1px solid var(--color-grey-light);
   margin-bottom: 1rem;
+
+  position: relative;
 }
 
 .comment-profile-area {
@@ -37,4 +39,15 @@
 
 .comments input {
   background-color: rgb(248, 248, 248);
+}
+
+/* delete + edit icon */
+.comment-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

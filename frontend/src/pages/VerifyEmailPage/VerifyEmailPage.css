@@ -9,7 +9,7 @@
 
 .verifyemail__input-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
   flex-wrap: wrap;
@@ -44,6 +44,7 @@
 .verifyemail__input-container__inputs {
   display: flex;
   gap: 1rem;
+  justify-content: center;
 }
 
 button {
@@ -55,13 +56,7 @@ button {
   padding-inline: 2rem;
   padding-block: 0.3rem;
   font-weight: 600;
-  /* transition: 0.5s; */
 }
-
-/* button:hover {
-  color: var(--color-main-blue);
-  background-color: white;
-} */
 
 .verifyemail__input__new-email-container {
   display: flex;

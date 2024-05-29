@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
-import "./TweetDeleteIcon.css";
+import "./IconDelete.css";
 
-const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
+const IconDelete = ({ singleTweet, setErrorMessage }) => {
   const { accessToken } = useContext(accessTokenContext);
   const [showDelete, setShowDelete] = useState(false);
 
@@ -67,4 +67,4 @@ const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
   );
 };
 
-export default TweetDeleteIcon;
+export default IconDelete;

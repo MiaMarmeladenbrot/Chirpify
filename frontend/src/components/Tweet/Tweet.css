@@ -1,26 +1,31 @@
+/* the whole tweet with comments */
 .single-tweet {
   display: flex;
   gap: 1rem;
   padding: 1rem;
 
-  border-bottom: 1px solid var(--color-main-blue);
+  /* border-bottom: 1px solid var(--color-main-blue); */
   position: relative;
   margin-bottom: 1rem;
+
+  /* border: 1px solid var(--color-grey-light); */
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.154);
 }
 
-.single-tweet img {
-  width: 50px;
-  object-fit: contain;
-}
-
-.single-tweet article {
-  width: 100%;
+.single-tweet svg {
+  cursor: pointer;
 }
 
 .single-tweet p {
   margin-bottom: 1rem;
 }
 
+.single-tweet article {
+  width: 100%;
+}
+
+/* area of the actual, original tweet */
 .new-tweet-area {
   padding-right: 2rem;
 }
@@ -32,6 +37,12 @@
   margin-bottom: 1rem;
 }
 
+.profile-area img {
+  width: 50px;
+  object-fit: contain;
+  border-radius: 100%;
+}
+
 .profile-area p {
   margin-bottom: 5px;
 }
@@ -40,41 +51,7 @@
   color: var(--color-grey-light);
 }
 
-.time-of-tweet {
-  text-align: right;
-  color: var(--color-grey-light);
-}
-
-.tweet-icons {
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 0.5rem;
-  width: 100%;
-}
-
-.tweet-icons svg {
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.tweet-menu {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.tweet-menu svg {
-  cursor: pointer;
-}
-
-.tweet-menu p {
-  cursor: pointer;
-}
-
-.text-area input {
+.new-tweet-area textarea {
   width: 20rem;
   border: none;
   border-bottom: 1px solid var(--color-grey-light);
@@ -84,11 +61,35 @@
   color: var(--color-grey-light);
 }
 
-.text-area input:focus {
+.new-tweet-area textarea:focus {
   outline: none;
   border-bottom: 1px solid var(--color-main-blue);
 }
 
+.time-of-tweet {
+  text-align: right;
+  color: var(--color-grey-light);
+}
+
+/* Icons underneath the tweet (comment, retweet, like, share) */
+.tweet-icons {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0.5rem;
+  width: 100%;
+}
+
+/* icons on the right of tweet (edit, delete) */
+.tweet-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* showing the retweeted tweet in the tweet style if it exists */
 .retweeted-tweet-box {
   border: 1px solid var(--color-grey-light);
   border-radius: 10px;

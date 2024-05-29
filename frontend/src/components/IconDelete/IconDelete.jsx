@@ -40,7 +40,7 @@ const IconDelete = ({ singleTweet, setErrorMessage }) => {
       {showDelete && (
         <section className="delete-tweet-popup">
           <img src="/img/birdLogo.png" alt="bird logo" />
-          <p>Are you sure you want to delete this tweet?</p>
+          <p>Are you sure you want to delete this?</p>
           {/* check-icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"

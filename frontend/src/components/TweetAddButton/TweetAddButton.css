@@ -1,6 +1,9 @@
-.tweet-add-button-container {
+/* .tweet-add-button-container {
+  width: 100%;
+  max-width: 450px;
+
   position: relative;
-}
+} */
 
 .tweet-add-button-container img {
   cursor: pointer;
@@ -8,3 +11,12 @@
   bottom: 100px;
   right: 20px;
 }
+
+/* so ist es zwar auf die Breite der App beschränkt, aber sitzt fest an der Stelle und scrollt nicht mit */
+/* sticky funktioniert auch nicht - why? */
+/* .tweet-add-button-container img {
+  cursor: pointer;
+  position: absolute;
+  top: 80vh;
+  right: 20px;
+} */

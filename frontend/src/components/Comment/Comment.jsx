@@ -5,7 +5,12 @@ import IconEdit from "../IconEdit/IconEdit";
 import "./Comment.css";
 import { userContext } from "../../context/Context";
 
-const Comment = ({ singleComment, setErrorMessage }) => {
+const Comment = ({
+  singleComment,
+  setErrorMessage,
+  rerenderCounter,
+  setRerenderCounter,
+}) => {
   const [message, setMessage] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const { user: loggedInUser } = useContext(userContext);
@@ -48,6 +53,8 @@ const Comment = ({ singleComment, setErrorMessage }) => {
             setErrorMessage={setErrorMessage}
             toggleEdit={toggleEdit}
             setToggleEdit={setToggleEdit}
+            rerenderCounter={rerenderCounter}
+            setRerenderCounter={setRerenderCounter}
           />
         </div>
       ) : (

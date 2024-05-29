@@ -1,0 +1,57 @@
+.single-comment {
+  border-bottom: 1px solid var(--color-grey-light);
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+
+  position: relative;
+}
+
+.single-comment textarea {
+  width: 20rem;
+  border: none;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding: 10px 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-grey-light);
+}
+
+.single-comment textarea:focus {
+  outline: none;
+  border-bottom: 1px solid var(--color-main-blue);
+}
+
+.comment-profile-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.comment-profile-area img {
+  width: 30px;
+  border-radius: 100%;
+}
+
+.comment-profile-area p {
+  margin-bottom: 5px;
+}
+
+.comment-profile-area p:last-of-type {
+  color: var(--color-grey-light);
+}
+
+.comments input {
+  background-color: rgb(248, 248, 248);
+}
+
+/* delete + edit icon */
+.comment-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

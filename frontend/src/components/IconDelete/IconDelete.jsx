@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
-import "./TweetDeleteIcon.css";
+import "./IconDelete.css";
 
-const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
+const IconDelete = ({ singleTweet, setErrorMessage }) => {
   const { accessToken } = useContext(accessTokenContext);
   const [showDelete, setShowDelete] = useState(false);
 
@@ -40,7 +40,7 @@ const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
       {showDelete && (
         <section className="delete-tweet-popup">
           <img src="/img/birdLogo.png" alt="bird logo" />
-          <p>Are you sure you want to delete this tweet?</p>
+          <p>Are you sure you want to delete this?</p>
           {/* check-icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,4 +67,4 @@ const TweetDeleteIcon = ({ singleTweet, setErrorMessage }) => {
   );
 };
 
-export default TweetDeleteIcon;
+export default IconDelete;

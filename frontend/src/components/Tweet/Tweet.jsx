@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext, userContext } from "../../context/Context";
+import { userContext } from "../../context/Context";
 import "./Tweet.css";
 import TweetCommentIcon from "../TweetCommentIcon/TweetCommentIcon";
 import TweetRetweetIcon from "../TweetRetweetIcon/TweetRetweetIcon";
 import TweetLikeIcon from "../TweetLikeIcon/TweetLikeIcon";
 import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
 import { Link } from "react-router-dom";
-import TweetDeleteIcon from "../TweetDeleteIcon/TweetDeleteIcon";
-import TweetEditIcon from "../TweetEditIcon/TweetEditIcon";
+import IconEdit from "../IconEdit/IconEdit";
 import TweetCommentFeed from "../TweetCommentFeed/TweetCommentFeed";
+import IconDelete from "../IconDelete/IconDelete";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
@@ -19,7 +19,6 @@ const Tweet = ({ singleTweet }) => {
   const [message, setMessage] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [rerenderCounter, setRerenderCounter] = useState(0); // --> wird beim Hinzufügen eines Comments neu gesetzt, sodass fetchComments neu gerendert wird, da es von diesem state abhängig ist ((evtl global erstellen und auch für tweet renderei benutzen?))
-  console.log(rerenderCounter);
   const tweetOwner = singleTweet?.userId;
   const retweetedTweet = singleTweet?.retweetedTweetId;
 
@@ -85,15 +84,19 @@ const Tweet = ({ singleTweet }) => {
             </div>
 
             {toggleEdit ? (
-              <input
-                type="text"
+              <textarea
+                name="edit-tweet"
+                id="edit-tweet"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-              />
+              >
+                {message}
+              </textarea>
             ) : (
               <p>{singleTweet?.message}</p>
             )}
 
+            {/* hier wäre noch das Bild, falls es eines gibt */}
             {/* show retweeted Tweet if it exists */}
             {retweetedTweet && (
               <section className="retweeted-tweet-box">
@@ -115,6 +118,8 @@ const Tweet = ({ singleTweet }) => {
                     </div>
                   </div>
                   <p>{retweetedTweet?.message}</p>
+                  {/* hier wäre noch das Bild, falls es eines gibt */}
+
                   <p className="time-of-tweet">
                     {retweetedTweetAge.tweetAgeInHours > 23
                       ? `${retweetedTweetDate.tweetDay}.${retweetedTweetDate.tweetMonth}.${retweetedTweetDate.tweetYear} ${retweetedTweetDate.tweetHours}:${retweetedTweetDate.tweetMinutes}`
@@ -123,6 +128,7 @@ const Tweet = ({ singleTweet }) => {
                 </div>
               </section>
             )}
+
             <p className="time-of-tweet">
               {newTweetAge.tweetAgeInHours > 23
                 ? `${newTweetDate.tweetDay}.${newTweetDate.tweetMonth}.${newTweetDate.tweetYear} ${newTweetDate.tweetHours}:${newTweetDate.tweetMinutes}`
@@ -132,17 +138,17 @@ const Tweet = ({ singleTweet }) => {
 
           {tweetOwner?._id === user._id ? (
             <div className="tweet-menu">
-              <TweetEditIcon
+              <IconDelete
+                singleTweet={singleTweet}
+                setErrorMessage={setErrorMessage}
+              />
+              <IconEdit
                 singleTweet={singleTweet}
                 message={message}
                 setMessage={setMessage}
                 setErrorMessage={setErrorMessage}
                 toggleEdit={toggleEdit}
                 setToggleEdit={setToggleEdit}
-              />
-              <TweetDeleteIcon
-                singleTweet={singleTweet}
-                setErrorMessage={setErrorMessage}
               />
             </div>
           ) : (

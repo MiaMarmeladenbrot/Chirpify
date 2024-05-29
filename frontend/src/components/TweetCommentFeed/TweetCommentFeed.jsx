@@ -4,6 +4,8 @@ import { backendUrl } from "../../api/api";
 import { accessTokenContext } from "../../context/Context";
 import TweetAddComment from "../TweetAddComment/TweetAddComment";
 
+import Comment from "../Comment/Comment";
+
 const TweetCommentFeed = ({
   singleTweet,
   rerenderCounter,
@@ -11,9 +13,8 @@ const TweetCommentFeed = ({
 }) => {
   const { accessToken } = useContext(accessTokenContext);
   const [comments, setComments] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const tweetId = singleTweet?._id;
-  const user = singleTweet?.userId;
 
   useEffect(() => {
     const fetchAllCommentsOfTweet = async () => {
@@ -22,12 +23,10 @@ const TweetCommentFeed = ({
       });
 
       const data = await res.json();
-      console.log(data);
       if (!data.result) {
-        return setErrorMessage(data.message);
+        return setErrorMessage(data.message || "Cannot find any comments.");
       }
       setComments(data.result);
-      console.log(comments);
       setErrorMessage("");
     };
     fetchAllCommentsOfTweet();
@@ -48,36 +47,33 @@ const TweetCommentFeed = ({
   // _id: "6655e36bcf8970ce433d0970"
 
   return (
-    <>
-      {comments?.length !== 0 ? (
-        <div className="tweet-comment-feed">
-          {comments?.map((singleComment) => (
-            <div key={singleComment._id} className="single-comment">
-              <div className="comment-profile-area">
-                <img
-                  src={`${backendUrl}/${singleComment?.userId?.profileImg}`}
-                  alt={singleComment?.userId?.username}
-                />
-                <p>{singleComment?.userId?.firstname}</p>
-                <p>{singleComment?.userId?.lastname}</p>
-                <p>@{singleComment?.userId?.username}</p>
-              </div>
-              <p>{singleComment?.message}</p>
-            </div>
-          ))}
-          {/* hier input feld, um selbst einen Kommentar hinzuzufügen - dabei rerenderCount setten */}
-        </div>
-      ) : (
-        <div className="tweet-comment-feed">
-          <p>No comments yet</p>
-        </div>
-      )}
-      <TweetAddComment
-        tweetId={tweetId}
-        rerenderCounter={rerenderCounter}
-        setRerenderCounter={setRerenderCounter}
-      />
-    </>
+    <section className="comments">
+      <article className="comments-with-input">
+        {errorMessage ? <p>{errorMessage}</p> : ""}
+        {comments?.length !== 0 ? (
+          <div className="tweet-comment-feed">
+            {comments?.map((singleComment) => (
+              <Comment
+                key={singleComment._id}
+                singleComment={singleComment}
+                setErrorMessage={setErrorMessage}
+                rerenderCounter={rerenderCounter}
+                setRerenderCounter={setRerenderCounter}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="tweet-comment-feed">
+            <p>No comments yet</p>
+          </div>
+        )}
+        <TweetAddComment
+          tweetId={tweetId}
+          rerenderCounter={rerenderCounter}
+          setRerenderCounter={setRerenderCounter}
+        />
+      </article>
+    </section>
   );
 };
 

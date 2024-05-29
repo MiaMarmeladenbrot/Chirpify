@@ -40,6 +40,10 @@ a {
   color: unset;
 }
 
+textarea {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
 .errorMessage {
   color: var(--color-main-red);
   font-size: 1rem;

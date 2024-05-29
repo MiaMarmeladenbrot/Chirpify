@@ -21,7 +21,6 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - gleiches gilt für like-Herz-Icon?
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
-- key=index überall anpassen?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
 - retweeted Tweet auf addTweetPage darstellen, falls es ein retweet ist
 - LikeFetch/DislikeFetch

@@ -16,7 +16,6 @@ const FeedPage = () => {
   const { userFeed, setUserFeed } = useContext(userFeedContext);
   const { accessToken } = useContext(accessTokenContext);
   const { rerenderCounter } = useContext(rerenderCounterContext);
-
   const { errorMessage, setErrorMessage } = useContext(errorMessageContext);
 
   useEffect(() => {

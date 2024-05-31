@@ -2,8 +2,8 @@ import "./UserPage.css";
 import { useContext, useEffect, useState } from "react";
 import {
   accessTokenContext,
+  rerenderCounterContext,
   userContext,
-  userFeedContext,
   userProfileDataContext,
 } from "../../context/Context";
 import { useParams } from "react-router-dom";
@@ -20,7 +20,8 @@ const UserPage = () => {
     userProfileDataContext
   );
   const { user } = useContext(userContext);
-  const { userFeed } = useContext(userFeedContext);
+  const { rerenderCounter } = useContext(rerenderCounterContext);
+  const [userTweets, setUserTweets] = useState([]);
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
   const [firstname, setFirstname] = useState("");
@@ -30,9 +31,20 @@ const UserPage = () => {
   const [website, setWebsite] = useState("");
   const { userId } = useParams();
 
-  const currentUserFeed = userFeed?.filter(
-    (item) => item.userId._id === userId
-  );
+  // Get Tweets of the User
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`${backendUrl}/api/v1/tweets/${userId}`, {
+        headers: { authorization: `Bearer ${accessToken}` },
+      });
+
+      const data = await res.json();
+
+      setUserTweets(data.result);
+    };
+
+    fetchData();
+  }, [rerenderCounter]);
 
   // Get User Information
   useEffect(() => {
@@ -217,7 +229,7 @@ const UserPage = () => {
         )}
 
         <section className="userpage__userFeed-container">
-          {currentUserFeed?.map((singleTweet) => (
+          {userTweets?.map((singleTweet) => (
             <Tweet singleTweet={singleTweet} key={singleTweet._id} />
           ))}
         </section>

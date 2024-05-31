@@ -17,8 +17,9 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
-- Likes in Echtzeit auf UserPage anzeigen
-- counter für comments und retweets einbauen - im Backend?
+- UserPage: Link zu einer anderen UserPage geht nicht?
+- counter für comments und retweets einbauen, um neben den Icons die Zahlen anzuzeigen - im Backend?
+- follow/unfollow a user
 - like comment
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?

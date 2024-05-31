@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import "./TweetAddComment.css";
+import "./AddComment.css";
 import { backendUrl } from "../../api/api";
 import {
   accessTokenContext,
   rerenderCounterContext,
 } from "../../context/Context";
 
-const TweetAddComment = ({ tweetId }) => {
+const AddComment = ({ tweetId }) => {
   const { accessToken } = useContext(accessTokenContext);
   const { rerenderCounter, setRerenderCounter } = useContext(
     rerenderCounterContext
@@ -57,4 +57,4 @@ const TweetAddComment = ({ tweetId }) => {
   );
 };
 
-export default TweetAddComment;
+export default AddComment;

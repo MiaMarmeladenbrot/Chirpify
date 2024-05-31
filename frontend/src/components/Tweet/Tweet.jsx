@@ -4,12 +4,12 @@ import { userContext } from "../../context/Context";
 import "./Tweet.css";
 import TweetCommentIcon from "../TweetCommentIcon/TweetCommentIcon";
 import TweetRetweetIcon from "../TweetRetweetIcon/TweetRetweetIcon";
-import TweetLikeIcon from "../TweetLikeIcon/TweetLikeIcon";
 import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
 import { Link } from "react-router-dom";
 import IconEdit from "../IconEdit/IconEdit";
-import TweetCommentFeed from "../TweetCommentFeed/TweetCommentFeed";
 import IconDelete from "../IconDelete/IconDelete";
+import CommentFeed from "../CommentFeed/CommentFeed";
+import IconLike from "../IconLike/IconLike";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
@@ -160,14 +160,11 @@ const Tweet = ({ singleTweet }) => {
               setShowComments={setShowComments}
             />
             <TweetRetweetIcon retweetedTweetId={singleTweet._id} />
-            <TweetLikeIcon
-              tweetId={singleTweet._id}
-              isLikedByLoggedInUser={singleTweet.isLikedByLoggedInUser}
-            />
+            <IconLike singleTweet={singleTweet} />
             <TweetShareIcon />
           </div>
 
-          {showComments && <TweetCommentFeed singleTweet={singleTweet} />}
+          {showComments && <CommentFeed singleTweet={singleTweet} />}
         </article>
       </section>
     </>

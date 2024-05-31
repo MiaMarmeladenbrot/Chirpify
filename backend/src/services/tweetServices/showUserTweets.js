@@ -1,9 +1,12 @@
 import { Tweet } from "../../models/Tweet.js";
 import { User } from "../../models/User.js";
 
-export const showUserTweets = async (userId) => {
-  const user = await User.findById(userId);
-  if (!user) throw new Error("User does not exist");
+export const showUserTweets = async (authenticatedUserId, userId) => {
+  const [user, authenticatedUser] = await Promise.all([
+    User.findById(userId),
+    User.findById(authenticatedUserId),
+  ]);
+  if (!user || !authenticatedUser) throw new Error("User does not exist.");
 
   const allUserTweets = await Tweet.find({ userId })
     .populate({
@@ -18,5 +21,17 @@ export const showUserTweets = async (userId) => {
         select: "_id firstname lastname username profileImg",
       },
     });
-  return allUserTweets;
+
+  // falls das array leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
+  if (allUserTweets.length === 0) throw new Error("Nothing to show yet.");
+
+  // prüfen, ob der eingeloggte User bereits Tweets geliket hat - als boolean speichern
+  const allUserTweetsWithLikes = allUserTweets.map((tweet) => ({
+    ...tweet.toObject(),
+    isLikedByLoggedInUser: tweet.isLikedBy.includes(
+      authenticatedUserId.toString()
+    ),
+  }));
+
+  return allUserTweetsWithLikes;
 };

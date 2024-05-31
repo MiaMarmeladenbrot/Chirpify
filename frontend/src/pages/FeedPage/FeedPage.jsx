@@ -13,7 +13,6 @@ import Tweet from "../../components/Tweet/Tweet";
 import { backendUrl } from "../../api/api";
 
 const FeedPage = () => {
-  // const { userFeed } = useContext(userFeedContext);
   const { userFeed, setUserFeed } = useContext(userFeedContext);
   const { accessToken } = useContext(accessTokenContext);
   const { rerenderCounter } = useContext(rerenderCounterContext);
@@ -35,8 +34,6 @@ const FeedPage = () => {
     };
     fetchUserFeed();
   }, [rerenderCounter]);
-
-  console.log(userFeed);
 
   return (
     <section className="feedpage">

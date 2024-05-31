@@ -50,7 +50,12 @@ const deleteTweetCtrl = async (req, res) => {
 
 const getAllUserTweetsCtrl = async (req, res) => {
   try {
-    const result = await TweetService.showUserTweets(req.params.userId);
+    const authenticatedUserId = req.authenticatedUserClaims.sub;
+
+    const result = await TweetService.showUserTweets(
+      authenticatedUserId,
+      req.params.userId
+    );
     res.json({ result });
   } catch (error) {
     console.log(error);

@@ -16,7 +16,9 @@ import Tweet from "../../components/Tweet/Tweet";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
-  const { userProfileData, setUserProfileData } = useContext(userProfileDataContext);
+  const { userProfileData, setUserProfileData } = useContext(
+    userProfileDataContext
+  );
   const { user } = useContext(userContext);
   const { userFeed } = useContext(userFeedContext);
   const [followers, setFollowers] = useState("");
@@ -28,7 +30,9 @@ const UserPage = () => {
   const [website, setWebsite] = useState("");
   const { userId } = useParams();
 
-  const currentUserFeed = userFeed?.filter((item) => item.userId._id === userId);
+  const currentUserFeed = userFeed?.filter(
+    (item) => item.userId._id === userId
+  );
 
   // Get User Information
   useEffect(() => {
@@ -48,9 +52,12 @@ const UserPage = () => {
   // Get Followers of Specific User
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${backendUrl}/api/v1/users/followers/${userId}`, {
-        headers: { authorization: `Bearer ${accessToken}` },
-      });
+      const res = await fetch(
+        `${backendUrl}/api/v1/users/followers/${userId}`,
+        {
+          headers: { authorization: `Bearer ${accessToken}` },
+        }
+      );
 
       const data = await res.json();
       setFollowers(data?.result);
@@ -101,7 +108,9 @@ const UserPage = () => {
   };
 
   const joinedDate = new Date(userProfileData?.createdAt);
-  const joinedMonth = joinedDate.toLocaleDateString("de-DE", { month: "short" });
+  const joinedMonth = joinedDate.toLocaleDateString("de-DE", {
+    month: "short",
+  });
   const joinedYear = joinedDate.getFullYear();
 
   return (
@@ -109,18 +118,28 @@ const UserPage = () => {
       <HeaderNav />
       <main>
         <div className="userpage__profile-image">
-          <img src={`${backendUrl}/${userProfileData?.profileImg}`} alt="Profile Image" />
+          <img
+            src={`${backendUrl}/${userProfileData?.profileImg}`}
+            alt="Profile Image"
+          />
         </div>
 
         {/* Unser Information */}
         {!openForm && (
           <div className="userpage__profile-content-container">
-            <p className="userpage__username-bold">{userProfileData?.username}</p>
+            <p className="userpage__username-bold">
+              {userProfileData?.username}
+            </p>
             <p className="userpage__username">@{userProfileData?.username}</p>
-            <p className="userpage__description">{userProfileData?.description}</p>
+            <p className="userpage__description">
+              {userProfileData?.description}
+            </p>
 
             {userId === user._id && (
-              <div onClick={openCloseForm} className="userpage__modify-icons-container">
+              <div
+                onClick={openCloseForm}
+                className="userpage__modify-icons-container"
+              >
                 <FaRegEdit className="userpage__modify-icon" />
               </div>
             )}
@@ -142,7 +161,8 @@ const UserPage = () => {
             <div className="userpage__follow-container">
               <div>
                 <p>
-                  <span>{userProfileData?.isFollowerOf?.length || 0} </span>Following
+                  <span>{userProfileData?.isFollowerOf?.length || 0} </span>
+                  Following
                 </p>
                 <p>
                   <span>{followers?.length || 0} </span>Followers

@@ -43,7 +43,7 @@ export const showFeed = async (authenticatedUserId) => {
   // userTweets und followTweets zusammenfügen, ist aber noch unsortiert
   const unsortedUserFeedArr = [...userTweets, ...followerTweetsArr];
 
-  // falls das leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
+  // falls das array leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
   if (unsortedUserFeedArr.length === 0) throw new Error("Nothing to show yet.");
 
   // prüfen, ob der User bereits Tweets geliket hat - als boolean speichern

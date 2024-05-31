@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { accessTokenContext } from "../../context/Context";
+import {
+  accessTokenContext,
+  rerenderCounterContext,
+} from "../../context/Context";
 import { backendUrl } from "../../api/api";
 import "./IconEdit.css";
 
@@ -12,12 +14,11 @@ const IconEdit = ({
   setErrorMessage,
   toggleEdit,
   setToggleEdit,
-  setRerenderCounter,
-  rerenderCounter,
 }) => {
   const { accessToken } = useContext(accessTokenContext);
-
-  const navigate = useNavigate();
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
 
   const showEditInput = () => {
     if (singleTweet) {
@@ -34,64 +35,37 @@ const IconEdit = ({
     setToggleEdit(false);
   };
 
-  const editTweet = async () => {
+  const editTweetOrComment = async () => {
     if (message.length > 160)
       return setErrorMessage(
         "We know you have a lot to say, but unfortunately your tweet cannot exceed 160 characters."
       );
 
-    const res = await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
-      method: "PATCH",
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
+    const res = singleTweet
+      ? await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
+          method: "PATCH",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        })
+      : await fetch(`${backendUrl}/api/v1/comments/${singleComment._id}`, {
+          method: "PATCH",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        });
 
     const data = await res.json();
-    if (!data.result)
-      setErrorMessage(data.message || "Could not edit your tweet.");
-    const editedTweet = data.result;
-    setToggleEdit(false);
-    navigate("/loading");
-  };
-
-  const editComment = async () => {
-    if (message.length > 160)
-      return setErrorMessage(
-        "We know you have a lot to say, but unfortunately your tweet cannot exceed 160 characters."
-      );
-
-    const res = await fetch(
-      `${backendUrl}/api/v1/comments/${singleComment._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      }
-    );
-
-    const data = await res.json();
-    if (!data.result)
-      setErrorMessage(data.message || "Could not edit your comment.");
-    const editedComment = data.result;
+    if (!data.result) {
+      return setErrorMessage(data.message || "Could not edit anything.");
+    }
     setRerenderCounter(rerenderCounter + 1);
     setToggleEdit(false);
     setErrorMessage("");
-  };
-
-  // # stattdessen eine Funktion mit conditional fetch, je nachdem ob es singleComment oder singeTweet gibt
-  // # dafür müsste editTweet aber auch mit rerenderCount funktionieren
-  const editTweetOrComment = () => {
-    if (singleTweet) {
-      editTweet();
-    } else if (singleComment) {
-      editComment();
-    }
   };
 
   return (

@@ -6,13 +6,11 @@ import AddTweetPage from "../../pages/AddTweetPage/AddTweetPage";
 import { userContext } from "../../context/Context";
 import AuthRequiredVerified from "../AuthRequiredVerified/AuthRequiredVerified";
 
-const TweetRetweetIcon = ({ singleTweet }) => {
+const TweetRetweetIcon = ({ retweetedTweetId }) => {
   // falls Email verifiziert: bei Klick Weiterleitung an /addtweet oder <AddTweetPage/> mit singleTweet._id als Props
   // falls Email noch nicht verifiziert: VerificationPopup zeigen bzw. AuthRequiredVerified aufrufen
 
   const [navigateTo, setNavigateTo] = useState(false);
-  const retweetedTweetId = singleTweet._id;
-
   return (
     <div>
       <svg

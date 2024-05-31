@@ -17,6 +17,7 @@ import {
   errorMessageContext,
   userFeedContext,
   userProfileDataContext,
+  rerenderCounterContext,
 } from "./context/Context";
 import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage";
 
@@ -27,72 +28,86 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [userFeed, setUserFeed] = useState(null);
   const [userProfileData, setUserProfileData] = useState();
+  const [rerenderCounter, setRerenderCounter] = useState(0);
 
   return (
     <div className="wrapper">
-      <userProfileDataContext.Provider value={{ userProfileData, setUserProfileData }}>
-        <userContext.Provider value={{ user, setUser }}>
-          <allUsersContext.Provider value={{ allUsers, setAllUsers }}>
-            <accessTokenContext.Provider value={{ accessToken, setAccesToken }}>
-              <errorMessageContext.Provider value={{ errorMessage, setErrorMessage }}>
-                <userFeedContext.Provider value={{ userFeed, setUserFeed }}>
-                  <BrowserRouter>
-                    <Routes>
-                      <Route index element={<LandingPage />} />
-                      <Route path="/loading" element={<LoadingPage />} />
-                      <Route path="/register" element={<RegisterPage />} />
-                      <Route path="/login" element={<LoginPage />} />
+      <rerenderCounterContext.Provider
+        value={{ rerenderCounter, setRerenderCounter }}
+      >
+        <userProfileDataContext.Provider
+          value={{ userProfileData, setUserProfileData }}
+        >
+          <userContext.Provider value={{ user, setUser }}>
+            <allUsersContext.Provider value={{ allUsers, setAllUsers }}>
+              <accessTokenContext.Provider
+                value={{ accessToken, setAccesToken }}
+              >
+                <errorMessageContext.Provider
+                  value={{ errorMessage, setErrorMessage }}
+                >
+                  <userFeedContext.Provider value={{ userFeed, setUserFeed }}>
+                    <BrowserRouter>
+                      <Routes>
+                        <Route index element={<LandingPage />} />
+                        <Route path="/loading" element={<LoadingPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/login" element={<LoginPage />} />
 
-                      <Route
-                        path="/feed"
-                        element={
-                          <AuthRequiredLogin>
-                            <FeedPage />
-                          </AuthRequiredLogin>
-                        }
-                      />
-                      <Route
-                        path="/user/:userId"
-                        element={
-                          <AuthRequiredLogin>
-                            <UserPage />
-                          </AuthRequiredLogin>
-                        }
-                      />
-                      <Route
-                        path="/settings"
-                        element={
-                          <AuthRequiredLogin>
-                            <SettingsPage />
-                          </AuthRequiredLogin>
-                        }
-                      />
+                        <Route
+                          path="/feed"
+                          element={
+                            <AuthRequiredLogin>
+                              <FeedPage />
+                            </AuthRequiredLogin>
+                          }
+                        />
+                        <Route
+                          path="/user/:userId"
+                          element={
+                            <AuthRequiredLogin>
+                              <UserPage />
+                            </AuthRequiredLogin>
+                          }
+                        />
+                        <Route
+                          path="/settings"
+                          element={
+                            <AuthRequiredLogin>
+                              <SettingsPage />
+                            </AuthRequiredLogin>
+                          }
+                        />
 
-                      <Route
-                        path="/addtweet"
-                        element={
-                          <AuthRequiredVerified>
-                            <AddTweetPage />
-                          </AuthRequiredVerified>
-                        }
-                      />
-                      <Route
-                        path="/settings/emailverification"
-                        element={
-                          <AuthRequiredLogin>
-                            <VerifyEmailPage />
-                          </AuthRequiredLogin>
-                        }
-                      />
-                      <Route path="*" element={<p>There's nothing here: 404!</p>} />
-                    </Routes>
-                  </BrowserRouter>
-                </userFeedContext.Provider>
-              </errorMessageContext.Provider>
-            </accessTokenContext.Provider>
-          </allUsersContext.Provider>
-        </userContext.Provider>
-      </userProfileDataContext.Provider>
+                        <Route
+                          path="/addtweet"
+                          element={
+                            <AuthRequiredVerified>
+                              <AddTweetPage />
+                            </AuthRequiredVerified>
+                          }
+                        />
+                        <Route
+                          path="/settings/emailverification"
+                          element={
+                            <AuthRequiredLogin>
+                              <VerifyEmailPage />
+                            </AuthRequiredLogin>
+                          }
+                        />
+                        <Route
+                          path="*"
+                          element={<p>There's nothing here: 404!</p>}
+                        />
+                      </Routes>
+                    </BrowserRouter>
+                  </userFeedContext.Provider>
+                </errorMessageContext.Provider>
+              </accessTokenContext.Provider>
+            </allUsersContext.Provider>
+          </userContext.Provider>
+        </userProfileDataContext.Provider>
+      </rerenderCounterContext.Provider>
     </div>
   );
 }

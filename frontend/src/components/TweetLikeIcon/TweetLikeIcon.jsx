@@ -5,14 +5,13 @@ import {
 } from "../../context/Context";
 import { backendUrl } from "../../api/api";
 
-const TweetLikeIcon = ({ tweetId }) => {
+const TweetLikeIcon = ({ tweetId, isLikedByLoggedInUser }) => {
   const { accessToken } = useContext(accessTokenContext);
   const { rerenderCounter, setRerenderCounter } = useContext(
     rerenderCounterContext
   );
 
-  // # addLike und deleteLike funktionieren, aber bereits gelikte Sachen müssen von vornherein noch angezeigt werden - isLikedBy in User-Daten mit übergeben?
-  const [isLiked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState(isLikedByLoggedInUser);
 
   const addLike = async () => {
     const res = tweetId

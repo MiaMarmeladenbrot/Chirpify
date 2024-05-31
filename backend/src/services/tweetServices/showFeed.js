@@ -21,16 +21,11 @@ export const showFeed = async (authenticatedUserId) => {
     });
 
   // alle Tweets von den Leuten, denen der user folgt - als array mit ids als ObjectIds
-  const userFollowsIdArr = user.isFollowerOf;
+  const userFollowsIdsArr = user.isFollowerOf;
 
-  // jede einzelne ObjectId in einen String umwandeln
-  const userFollowerIdStringsArr = userFollowsIdArr.map((item) =>
-    item.toString()
-  );
-
-  // mit string-Ids nach Tweets suchen
+  // mit diesen Ids nach Tweets suchen
   const followerTweetsArr = await Tweet.find({
-    userId: { $in: userFollowerIdStringsArr },
+    userId: { $in: userFollowsIdsArr },
   })
     .populate({
       path: "userId",
@@ -49,10 +44,18 @@ export const showFeed = async (authenticatedUserId) => {
   const unsortedUserFeedArr = [...userTweets, ...followerTweetsArr];
 
   // falls das leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
-  if (unsortedUserFeedArr.length === 0) throw new Error("Nothing to show yet");
+  if (unsortedUserFeedArr.length === 0) throw new Error("Nothing to show yet.");
+
+  // prüfen, ob der User bereits Tweets geliket hat - als boolean speichern
+  const unsortedUserFeedWithLikesArr = unsortedUserFeedArr.map((tweet) => ({
+    ...tweet.toObject(),
+    isLikedByLoggedInUser: tweet.isLikedBy.includes(
+      authenticatedUserId.toString()
+    ),
+  }));
 
   // zusammengefügte Tweets nach Neuestem sortieren
-  const sortedUserFeedArr = unsortedUserFeedArr.sort(
+  const sortedUserFeedArr = unsortedUserFeedWithLikesArr.sort(
     (a, b) => b.createdAt - a.createdAt
   );
 

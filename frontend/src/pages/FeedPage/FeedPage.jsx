@@ -36,6 +36,8 @@ const FeedPage = () => {
     fetchUserFeed();
   }, [rerenderCounter]);
 
+  console.log(userFeed);
+
   return (
     <section className="feedpage">
       <HeaderNav />

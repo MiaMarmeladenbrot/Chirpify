@@ -160,7 +160,7 @@ const Tweet = ({ singleTweet }) => {
               setShowComments={setShowComments}
             />
             <TweetRetweetIcon retweetedTweetId={singleTweet._id} />
-            <TweetLikeIcon />
+            <TweetLikeIcon tweetId={singleTweet._id} />
             <TweetShareIcon />
           </div>
 

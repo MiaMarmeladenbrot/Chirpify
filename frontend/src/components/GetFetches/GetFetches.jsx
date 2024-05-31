@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom";
 const GetFetches = ({ loading }) => {
   const { user } = useContext(userContext);
   const { accessToken } = useContext(accessTokenContext);
-  const { allUsers, setAllUsers } = useContext(allUsersContext);
-  const { errorMessage, setErrorMessage } = useContext(errorMessageContext);
-  const { userFeed, setUserFeed } = useContext(userFeedContext);
+  const { setAllUsers } = useContext(allUsersContext);
+  const { setErrorMessage } = useContext(errorMessageContext);
+  const { setUserFeed } = useContext(userFeedContext);
 
   const navigate = useNavigate();
 

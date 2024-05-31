@@ -45,6 +45,8 @@ const Comment = ({
           <IconDelete
             singleComment={singleComment}
             setErrorMessage={setErrorMessage}
+            rerenderCounter={rerenderCounter}
+            setRerenderCounter={setRerenderCounter}
           />
           <IconEdit
             singleComment={singleComment}

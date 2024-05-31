@@ -50,7 +50,8 @@ const IconEdit = ({
     });
 
     const data = await res.json();
-    if (!data.result) setErrorMessage(data.message);
+    if (!data.result)
+      setErrorMessage(data.message || "Could not edit your tweet.");
     const editedTweet = data.result;
     setToggleEdit(false);
     navigate("/loading");
@@ -83,6 +84,8 @@ const IconEdit = ({
     setErrorMessage("");
   };
 
+  // # stattdessen eine Funktion mit conditional fetch, je nachdem ob es singleComment oder singeTweet gibt
+  // # dafür müsste editTweet aber auch mit rerenderCount funktionieren
   const editTweetOrComment = () => {
     if (singleTweet) {
       editTweet();

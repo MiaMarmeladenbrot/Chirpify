@@ -4,7 +4,6 @@ import {
   allUsersContext,
   errorMessageContext,
   userContext,
-  userFeedContext,
 } from "../../context/Context";
 import { backendUrl } from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +13,6 @@ const GetFetches = ({ loading }) => {
   const { accessToken } = useContext(accessTokenContext);
   const { setAllUsers } = useContext(allUsersContext);
   const { setErrorMessage } = useContext(errorMessageContext);
-  const { setUserFeed } = useContext(userFeedContext);
 
   const navigate = useNavigate();
 
@@ -33,21 +31,6 @@ const GetFetches = ({ loading }) => {
       setErrorMessage("");
     };
     fetchAllUsers();
-
-    // fetch for userFeed
-    const fetchUserFeed = async () => {
-      const res = await fetch(`${backendUrl}/api/v1/tweets/userFeed`, {
-        headers: { authorization: `Bearer ${accessToken}` },
-      });
-
-      const data = await res.json();
-      if (!data.result) {
-        return setErrorMessage(data.message);
-      }
-      setUserFeed(data.result);
-      setErrorMessage("");
-    };
-    fetchUserFeed();
 
     // Weiterleitung je nach Verifizierungsstatus der Email des Users:
     if (user.isEmailVerified === false && accessToken && loading) {

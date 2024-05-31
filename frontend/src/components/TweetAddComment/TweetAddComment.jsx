@@ -1,10 +1,16 @@
 import { useContext, useState } from "react";
 import "./TweetAddComment.css";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext } from "../../context/Context";
+import {
+  accessTokenContext,
+  rerenderCounterContext,
+} from "../../context/Context";
 
-const TweetAddComment = ({ tweetId, rerenderCounter, setRerenderCounter }) => {
+const TweetAddComment = ({ tweetId }) => {
   const { accessToken } = useContext(accessTokenContext);
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
 
   const [message, setMessage] = useState();
   const [errorMessage, setErrorMessage] = useState("");

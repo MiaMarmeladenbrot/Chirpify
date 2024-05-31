@@ -5,12 +5,7 @@ import IconEdit from "../IconEdit/IconEdit";
 import "./Comment.css";
 import { userContext } from "../../context/Context";
 
-const Comment = ({
-  singleComment,
-  setErrorMessage,
-  rerenderCounter,
-  setRerenderCounter,
-}) => {
+const Comment = ({ singleComment, setErrorMessage }) => {
   const [message, setMessage] = useState("");
   const [toggleEdit, setToggleEdit] = useState(false);
   const { user: loggedInUser } = useContext(userContext);
@@ -45,8 +40,6 @@ const Comment = ({
           <IconDelete
             singleComment={singleComment}
             setErrorMessage={setErrorMessage}
-            rerenderCounter={rerenderCounter}
-            setRerenderCounter={setRerenderCounter}
           />
           <IconEdit
             singleComment={singleComment}
@@ -55,8 +48,6 @@ const Comment = ({
             setErrorMessage={setErrorMessage}
             toggleEdit={toggleEdit}
             setToggleEdit={setToggleEdit}
-            rerenderCounter={rerenderCounter}
-            setRerenderCounter={setRerenderCounter}
           />
         </div>
       ) : (

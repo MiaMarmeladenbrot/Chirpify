@@ -12,12 +12,11 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - Update Access Token back to 10 min
 - refreshToken implementieren
 - Multer für Profilbild und Tweet-Bild -> Tweet-Model
-- Endpunkt für random Vorschläge, damit der User überhaupt zu Beginn die Möglichkeit hat, Leuten zu folgen, etc.?
+- Endpunkt für random Vorschläge, damit der User überhaupt zu Beginn die Möglichkeit hat, Leuten zu folgen, etc.? bzw Trending Feed implementieren?
 - Suchfunktion nach Usern und Themen? Oder im Frontend umsetzen?
 
 ## Frontend ToDos
 
-- delete/edit tweet/comment in eine Funktion umwandeln, dafür aber getTweetsFetches umwandeln mit rerenderCounter (wie bei comments)
 - gleiches gilt für like-Herz-Icon?
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?

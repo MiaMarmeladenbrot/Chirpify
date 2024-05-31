@@ -1,67 +1,45 @@
 import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
+import {
+  accessTokenContext,
+  rerenderCounterContext,
+} from "../../context/Context";
 import "./IconDelete.css";
 
-const IconDelete = ({
-  singleTweet,
-  singleComment,
-  setErrorMessage,
-  setRerenderCounter,
-  rerenderCounter,
-}) => {
+const IconDelete = ({ singleTweet, singleComment, setErrorMessage }) => {
   const { accessToken } = useContext(accessTokenContext);
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
   const [showDelete, setShowDelete] = useState(false);
 
-  const navigate = useNavigate();
-
-  const deleteTweet = async () => {
-    const res = await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    const data = await res.json();
-    if (!data.result) setErrorMessage(data.message);
-    const deletedTweet = data.result;
-    navigate("/loading");
-  };
-
-  const deleteComment = async () => {
-    const res = await fetch(
-      `${backendUrl}/api/v1/comments/${singleComment._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+  const deleteTweetOrComment = async () => {
+    const res = singleTweet
+      ? await fetch(`${backendUrl}/api/v1/tweets/${singleTweet._id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        })
+      : await fetch(`${backendUrl}/api/v1/comments/${singleComment._id}`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        });
 
     const data = await res.json();
-    if (!data.result)
-      setErrorMessage(data.message || "Could not delete your comment.");
-    const deletedComment = data.result;
+    if (!data.result) {
+      return setErrorMessage(data.message || "Could not delete anything.");
+    }
     setRerenderCounter(rerenderCounter + 1);
     setShowDelete(false);
     setErrorMessage("");
   };
 
-  // # stattdessen eine Funktion mit conditional fetch, je nachdem ob es singleComment oder singeTweet gibt
-  // # dafür müsste editTweet aber auch mit rerenderCount funktionieren
-  const deleteTweetOrComment = () => {
-    if (singleTweet) {
-      deleteTweet();
-    } else if (singleComment) {
-      deleteComment();
-    }
-  };
-
   return (
     <div>
+      {/* trash can icon */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
@@ -76,6 +54,7 @@ const IconDelete = ({
         <section className="delete-tweet-popup">
           <img src="/img/birdLogo.png" alt="bird logo" />
           <p>Are you sure you want to delete this?</p>
+
           {/* check-icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"

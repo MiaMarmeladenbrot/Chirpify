@@ -3,11 +3,17 @@ import ImageProfile from "../../components/ImageProfile/ImageProfile";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { accessTokenContext } from "../../context/Context";
+import {
+  accessTokenContext,
+  rerenderCounterContext,
+} from "../../context/Context";
 import FooterNav from "../../components/FooterNav/FooterNav";
 
 const AddTweetPage = () => {
   const { accessToken } = useContext(accessTokenContext);
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
 
   // authenticatedUserId, { message, retweetedTweetId, isLikedBy } => message aus textarea, retweetedTweetId aus navigate/location bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
   const [message, setMessage] = useState("");
@@ -40,9 +46,9 @@ const AddTweetPage = () => {
 
     const data = await res.json();
     if (!data.result) setErrorMessage(data.message);
-    const newTweet = data.result;
+    setRerenderCounter(rerenderCounter + 1);
     setErrorMessage("");
-    navigate("/loading");
+    navigate("/feed");
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
 import { userContext } from "../../context/Context";
 import "./Tweet.css";
@@ -18,7 +18,6 @@ const Tweet = ({ singleTweet }) => {
   const [toggleEdit, setToggleEdit] = useState(false);
   const [message, setMessage] = useState("");
   const [showComments, setShowComments] = useState(false);
-  const [rerenderCounter, setRerenderCounter] = useState(0); // --> wird beim Hinzufügen eines Comments neu gesetzt, sodass fetchComments neu gerendert wird, da es von diesem state abhängig ist ((evtl global erstellen und auch für tweet renderei benutzen?))
   const tweetOwner = singleTweet?.userId;
   const retweetedTweet = singleTweet?.retweetedTweetId;
 
@@ -160,18 +159,12 @@ const Tweet = ({ singleTweet }) => {
               showComments={showComments}
               setShowComments={setShowComments}
             />
-            <TweetRetweetIcon singleTweet={singleTweet} />
+            <TweetRetweetIcon retweetedTweetId={singleTweet._id} />
             <TweetLikeIcon />
             <TweetShareIcon />
           </div>
 
-          {showComments && (
-            <TweetCommentFeed
-              singleTweet={singleTweet}
-              rerenderCounter={rerenderCounter}
-              setRerenderCounter={setRerenderCounter}
-            />
-          )}
+          {showComments && <TweetCommentFeed singleTweet={singleTweet} />}
         </article>
       </section>
     </>

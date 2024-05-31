@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import "./TweetCommentFeed.css";
+import "./CommentFeed.css";
 import { backendUrl } from "../../api/api";
 import {
   accessTokenContext,
   rerenderCounterContext,
 } from "../../context/Context";
-import TweetAddComment from "../TweetAddComment/TweetAddComment";
 
 import Comment from "../Comment/Comment";
+import AddComment from "../AddComment/AddComment";
 
-const TweetCommentFeed = ({ singleTweet }) => {
+const CommentFeed = ({ singleTweet }) => {
   const { accessToken } = useContext(accessTokenContext);
   const { rerenderCounter } = useContext(rerenderCounterContext);
   const [comments, setComments] = useState(null);
@@ -51,10 +51,10 @@ const TweetCommentFeed = ({ singleTweet }) => {
             <p>No comments yet</p>
           </div>
         )}
-        <TweetAddComment tweetId={tweetId} />
+        <AddComment tweetId={tweetId} />
       </article>
     </section>
   );
 };
 
-export default TweetCommentFeed;
+export default CommentFeed;

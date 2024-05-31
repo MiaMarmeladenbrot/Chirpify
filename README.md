@@ -17,7 +17,9 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
-- gleiches gilt für like-Herz-Icon?
+- Likes in Echtzeit auf UserPage anzeigen
+- counter für comments und retweets einbauen - im Backend?
+- like comment
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
 - Position von addTweet-Button anpassen bei größerem Bildschirm

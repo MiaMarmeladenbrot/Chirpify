@@ -1,0 +1,13 @@
+.like-icon {
+  display: flex;
+
+  gap: 3px;
+}
+
+.like-icon svg {
+  margin-top: 2px;
+}
+
+.like-icon p {
+  color: #687684;
+}

@@ -8,6 +8,7 @@ export const showUserTweets = async (authenticatedUserId, userId) => {
   ]);
   if (!user || !authenticatedUser) throw new Error("User does not exist.");
 
+  // alle Tweets des gesuchten Users mit Daten zum User und zum Retweet, falls vorhanden, sortiert nach neuestem zuerst
   const allUserTweets = await Tweet.find({ userId })
     .populate({
       path: "userId",
@@ -20,7 +21,8 @@ export const showUserTweets = async (authenticatedUserId, userId) => {
         path: "userId",
         select: "_id firstname lastname username profileImg",
       },
-    });
+    })
+    .sort({ createdAt: -1 });
 
   // falls das array leer ist, also weder user- noch followTweets existieren, Fehler anzeigen
   if (allUserTweets.length === 0) throw new Error("Nothing to show yet.");

@@ -1,4 +1,16 @@
+.registerpage form {
+  margin-bottom: 5rem;
+}
+
 .registerpage h1 {
   text-align: center;
   margin-block: 5rem;
+}
+
+.registerpage p {
+  text-align: center;
+}
+
+.registerpage a {
+  color: var(--color-main-blue);
 }

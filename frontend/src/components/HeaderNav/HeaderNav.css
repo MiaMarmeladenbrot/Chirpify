@@ -1,30 +1,22 @@
+header nav img {
+  max-width: 2.5rem;
+  object-fit: contain;
+}
+
 .headerNav {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem 1rem 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid black;
   gap: 3rem;
+  padding: 2rem 1rem 1rem 1rem;
+  border-bottom: 1px solid black;
 
   position: relative;
+  margin-bottom: 2rem;
 }
 
-.headerNav-big {
-  display: flex;
+.headerNav-space-between {
   justify-content: space-between;
-  align-items: center;
-  padding: 2rem 1rem 1rem 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid black;
-  gap: 3rem;
-
-  position: relative;
-}
-
-.headerNav-big img {
-  object-fit: contain;
-  width: 2.5rem;
 }
 
 .arrow-position {
@@ -32,4 +24,5 @@
   left: 40px;
   top: 50%;
   cursor: pointer;
+  fill: var(--color-grey-light);
 }

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./RegisterPage.css";
 import { backendUrl } from "../../api/api";
 import { userContext } from "../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import VerificationPopup from "../../components/VerificationPopup/VerificationPopup";
@@ -96,6 +96,9 @@ const RegisterPage = () => {
         <button onClick={registerUser}>Sign up</button>
         {errorMessage ? <p className="errorMessage">{errorMessage}</p> : ""}
       </form>
+      <p>
+        Have an account already? <Link to="/login">Login here</Link>
+      </p>
     </section>
   );
 };

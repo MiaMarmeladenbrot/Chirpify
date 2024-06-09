@@ -13,6 +13,7 @@ import { IoIosLink } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import Tweet from "../../components/Tweet/Tweet";
+import FooterNav from "../../components/FooterNav/FooterNav";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
@@ -33,6 +34,8 @@ const UserPage = () => {
 
   // Get Tweets of the User
   useEffect(() => {
+    setUserTweets([]);
+
     const fetchData = async () => {
       const res = await fetch(`${backendUrl}/api/v1/tweets/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
@@ -44,10 +47,12 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, [rerenderCounter]);
+  }, [rerenderCounter, userId]);
 
   // Get User Information
   useEffect(() => {
+    setUserProfileData([]);
+
     const fetchData = async () => {
       const res = await fetch(`${backendUrl}/api/v1/users/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
@@ -57,13 +62,16 @@ const UserPage = () => {
 
       setUserProfileData(data?.result);
     };
+    console.log(userProfileData);
 
     fetchData();
-  }, [openForm]);
+  }, [openForm, userId]);
 
   // Get Followers of Specific User
   useEffect(() => {
     const fetchData = async () => {
+      setFollowers("");
+
       const res = await fetch(
         `${backendUrl}/api/v1/users/followers/${userId}`,
         {
@@ -76,7 +84,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   // Open Form to edit User Informationen
   const openCloseForm = () => {
@@ -136,7 +144,7 @@ const UserPage = () => {
           />
         </div>
 
-        {/* Unser Information */}
+        {/* User Information */}
         {!openForm && (
           <div className="userpage__profile-content-container">
             <p className="userpage__username-bold">
@@ -234,6 +242,7 @@ const UserPage = () => {
           ))}
         </section>
       </main>
+      <FooterNav />
     </>
   );
 };

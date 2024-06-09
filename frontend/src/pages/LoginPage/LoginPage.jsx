@@ -1,7 +1,7 @@
 import "./LoginPage.css";
 import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { accessTokenContext, userContext } from "../../context/Context";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import { FaEye } from "react-icons/fa";
@@ -65,14 +65,7 @@ const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {/* <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /> */}
+
         <div>
           <input
             type={inputType}
@@ -84,6 +77,9 @@ const LoginPage = () => {
         </div>
         <button type="submit">Log in</button>
       </form>
+      <p>
+        Don't have an account yet? <Link to="/register">Register here</Link>
+      </p>
     </section>
   );
 };

@@ -26,24 +26,31 @@ const HeaderNav = () => {
 
   return (
     <header
+      // Stylings for Header of logged in user only
       className={
-        pathname === `/user/${userProfileData?._id}`
-          ? "userpage__header-container"
-          : ""
+        pathname === `/user/${user?._id}` ? "userpage__header-container" : ""
       }
     >
-      <nav className={pathname === "/feed" ? "headerNav-big" : "headerNav"}>
-        {pathname === "/register" && (
+      <nav
+        // separate nav stylings for feed page
+        className={
+          pathname === "/feed"
+            ? "headerNav headerNav-space-between"
+            : "headerNav"
+        }
+      >
+        {/* back arrow for login- and register-pages plus userpages of not logged in users */}
+        {(pathname === "/register" ||
+          pathname === "/login" ||
+          pathname === `/user/${userProfileData?._id}`) && (
           <FaArrowLeft className="arrow-position" onClick={goBack} />
         )}
 
-        {pathname === "/login" && (
-          <FaArrowLeft className="arrow-position" onClick={goBack} />
-        )}
-
+        {/* image of logged-in user shows on user feed */}
         {pathname === "/feed" && <ImageProfile />}
 
-        {pathname === `/user/${userProfileData?._id}` && (
+        {/* black header with back arrow and name for logged in user */}
+        {pathname === `/user/${user?._id}` && (
           <div>
             <FaArrowLeft
               className="arrow-position userpage__arrow"
@@ -55,10 +62,14 @@ const HeaderNav = () => {
           </div>
         )}
 
-        {pathname !== `/user/${userProfileData?._id || null}` && (
-          <ImageBird onClick={pathname === "/feed" ? refreshFeed : ""} />
+        {/* bird logo for every other user and userfeed plus login- and register-page */}
+        {pathname !== `/user/${user?._id || null}` && (
+          <div>
+            <ImageBird onClick={pathname === "/feed" ? refreshFeed : ""} />
+          </div>
         )}
 
+        {/* settings icon for feed page */}
         {pathname === "/feed" && (
           <IoIosSettings
             color="#1D9BF0"

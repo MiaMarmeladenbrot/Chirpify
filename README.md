@@ -17,7 +17,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
-- reihenfolge der usertweets umdrehen
+- AuthRequired mit refresh anpassen
 - counter für comments und retweets einbauen, um neben den Icons die Zahlen anzuzeigen - im Backend?
 - follow/unfollow a user
 - like comment
@@ -25,7 +25,5 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - fetches in try/catch?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
 - retweeted Tweet auf addTweetPage darstellen, falls es ein retweet ist
-- LikeFetch/DislikeFetch
 - taggedUsers über filter-Funktion ans Backend
 - Suche nach Usern (@) und Themen (#)?
-- AuthRequired mit refresh anpassen

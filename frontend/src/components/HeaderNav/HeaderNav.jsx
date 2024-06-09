@@ -27,9 +27,7 @@ const HeaderNav = () => {
   return (
     <header
       className={
-        pathname === `/user/${userProfileData?._id}`
-          ? "userpage__header-container"
-          : ""
+        pathname === `/user/${user?._id}` ? "userpage__header-container" : ""
       }
     >
       <nav className={pathname === "/feed" ? "headerNav-big" : "headerNav"}>
@@ -43,7 +41,7 @@ const HeaderNav = () => {
 
         {pathname === "/feed" && <ImageProfile />}
 
-        {pathname === `/user/${userProfileData?._id}` && (
+        {pathname === `/user/${user?._id}` && (
           <div>
             <FaArrowLeft
               className="arrow-position userpage__arrow"
@@ -55,8 +53,10 @@ const HeaderNav = () => {
           </div>
         )}
 
-        {pathname !== `/user/${userProfileData?._id || null}` && (
-          <ImageBird onClick={pathname === "/feed" ? refreshFeed : ""} />
+        {pathname !== `/user/${user?._id || null}` && (
+          <div>
+            <ImageBird onClick={pathname === "/feed" ? refreshFeed : ""} />
+          </div>
         )}
 
         {pathname === "/feed" && (

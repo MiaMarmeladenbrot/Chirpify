@@ -17,7 +17,7 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 
 ## Frontend ToDos
 
-- UserPage: Link zu einer anderen UserPage geht nicht?
+- reihenfolge der usertweets umdrehen
 - counter für comments und retweets einbauen, um neben den Icons die Zahlen anzuzeigen - im Backend?
 - follow/unfollow a user
 - like comment

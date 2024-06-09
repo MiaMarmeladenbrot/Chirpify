@@ -65,6 +65,24 @@ const getAllUserTweetsCtrl = async (req, res) => {
   }
 };
 
+const getOneTweetCtrl = async (req, res) => {
+  try {
+    const authenticatedUserId = req.authenticatedUserClaims.sub;
+    const tweetId = req.params.tweetId;
+
+    const result = await TweetService.showSingleTweet(
+      authenticatedUserId,
+      tweetId
+    );
+    res.json({ result });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ error, message: error.message || "Could not find this tweet." });
+  }
+};
+
 const patchLikeUsersTweetCrtl = async (req, res) => {
   try {
     const authenticatedUserId = req.authenticatedUserClaims.sub;
@@ -120,4 +138,5 @@ export const TweetController = {
   patchLikeUsersTweetCrtl,
   patchDislikeUsersTweetCrtl,
   getShowUserFeed,
+  getOneTweetCtrl,
 };

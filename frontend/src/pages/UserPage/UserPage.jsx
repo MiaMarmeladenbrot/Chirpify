@@ -37,7 +37,7 @@ const UserPage = () => {
     setUserTweets([]);
 
     const fetchData = async () => {
-      const res = await fetch(`${backendUrl}/api/v1/tweets/${userId}`, {
+      const res = await fetch(`${backendUrl}/api/v1/tweets/of/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
       });
 

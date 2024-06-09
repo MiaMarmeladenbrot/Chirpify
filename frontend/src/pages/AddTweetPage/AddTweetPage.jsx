@@ -1,13 +1,14 @@
 import "./AddTweetPage.css";
 import ImageProfile from "../../components/ImageProfile/ImageProfile";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { backendUrl } from "../../api/api";
 import {
   accessTokenContext,
   rerenderCounterContext,
 } from "../../context/Context";
 import FooterNav from "../../components/FooterNav/FooterNav";
+import RetweetedTweet from "../../components/RetweetedTweet/RetweetedTweet";
 
 const AddTweetPage = () => {
   const { accessToken } = useContext(accessTokenContext);
@@ -20,6 +21,7 @@ const AddTweetPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
   const retweetedTweetId = location.state?.retweetedTweetId;
+  const [retweetedTweet, setRetweetedTweet] = useState([]);
 
   const navigate = useNavigate();
 
@@ -51,6 +53,24 @@ const AddTweetPage = () => {
     navigate("/feed");
   };
 
+  // get information of retweeted Tweet, if there is one, to display underneath the textarea-field for the new tweet
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `${backendUrl}/api/v1/tweets/${retweetedTweetId}`,
+        {
+          headers: { authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      const data = await res.json();
+
+      setRetweetedTweet(data.result);
+    };
+
+    fetchData();
+  }, [rerenderCounter]);
+
   return (
     <section className="add-tweet-page">
       <div>
@@ -73,6 +93,15 @@ const AddTweetPage = () => {
           value={message}
         ></textarea>
       </div>
+
+      {/* show retweet, if there is one */}
+      {retweetedTweet && (
+        <section>
+          <h3>You're retweeting this:</h3>
+          <RetweetedTweet retweetedTweet={retweetedTweet} />
+        </section>
+      )}
+
       <FooterNav />
     </section>
   );

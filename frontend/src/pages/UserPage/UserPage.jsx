@@ -62,7 +62,6 @@ const UserPage = () => {
 
       setUserProfileData(data?.result);
     };
-    console.log(userProfileData);
 
     fetchData();
   }, [openForm, userId]);

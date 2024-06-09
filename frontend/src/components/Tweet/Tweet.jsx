@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { backendUrl } from "../../api/api";
 import { userContext } from "../../context/Context";
 import "./Tweet.css";
+
 import TweetCommentIcon from "../TweetCommentIcon/TweetCommentIcon";
 import TweetRetweetIcon from "../TweetRetweetIcon/TweetRetweetIcon";
 import TweetShareIcon from "../TweetShareIcon/TweetShareIcon";
@@ -10,6 +11,7 @@ import IconEdit from "../IconEdit/IconEdit";
 import IconDelete from "../IconDelete/IconDelete";
 import CommentFeed from "../CommentFeed/CommentFeed";
 import IconLike from "../IconLike/IconLike";
+import RetweetedTweet from "../RetweetedTweet/RetweetedTweet";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
@@ -19,7 +21,7 @@ const Tweet = ({ singleTweet }) => {
   const [message, setMessage] = useState("");
   const [showComments, setShowComments] = useState(false);
   const tweetOwner = singleTweet?.userId;
-  const retweetedTweet = singleTweet?.retweetedTweetId;
+  const retweetedTweetInfo = singleTweet?.retweetedTweetId;
 
   // function to calculate the age of a tweet and show it in different ways, depending on the time that passed
   const calculateTweetAge = (createdAt) => {
@@ -38,7 +40,7 @@ const Tweet = ({ singleTweet }) => {
     return { showTweetAge, tweetAgeInHours };
   };
   const newTweetAge = calculateTweetAge(singleTweet?.createdAt);
-  const retweetedTweetAge = calculateTweetAge(retweetedTweet?.createdAt);
+  // const retweetedTweetAge = calculateTweetAge(retweetedTweet?.createdAt);
 
   // function to change date format of tweets
   const changeTweetDateFormat = (createdAt) => {
@@ -56,7 +58,7 @@ const Tweet = ({ singleTweet }) => {
     return { tweetDay, tweetMonth, tweetYear, tweetHours, tweetMinutes };
   };
   const newTweetDate = changeTweetDateFormat(singleTweet?.createdAt);
-  const retweetedTweetDate = changeTweetDateFormat(retweetedTweet?.createdAt);
+  // const retweetedTweetDate = changeTweetDateFormat(retweetedTweet?.createdAt);
 
   return (
     <>
@@ -96,38 +98,11 @@ const Tweet = ({ singleTweet }) => {
             )}
 
             {/* hier wäre noch das Bild, falls es eines gibt */}
+
             {/* show retweeted Tweet if it exists */}
-            {retweetedTweet && (
-              <section className="retweeted-tweet-box">
-                <div>
-                  <div className="profile-area">
-                    <Link to={`/user/${retweetedTweet?.userId?._id}`}>
-                      <img
-                        src={`${backendUrl}/${retweetedTweet?.userId?.profileImg}`}
-                        alt={`Profile image of ${retweetedTweet?.userId?.username}`}
-                      />
-                    </Link>
+            <RetweetedTweet retweetedTweet={retweetedTweetInfo} />
 
-                    <div>
-                      <p>
-                        {retweetedTweet?.userId?.firstname}{" "}
-                        {retweetedTweet?.userId?.lastname}
-                      </p>
-                      <p>@{retweetedTweet?.userId?.username}</p>
-                    </div>
-                  </div>
-                  <p>{retweetedTweet?.message}</p>
-                  {/* hier wäre noch das Bild, falls es eines gibt */}
-
-                  <p className="time-of-tweet">
-                    {retweetedTweetAge.tweetAgeInHours > 23
-                      ? `${retweetedTweetDate.tweetDay}.${retweetedTweetDate.tweetMonth}.${retweetedTweetDate.tweetYear} ${retweetedTweetDate.tweetHours}:${retweetedTweetDate.tweetMinutes}`
-                      : `${retweetedTweetAge.showTweetAge}`}
-                  </p>
-                </div>
-              </section>
-            )}
-
+            {/* show age or date/time of the tweet */}
             <p className="time-of-tweet">
               {newTweetAge.tweetAgeInHours > 23
                 ? `${newTweetDate.tweetDay}.${newTweetDate.tweetMonth}.${newTweetDate.tweetYear} ${newTweetDate.tweetHours}:${newTweetDate.tweetMinutes}`
@@ -135,6 +110,7 @@ const Tweet = ({ singleTweet }) => {
             </p>
           </section>
 
+          {/* if it's a tweet of the logged-in user, show delete/edit options */}
           {tweetOwner?._id === user._id ? (
             <div className="tweet-menu">
               <IconDelete
@@ -154,6 +130,7 @@ const Tweet = ({ singleTweet }) => {
             ""
           )}
 
+          {/* show icons to comment, retweet, like, share the tweet */}
           <div className="tweet-icons">
             <TweetCommentIcon
               showComments={showComments}
@@ -164,6 +141,7 @@ const Tweet = ({ singleTweet }) => {
             <TweetShareIcon />
           </div>
 
+          {/* show the comments for the tweet */}
           {showComments && <CommentFeed singleTweet={singleTweet} />}
         </article>
       </section>

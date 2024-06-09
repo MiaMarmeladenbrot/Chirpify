@@ -1,6 +1,6 @@
-import express from "express"
-import { doJwtAuth } from "../middlewares/doJwtAuth.js"
-import { TweetController } from "../controllers/TweetController.js"
+import express from "express";
+import { doJwtAuth } from "../middlewares/doJwtAuth.js";
+import { TweetController } from "../controllers/TweetController.js";
 
 export const TweetRouter = express
   .Router()
@@ -10,4 +10,5 @@ export const TweetRouter = express
   .patch("/:tweetId", doJwtAuth, TweetController.patchUpdateTweetCtrl)
   .delete("/:tweetId", doJwtAuth, TweetController.deleteTweetCtrl)
   .get("/userFeed", doJwtAuth, TweetController.getShowUserFeed)
-  .get("/:userId", doJwtAuth, TweetController.getAllUserTweetsCtrl)
+  .get("/of/:userId", doJwtAuth, TweetController.getAllUserTweetsCtrl)
+  .get("/:tweetId", doJwtAuth, TweetController.getOneTweetCtrl);

@@ -34,8 +34,6 @@ const UserPage = () => {
 
   // Get Tweets of the User
   useEffect(() => {
-    setUserTweets([]);
-
     const fetchData = async () => {
       const res = await fetch(`${backendUrl}/api/v1/tweets/of/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
@@ -51,8 +49,6 @@ const UserPage = () => {
 
   // Get User Information
   useEffect(() => {
-    setUserProfileData([]);
-
     const fetchData = async () => {
       const res = await fetch(`${backendUrl}/api/v1/users/${userId}`, {
         headers: { authorization: `Bearer ${accessToken}` },
@@ -69,8 +65,6 @@ const UserPage = () => {
   // Get Followers of Specific User
   useEffect(() => {
     const fetchData = async () => {
-      setFollowers("");
-
       const res = await fetch(
         `${backendUrl}/api/v1/users/followers/${userId}`,
         {

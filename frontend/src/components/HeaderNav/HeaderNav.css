@@ -2,6 +2,7 @@ header nav img {
   max-width: 2.5rem;
   object-fit: contain;
 }
+
 .headerNav {
   display: flex;
   justify-content: center;
@@ -14,16 +15,8 @@ header nav img {
   margin-bottom: 2rem;
 }
 
-.headerNav-big {
-  display: flex;
+.headerNav-space-between {
   justify-content: space-between;
-  align-items: center;
-  gap: 3rem;
-  padding: 2rem 1rem 1rem 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid black;
-
-  position: relative;
 }
 
 .arrow-position {
@@ -31,4 +24,5 @@ header nav img {
   left: 40px;
   top: 50%;
   cursor: pointer;
+  fill: var(--color-grey-light);
 }

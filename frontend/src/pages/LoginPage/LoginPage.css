@@ -1,4 +1,16 @@
+.loginpage form {
+  margin-bottom: 5rem;
+}
+
 .loginpage h1 {
   text-align: center;
   margin-block: 5rem;
+}
+
+.loginpage p {
+  text-align: center;
+}
+
+.loginpage a {
+  color: var(--color-main-blue);
 }

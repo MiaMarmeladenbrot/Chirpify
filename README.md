@@ -24,6 +24,5 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - allgemeines styling von button aus verifyEmail in die index übertragen mit classname .btn-blue?
 - fetches in try/catch?
 - Position von addTweet-Button anpassen bei größerem Bildschirm
-- retweeted Tweet auf addTweetPage darstellen, falls es ein retweet ist
 - taggedUsers über filter-Funktion ans Backend
 - Suche nach Usern (@) und Themen (#)?

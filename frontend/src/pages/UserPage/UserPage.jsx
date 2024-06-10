@@ -14,6 +14,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import Tweet from "../../components/Tweet/Tweet";
 import FooterNav from "../../components/FooterNav/FooterNav";
+import ImageProfile from "../../components/ImageProfile/ImageProfile";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
@@ -21,7 +22,9 @@ const UserPage = () => {
     userProfileDataContext
   );
   const { user } = useContext(userContext);
-  const { rerenderCounter } = useContext(rerenderCounterContext);
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
   const [userTweets, setUserTweets] = useState([]);
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
@@ -30,6 +33,7 @@ const UserPage = () => {
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
+  const [profileImageFile, setProfileImageFile] = useState("");
   const { userId } = useParams();
 
   // Get Tweets of the User
@@ -45,7 +49,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, [rerenderCounter, userId]);
+  }, [rerenderCounter, userId, rerenderCounter]);
 
   // Get User Information
   useEffect(() => {
@@ -60,7 +64,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, [openForm, userId]);
+  }, [openForm, userId, rerenderCounter]);
 
   // Get Followers of Specific User
   useEffect(() => {
@@ -80,8 +84,9 @@ const UserPage = () => {
   }, [userId]);
 
   // Open Form to edit User Informationen
-  const openCloseForm = () => {
-    setOpenForm(true);
+  const openCloseForm = (e) => {
+    e.preventDefault();
+    setOpenForm(!openForm);
     setFirstname(userProfileData?.firstname);
     setLastname(userProfileData?.lastname);
     setUsername(userProfileData?.username);
@@ -92,6 +97,24 @@ const UserPage = () => {
   // Edit User Information
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let profileImgName = "";
+    if (profileImageFile) {
+      const formData = new FormData();
+      formData.append("profileImage", profileImageFile, profileImageFile.name);
+
+      const resImg = await fetch(`${backendUrl}/api/v1/files/upload`, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      const dataImg = await resImg.json();
+      profileImgName = dataImg.imgName;
+    } else {
+      profileImgName = user.profileImg;
+    }
 
     const res = await fetch(`${backendUrl}/api/v1/users/edit/${userId}`, {
       method: "PATCH",
@@ -105,6 +128,7 @@ const UserPage = () => {
         username,
         description,
         website,
+        profileImg: profileImgName,
       }),
     });
 
@@ -112,6 +136,7 @@ const UserPage = () => {
 
     setUserProfileData(data?.result);
 
+    setRerenderCounter(rerenderCounter + 1);
     setOpenForm(false);
     setFirstname("");
     setLastname("");
@@ -131,10 +156,7 @@ const UserPage = () => {
       <HeaderNav />
       <main>
         <div className="userpage__profile-image">
-          <img
-            src={`${backendUrl}/${userProfileData?.profileImg}`}
-            alt="Profile Image"
-          />
+          <ImageProfile user={userProfileData} />
         </div>
 
         {/* User Information */}
@@ -190,7 +212,7 @@ const UserPage = () => {
         {openForm && (
           <>
             <h2 className="userpage__heading_edit">Update your Data</h2>
-            <form className="userpage__form" onSubmit={handleSubmit}>
+            <form className="userpage__form">
               <input
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
@@ -221,9 +243,18 @@ const UserPage = () => {
                 type="text"
                 placeholder="website"
               />
+              <input
+                type="file"
+                onChange={(e) => setProfileImageFile(e.target.files[0])}
+              />
               <div className="userpage__form__button-container">
-                <button className="userpage__button--grey">Cancel</button>
-                <button type="submit">Save</button>
+                <button
+                  className="userpage__button--grey"
+                  onClick={openCloseForm}
+                >
+                  Cancel
+                </button>
+                <button onClick={handleSubmit}>Save</button>
               </div>
             </form>
           </>

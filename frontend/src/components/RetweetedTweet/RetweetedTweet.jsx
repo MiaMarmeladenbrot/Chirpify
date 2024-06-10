@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { backendUrl } from "../../api/api";
+import ImageProfile from "../ImageProfile/ImageProfile";
 
 const RetweetedTweet = ({ retweetedTweet }) => {
   // function to calculate the age of a tweet and show it in different ways, depending on the time that passed
@@ -44,10 +45,7 @@ const RetweetedTweet = ({ retweetedTweet }) => {
           <article>
             <article className="profile-area">
               <Link to={`/user/${retweetedTweet?.userId?._id}`}>
-                <img
-                  src={`${backendUrl}/${retweetedTweet?.userId?.profileImg}`}
-                  alt={`Profile image of ${retweetedTweet?.userId?.username}`}
-                />
+                <ImageProfile user={retweetedTweet?.userId} />
               </Link>
 
               <article>

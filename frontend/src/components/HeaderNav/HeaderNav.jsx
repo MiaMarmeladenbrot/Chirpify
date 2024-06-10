@@ -1,13 +1,18 @@
 import "./HeaderNav.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userContext, userProfileDataContext } from "../../context/Context";
+import {
+  rerenderCounterContext,
+  userContext,
+  userProfileDataContext,
+} from "../../context/Context";
 import ImageProfile from "../ImageProfile/ImageProfile";
 import ImageBird from "../ImageBird/ImageBird";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoIosSettings } from "react-icons/io";
 
 const HeaderNav = () => {
+  const { rerenderCounter } = useContext(rerenderCounterContext);
   const { user } = useContext(userContext);
   const { userProfileData } = useContext(userProfileDataContext);
   const { pathname } = useLocation();
@@ -46,8 +51,8 @@ const HeaderNav = () => {
           <FaArrowLeft className="arrow-position" onClick={goBack} />
         )}
 
-        {/* image of logged-in user shows on user feed */}
-        {pathname === "/feed" && <ImageProfile />}
+        {/* image of logged-in user shows on user feed in the navigation */}
+        {pathname === "/feed" && <ImageProfile user={user} />}
 
         {/* black header with back arrow and name for logged in user */}
         {pathname === `/user/${user?._id}` && (

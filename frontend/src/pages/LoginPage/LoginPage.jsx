@@ -29,7 +29,6 @@ const LoginPage = () => {
     const res = await fetch(`${backendUrl}/api/v1/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // credentials: "include",
       body: JSON.stringify({ email, password }),
     });
 
@@ -39,14 +38,6 @@ const LoginPage = () => {
 
     setAccesToken(data.result.tokens.accessToken);
 
-    // if (
-    //   data.result.user.isEmailVerified === false &&
-    //   data.result.tokens.accessToken
-    // ) {
-    // return navigate("/settings/emailverification");
-    // }
-
-    // navigate("/feed");
     navigate("/loading");
     setEmail("");
     setPassword("");

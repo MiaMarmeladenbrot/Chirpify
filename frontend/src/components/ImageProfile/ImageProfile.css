@@ -1,4 +1,6 @@
 .profile-img img {
-  height: 3.75rem;
+  max-width: 3.75rem;
+  clip-path: circle();
+
   cursor: pointer;
 }

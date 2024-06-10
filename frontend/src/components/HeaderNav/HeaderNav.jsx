@@ -1,13 +1,18 @@
 import "./HeaderNav.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { userContext, userProfileDataContext } from "../../context/Context";
+import {
+  rerenderCounterContext,
+  userContext,
+  userProfileDataContext,
+} from "../../context/Context";
 import ImageProfile from "../ImageProfile/ImageProfile";
 import ImageBird from "../ImageBird/ImageBird";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoIosSettings } from "react-icons/io";
 
 const HeaderNav = () => {
+  const { rerenderCounter } = useContext(rerenderCounterContext);
   const { user } = useContext(userContext);
   const { userProfileData } = useContext(userProfileDataContext);
   const { pathname } = useLocation();

@@ -1,5 +1,5 @@
 .userpage__header-container {
-  background-color: black;
+  background-color: var(--color-grey-dark);
   padding-top: 0.9rem;
   padding-bottom: 0.6rem;
 }

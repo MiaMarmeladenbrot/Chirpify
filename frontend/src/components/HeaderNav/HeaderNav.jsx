@@ -1,4 +1,5 @@
 import "./HeaderNav.css";
+import "../../pages/UserPage/UserPage.css";
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -37,7 +38,7 @@ const HeaderNav = () => {
       }
     >
       <nav
-        // separate nav stylings for feed page
+        // separate nav stylings for feed page and all others
         className={
           pathname === "/feed"
             ? "headerNav headerNav-space-between"

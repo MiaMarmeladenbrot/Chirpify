@@ -4,6 +4,7 @@ import IconDelete from "../IconDelete/IconDelete";
 import IconEdit from "../IconEdit/IconEdit";
 import "./Comment.css";
 import { userContext } from "../../context/Context";
+import ImageProfile from "../ImageProfile/ImageProfile";
 
 const Comment = ({ singleComment, setErrorMessage }) => {
   const [message, setMessage] = useState("");
@@ -13,10 +14,7 @@ const Comment = ({ singleComment, setErrorMessage }) => {
   return (
     <div key={singleComment._id} className="single-comment">
       <div className="comment-profile-area">
-        <img
-          src={`${backendUrl}/${singleComment?.userId?.profileImg}`}
-          alt={singleComment?.userId?.username}
-        />
+        <ImageProfile user={singleComment?.userId} />
         <p>{singleComment?.userId?.firstname}</p>
         <p>{singleComment?.userId?.lastname}</p>
         <p>@{singleComment?.userId?.username}</p>

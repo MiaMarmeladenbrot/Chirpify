@@ -14,6 +14,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import Tweet from "../../components/Tweet/Tweet";
 import FooterNav from "../../components/FooterNav/FooterNav";
+import ImageProfile from "../../components/ImageProfile/ImageProfile";
 
 const UserPage = () => {
   const { accessToken } = useContext(accessTokenContext);
@@ -21,7 +22,9 @@ const UserPage = () => {
     userProfileDataContext
   );
   const { user } = useContext(userContext);
-  const { rerenderCounter } = useContext(rerenderCounterContext);
+  const { rerenderCounter, setRerenderCounter } = useContext(
+    rerenderCounterContext
+  );
   const [userTweets, setUserTweets] = useState([]);
   const [followers, setFollowers] = useState("");
   const [openForm, setOpenForm] = useState(false);
@@ -46,7 +49,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, [rerenderCounter, userId]);
+  }, [rerenderCounter, userId, rerenderCounter]);
 
   // Get User Information
   useEffect(() => {
@@ -61,7 +64,7 @@ const UserPage = () => {
     };
 
     fetchData();
-  }, [openForm, userId]);
+  }, [openForm, userId, rerenderCounter]);
 
   // Get Followers of Specific User
   useEffect(() => {
@@ -133,6 +136,7 @@ const UserPage = () => {
 
     setUserProfileData(data?.result);
 
+    setRerenderCounter(rerenderCounter + 1);
     setOpenForm(false);
     setFirstname("");
     setLastname("");
@@ -152,10 +156,7 @@ const UserPage = () => {
       <HeaderNav />
       <main>
         <div className="userpage__profile-image">
-          <img
-            src={`${backendUrl}/${userProfileData?.profileImg}`}
-            alt="Profile Image"
-          />
+          <ImageProfile user={userProfileData} />
         </div>
 
         {/* User Information */}

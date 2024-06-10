@@ -12,6 +12,7 @@ import IconDelete from "../IconDelete/IconDelete";
 import CommentFeed from "../CommentFeed/CommentFeed";
 import IconLike from "../IconLike/IconLike";
 import RetweetedTweet from "../RetweetedTweet/RetweetedTweet";
+import ImageProfile from "../ImageProfile/ImageProfile";
 
 const Tweet = ({ singleTweet }) => {
   const { user } = useContext(userContext);
@@ -70,10 +71,7 @@ const Tweet = ({ singleTweet }) => {
           <section className="new-tweet-area">
             <div className="profile-area">
               <Link to={`/user/${tweetOwner?._id}`}>
-                <img
-                  src={`${backendUrl}/${tweetOwner?.profileImg}`}
-                  alt={`Profile image of ${tweetOwner?.username}`}
-                />
+                <ImageProfile user={tweetOwner} />
               </Link>
 
               <div>

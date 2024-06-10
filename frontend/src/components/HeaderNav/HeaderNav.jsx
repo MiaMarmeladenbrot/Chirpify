@@ -46,8 +46,8 @@ const HeaderNav = () => {
           <FaArrowLeft className="arrow-position" onClick={goBack} />
         )}
 
-        {/* image of logged-in user shows on user feed */}
-        {pathname === "/feed" && <ImageProfile />}
+        {/* image of logged-in user shows on user feed in the navigation */}
+        {pathname === "/feed" && <ImageProfile user={user} />}
 
         {/* black header with back arrow and name for logged in user */}
         {pathname === `/user/${user?._id}` && (

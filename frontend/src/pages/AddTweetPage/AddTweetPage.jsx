@@ -6,6 +6,7 @@ import { backendUrl } from "../../api/api";
 import {
   accessTokenContext,
   rerenderCounterContext,
+  userContext,
 } from "../../context/Context";
 import FooterNav from "../../components/FooterNav/FooterNav";
 import RetweetedTweet from "../../components/RetweetedTweet/RetweetedTweet";
@@ -15,6 +16,7 @@ const AddTweetPage = () => {
   const { rerenderCounter, setRerenderCounter } = useContext(
     rerenderCounterContext
   );
+  const { user } = useContext(userContext);
 
   // authenticatedUserId, { message, retweetedTweetId, isLikedBy } => message aus textarea, retweetedTweetId aus navigate/location bei Klick auf retweet, isLikedBy kommt erst später dazu über die Like-Funktion
   const [message, setMessage] = useState("");
@@ -82,8 +84,12 @@ const AddTweetPage = () => {
 
       <div>
         <article>
-          <ImageProfile />
-          <img onClick={addImgToTweet} src="/img/Camera.png" alt="" />
+          <ImageProfile user={user} />
+          <img
+            onClick={addImgToTweet}
+            src="/img/Camera.png"
+            alt="illustration of camera"
+          />
         </article>
         <textarea
           name="tweet-content"

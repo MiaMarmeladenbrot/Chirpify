@@ -1,4 +1,11 @@
-.profile-img img {
+/* .profile-img img {
   height: 3.75rem;
+  cursor: pointer;
+} */
+
+.profile-img img {
+  max-width: 3.75rem;
+  clip-path: circle();
+
   cursor: pointer;
 }

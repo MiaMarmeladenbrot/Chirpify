@@ -30,6 +30,7 @@ const UserPage = () => {
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
   const [website, setWebsite] = useState("");
+  const [profileImageFile, setProfileImageFile] = useState("");
   const { userId } = useParams();
 
   // Get Tweets of the User
@@ -80,8 +81,9 @@ const UserPage = () => {
   }, [userId]);
 
   // Open Form to edit User Informationen
-  const openCloseForm = () => {
-    setOpenForm(true);
+  const openCloseForm = (e) => {
+    e.preventDefault();
+    setOpenForm(!openForm);
     setFirstname(userProfileData?.firstname);
     setLastname(userProfileData?.lastname);
     setUsername(userProfileData?.username);
@@ -92,6 +94,24 @@ const UserPage = () => {
   // Edit User Information
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let profileImgName = "";
+    if (profileImageFile) {
+      const formData = new FormData();
+      formData.append("profileImage", profileImageFile, profileImageFile.name);
+
+      const resImg = await fetch(`${backendUrl}/api/v1/files/upload`, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+      const dataImg = await resImg.json();
+      profileImgName = dataImg.imgName;
+    } else {
+      profileImgName = user.profileImg;
+    }
 
     const res = await fetch(`${backendUrl}/api/v1/users/edit/${userId}`, {
       method: "PATCH",
@@ -105,6 +125,7 @@ const UserPage = () => {
         username,
         description,
         website,
+        profileImg: profileImgName,
       }),
     });
 
@@ -190,7 +211,7 @@ const UserPage = () => {
         {openForm && (
           <>
             <h2 className="userpage__heading_edit">Update your Data</h2>
-            <form className="userpage__form" onSubmit={handleSubmit}>
+            <form className="userpage__form">
               <input
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
@@ -221,9 +242,18 @@ const UserPage = () => {
                 type="text"
                 placeholder="website"
               />
+              <input
+                type="file"
+                onChange={(e) => setProfileImageFile(e.target.files[0])}
+              />
               <div className="userpage__form__button-container">
-                <button className="userpage__button--grey">Cancel</button>
-                <button type="submit">Save</button>
+                <button
+                  className="userpage__button--grey"
+                  onClick={openCloseForm}
+                >
+                  Cancel
+                </button>
+                <button onClick={handleSubmit}>Save</button>
               </div>
             </form>
           </>

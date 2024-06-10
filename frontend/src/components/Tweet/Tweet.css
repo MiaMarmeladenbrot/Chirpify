@@ -39,7 +39,8 @@
 
 .profile-area img {
   width: 50px;
-  object-fit: contain;
+  height: 50px;
+  object-fit: cover;
   border-radius: 100%;
 }
 

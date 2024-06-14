@@ -12,16 +12,16 @@ Design: https://www.figma.com/design/fqOftvDrv7gknxi7i66WVx/Twitter-Clone?node-i
 - Update Access Token back to 10 min
 - refreshToken implementieren
 - Multer für Tweet-Bild -> Tweet-Model anpassen
-- altes Profil-Bild aus uploads löschen, wenn ein neues hochgeladen wird?
 - Endpunkt für random Vorschläge, damit der User überhaupt zu Beginn die Möglichkeit hat, Leuten zu folgen, etc.? bzw Trending Feed implementieren?
 - Suchfunktion nach Usern und Themen? Oder im Frontend umsetzen?
 
 ## Frontend ToDos
 
-- Profile-Image im Header anpassen, wenn neu?
+- Profile-Image im Header aktualisieren, wenn neu hochgeladen?
+- error handling login
 - Multer für Tweet-Bild ergänzen
 - evtl. UserPage in versch. Komponenten auslagern
-- AuthRequired mit refresh anpassen
+- AuthRequired mit refresh anpassen?
 - counter für comments und retweets einbauen, um neben den Icons die Zahlen anzuzeigen - im Backend?
 - follow/unfollow a user
 - like comment

@@ -2,10 +2,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import "./VerificationPopup.css";
 
-const VerificationPopup = ({ showPopup, setShowPopup }) => {
+const VerificationPopup = ({
+  showPopup,
+  setShowPopup,
+  setToggleEdit,
+  setShowDelete,
+}) => {
   const navigate = useNavigate();
   const hidePopupAndMove = () => {
     setShowPopup(false);
+    setToggleEdit(false);
+    setShowDelete(false);
+
     navigate("/feed");
   };
 

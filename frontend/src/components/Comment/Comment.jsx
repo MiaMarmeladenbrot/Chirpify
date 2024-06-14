@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { backendUrl } from "../../api/api";
 import IconDelete from "../IconDelete/IconDelete";
 import IconEdit from "../IconEdit/IconEdit";
 import "./Comment.css";
 import { userContext } from "../../context/Context";
 import ImageProfile from "../ImageProfile/ImageProfile";
+import AuthRequiredVerified from "../AuthRequiredVerified/AuthRequiredVerified";
 
 const Comment = ({ singleComment, setErrorMessage }) => {
   const [message, setMessage] = useState("");
@@ -21,14 +21,16 @@ const Comment = ({ singleComment, setErrorMessage }) => {
       </div>
 
       {toggleEdit ? (
-        <textarea
-          name="edit-comment"
-          id="edit-comment"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        >
-          {message}
-        </textarea>
+        <AuthRequiredVerified setToggleEdit={setToggleEdit}>
+          <textarea
+            name="edit-comment"
+            id="edit-comment"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          >
+            {message}
+          </textarea>
+        </AuthRequiredVerified>
       ) : (
         <p>{singleComment?.message}</p>
       )}

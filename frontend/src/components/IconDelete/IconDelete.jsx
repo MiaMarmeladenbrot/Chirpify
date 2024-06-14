@@ -38,8 +38,6 @@ const IconDelete = ({ singleTweet, singleComment, setErrorMessage }) => {
     setErrorMessage("");
   };
 
-  console.log(showDelete);
-
   return (
     <div>
       {/* trash can icon */}
